@@ -1,0 +1,9 @@
+.header-style {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 70px;
+    background-color: #201f2b;
+    width: 100%;
+    z-index: 10;
+}

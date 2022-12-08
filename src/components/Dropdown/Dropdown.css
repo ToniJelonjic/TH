@@ -1,0 +1,37 @@
+.dropdown-style {
+    height: 100vh;
+    width: 255px;
+    background-color: #282733;
+    left: 0;
+    padding-top: 88px;
+    position: fixed;
+    z-index: 1;
+}
+
+.dropdown-style ul {
+    list-style-type: none;
+    padding-inline-start: 0px;
+}
+
+.dropdown-style li {
+    color: #868aa8;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.link-style {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.active {
+    background-color: red;
+    color: white;
+}
+
+.dropdown-style .active {
+    color: white;
+}

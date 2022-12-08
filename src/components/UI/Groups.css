@@ -1,0 +1,18 @@
+.select-style {
+    height: 40px;
+    width: 15%;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding-left: 10px;
+}
+
+.select-style:focus {
+    border-color: #716aca;
+}
+
+.groups-select-style {
+    background-color: white;
+    width: 80%;
+    margin-left: 10px;
+    padding: 20px;
+}

@@ -1,0 +1,24 @@
+.table-style {
+    background-color: white;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
+    padding: 10px 16px 10px 17px;
+}
+
+.table-style span {
+    padding: 0 25px 0 25px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #f4f5f8;
+    height: 60px;
+    font-size: 13px;
+    font-family: 'Poppins';
+    font-weight: 600;
+    color: #575962;
+    padding: 0 35px 0 35px;
+}

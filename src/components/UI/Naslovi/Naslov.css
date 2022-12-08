@@ -1,0 +1,12 @@
+.title {
+    color: black;
+    position: relative;
+}
+
+.title h2 {
+    padding:07px 25px 7px 15px;
+    font-size: 20.15px;
+    font-weight: 500;
+    font-family: Roboto;
+    color: #3f4047;
+}

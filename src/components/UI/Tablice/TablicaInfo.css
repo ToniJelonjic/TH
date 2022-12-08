@@ -1,0 +1,32 @@
+.thead-style {
+    border: 2px solid #f4f5f8;
+    padding: 10px;
+    text-align: left;
+    color: #575962;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.groups-table-style {
+    background-color: white;
+    width: 100%;
+    margin-left: 10px;
+    padding: 50px 20px 20px 20px;
+}
+
+table {
+    border-spacing: 0px;
+}
+
+.info-table-style {
+    background-color: white;
+    padding: 15px 16px 15px 17px;
+    font-size: 14px;
+    color: #a6a7c1;
+    font-weight: 600;
+    margin-left: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
