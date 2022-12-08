@@ -18,6 +18,7 @@ const Zaposlenici = (props) => {
     "Status",
     "Akcije"
   ]
+  const addButton = "+ Dodaj zaposlenika"
 
   return (
     <>
@@ -26,7 +27,7 @@ const Zaposlenici = (props) => {
 
       <Wrapper>
         <Naslov title={title} />
-        <Podnaslov subtitle={subtitle} />
+        <Podnaslov subtitle={subtitle} addButton={addButton} />
         <TablicaInfo rows={table_rows} />
       </Wrapper>
 

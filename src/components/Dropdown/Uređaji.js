@@ -7,7 +7,7 @@ import Naslov from "../UI/Naslovi/Naslov";
 import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
 import Groups from "../UI/Groups";
-import Button from "../UI/Button";
+import Button from "../UI/Buttons/ButtonSearch";
 import TablicaUređaj from "../UI/Tablice/TablicaUređaj";
 
 

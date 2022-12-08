@@ -12,6 +12,7 @@ import Mjerenja from "./components/Dropdown/Mjerenja";
 import Grupe from "./components/Dropdown/Grupe";
 import Podgrupe from "./components/Dropdown/Podgrupe";
 import Zaposlenici from "./components/Dropdown/Zaposlenici";
+import FormAdd from "./components/UI/Forms/FormAdd";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -25,6 +26,7 @@ root.render(
         <Route path="/grupe" element={<Grupe />} />
         <Route path="/podgrupe" element={<Podgrupe />} />
         <Route path="/zaposlenici" element={<Zaposlenici />} />
+        <Route path="/:slag/dodaj" element={<FormAdd />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

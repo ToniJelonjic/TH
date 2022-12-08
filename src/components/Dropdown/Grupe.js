@@ -6,6 +6,7 @@ import Naslov from "../UI/Naslovi/Naslov";
 import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
 import TablicaInfo from "../UI/Tablice/TablicaInfo";
+import ButtonAdd from "../UI/Buttons/ButtonAdd";
 
 const Grupe = (props) => {
   const title = "Grupe";
@@ -14,14 +15,17 @@ const Grupe = (props) => {
     "Naziv",
     "Akcije"
   ]
+  const addButton = "+ Dodaj grupu"
+
   return (
     <>
       <Header />
       <Dropdown />
       <Wrapper>
         <Naslov title={title} />
-        <Podnaslov subtitle={subtitle} />
+        <Podnaslov subtitle={subtitle} addButton={addButton} />
         <TablicaInfo rows={table_rows} />
+        {/* <ButtonAdd name="Dodaj grupu" /> */}
       </Wrapper>
       <Footer />
     </>

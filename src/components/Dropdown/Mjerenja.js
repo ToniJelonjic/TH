@@ -8,8 +8,9 @@ import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
 import TablicaUređaj from "../UI/Tablice/TablicaUređaj";
 import Groups from "../UI/Groups";
-import Button from "../UI/Button";
+import ButtonSearch from "../UI/Buttons/ButtonSearch";
 import Dates from "../UI/Dates";
+import ButtonExport from "../UI/Buttons/ButtonExport";
 
 const Mjerenja = (props) => {
   const title = "Mjerenja";
@@ -50,10 +51,11 @@ const Mjerenja = (props) => {
       <Wrapper>
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle} />
+        {/* <ButtonExport /> */}
         <div className="measure-div">
           <Dates />
           <Groups groups={grupe} />
-          <Button />
+          <ButtonSearch />
         </div>
         <TablicaUređaj params={params} />
       </Wrapper>

@@ -8,10 +8,8 @@
     padding: 10px 16px 10px 17px;
 }
 
-.table-style span {
+.device-table-info {
     padding: 0 25px 0 25px;
-    width: 100%;
-    display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid #f4f5f8;
@@ -21,4 +19,8 @@
     font-weight: 600;
     color: #575962;
     padding: 0 35px 0 35px;
+}
+
+table {
+    border-spacing: 0px;
 }

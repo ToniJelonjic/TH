@@ -4,9 +4,13 @@ import "./TablicaUređaj.css";
 const TablicaUređaj = (props) => {
   return (
     <div className="table-style">
-      {props.params.params.map((parameter) => {
-        return <span key={parameter.id}>{parameter}</span>;
-      })}
+      <table>
+        <tr>
+          {props.params.params.map((parameter) => {
+            return <th className="device-table-info" key={parameter.id}>{parameter}</th>;
+          })}
+        </tr>
+      </table>
     </div>
   );
 };
