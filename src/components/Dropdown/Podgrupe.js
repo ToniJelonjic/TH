@@ -16,6 +16,10 @@ const Podgrupe = (props) => {
     "Akcije"
   ]
   const addButton = "+ Dodaj podgrupu"
+  const formInfo = {
+    title: "Podgrupe",
+    subtitle: "Nova podgrupa"
+  }
 
   return (
     <>
@@ -24,7 +28,7 @@ const Podgrupe = (props) => {
 
       <Wrapper>
         <Naslov title={title} />
-        <Podnaslov subtitle={subtitle} addButton={addButton} />
+        <Podnaslov title={title} subtitle={subtitle} addButton={addButton} formInfo={formInfo}  />
         <TablicaInfo rows={table_rows} />
       </Wrapper>
 

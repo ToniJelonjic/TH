@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Route, Routes, BrowserRouter, RedirectFunction, redirect } from "react-router-dom";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -20,6 +20,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} exact />
+        {/* <RedirectFunction exact from='/' to='/naslovnica' />  */}
         <Route path="/naslovnica" element={<Homepage />} />
         <Route path="/uređaji" element={<Uređaji />} />
         <Route path="/mjerenja" element={<Mjerenja />} />

@@ -4,7 +4,10 @@ import ButtonExport from "../Buttons/ButtonExport";
 import "./Podnaslov.css";
 
 const Podnaslov = (props) => {
-  const subtitle = props.subtitle;
+  const {title} = props
+  const {subtitle} = props
+  const {formInfo} = props
+  const {addButton} = props
   return (
     <div className="subtitle">
       {props.subtitle}
@@ -12,7 +15,7 @@ const Podnaslov = (props) => {
         {props.subtitle === "Grupe" ||
         props.subtitle === "Podgrupe" ||
         props.subtitle === "Zaposlenici" ? (
-          <ButtonAdd addButton={props.addButton} subtitle={subtitle} />
+          <ButtonAdd addButton={addButton} title={title} subtitle={subtitle} formInfo={formInfo} />
         ) : props.subtitle === "Mjerenja" && <ButtonExport />
         }
       </div>

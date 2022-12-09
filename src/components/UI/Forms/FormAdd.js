@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import Dropdown from '../../Dropdown/Dropdown'
 import Footer from '../../Footer/Footer'
 import Header from '../../Header/Header'
@@ -8,10 +9,14 @@ import Wrapper from '../Wrapper'
 import './FormAdd.css'
 
 const FormAdd = (props) => {
-  console.log(props, "asfasas")
-    const title = props.title;
-    const subtitle = props.subtitle;
+  const location = useLocation()
+  const {title} = location.state.title
+  const {subtitle} = location.state.subtitle
+  const {slag} = location.state.slag
+  const {formInfo} = location.state.formInfo
 
+  useEffect(()=> {
+  }, [])
 
 
   return (
@@ -20,7 +25,7 @@ const FormAdd = (props) => {
         <Dropdown />
         <Wrapper>
             <Naslov title={title} />
-            <Podnaslov subtitle={subtitle} />
+            <Podnaslov subtitle={formInfo.subtitle} />
 
         </Wrapper>
         <Footer /> 

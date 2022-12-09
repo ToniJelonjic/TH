@@ -16,6 +16,11 @@ const Grupe = (props) => {
     "Akcije"
   ]
   const addButton = "+ Dodaj grupu"
+  const formInfo = {
+    title: "Grupe",
+    subtitle: "Nova grupa"
+  }
+
 
   return (
     <>
@@ -23,7 +28,7 @@ const Grupe = (props) => {
       <Dropdown />
       <Wrapper>
         <Naslov title={title} />
-        <Podnaslov subtitle={subtitle} addButton={addButton} />
+        <Podnaslov title={title} subtitle={subtitle} addButton={addButton} formInfo={formInfo}  />
         <TablicaInfo rows={table_rows} />
         {/* <ButtonAdd name="Dodaj grupu" /> */}
       </Wrapper>
