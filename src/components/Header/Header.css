@@ -6,4 +6,27 @@
     background-color: #201f2b;
     width: 100%;
     z-index: 10;
+    display: flex;
+    align-items: center;
+}
+
+.user-img-style {
+    width: 40px;
+    border-radius: 30px;
+}
+
+.user-img-div {
+    position: absolute;
+    right: 25px;
+    height: 60px;
+    width: 60px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-img-div:hover {
+    background-color: #2d2c3d;
+    cursor: pointer;
 }

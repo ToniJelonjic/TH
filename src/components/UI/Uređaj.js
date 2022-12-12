@@ -7,7 +7,7 @@ const Uređaj = (props) => {
     <table>
       <tr>
       {props.params.params.map((parameter) => {
-        return <th className="th-desc-style" key={parameter.id}>{parameter}</th>;
+        return <th className="th-desc-style" key={parameter.toString()}>{parameter}</th>;
       })}
       </tr>
     </table>

@@ -11,7 +11,7 @@ const Groups = (props) => {
           Odaberite grupu
         </option>
         {props.groups.groups.map((group) => {
-          return <option>{group}</option>;
+          return <option key={group}>{group}</option>;
         })}
       </select>
       <select
@@ -23,7 +23,7 @@ const Groups = (props) => {
           Odaberite podgrupu
         </option>
         {props.groups.subGroups.map((subGroup) => {
-          return <option>{subGroup}</option>;
+          return <option key={subGroup}>{subGroup}</option>;
         })}
       </select>
     </span>

@@ -8,17 +8,13 @@
     z-index: 1;
 }
 
-.dropdown-style ul {
-    list-style-type: none;
-    padding-inline-start: 0px;
-}
-
-.dropdown-style li {
+.dropdown-style a {
     color: #868aa8;
     height: 44px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
+    padding-left: 20px;
 }
 
 .link-style {
@@ -27,11 +23,19 @@
     font-size: 14px;
 }
 
-.active {
-    background-color: red;
-    color: white;
+nav a.active {
+    background-color: #db1430 !important;
+    color: white !important;
 }
 
-.dropdown-style .active {
-    color: white;
+.icons-style {
+    color: #868aa8 !important;
+    margin-right: 15px;
 }
+
+.link-style:hover {
+    background-color: #2d2c3d;
+    color: white;
+    transition: 0.3s ease;
+}
+

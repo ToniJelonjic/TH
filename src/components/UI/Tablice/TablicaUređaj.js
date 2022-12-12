@@ -7,7 +7,7 @@ const TablicaUređaj = (props) => {
       <table>
         <tr>
           {props.params.params.map((parameter) => {
-            return <th className="device-table-info" key={parameter.id}>{parameter}</th>;
+            return <th className="device-table-info" key={parameter}>{parameter}</th>;
           })}
         </tr>
       </table>

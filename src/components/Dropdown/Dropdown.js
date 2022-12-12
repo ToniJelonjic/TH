@@ -1,47 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Dropdown.css";
 import Naslovnica from "./Naslovnica";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { NavLink } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faChartLine } from "@fortawesome/free-solid-svg-icons";
+import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import { faGaugeHigh } from "@fortawesome/free-solid-svg-icons";
+import { faGripHorizontal } from "@fortawesome/free-solid-svg-icons";
+import { faTableList } from "@fortawesome/free-solid-svg-icons";
+import { faUserTie } from "@fortawesome/free-solid-svg-icons";
+import { faComputer } from "@fortawesome/free-solid-svg-icons";
 
 const Dropdown = (props) => {
-  const [isActive, setIsActive] = useState(false)
-
-  const handleIsActive = () => {
-    setIsActive(true)
-  }
-
-
   return (
     <div className="dropdown-style">
-      <ul>
-        <Link to="/naslovnica" onClick={handleIsActive} className="link-style">
-          <li className="">
-          {/* <i class="fa-brands fa-facebook-f"></i> */}
-            Naslovnica
-            </li>
-        </Link>
+      <nav>
+        <NavLink to="/naslovnica" className="link-style">
+          <FontAwesomeIcon className="icons-style" icon={faChartLine} />
+          Naslovnica
+        </NavLink>
 
-        <Link to="/uređaji" className="link-style">
-          <li>Uređaji</li>
-        </Link>
+        <NavLink to="/uređaji" className="link-style">
+          <FontAwesomeIcon className="icons-style" icon={faComputer} />
+          Uređaji
+        </NavLink>
 
-        <Link to="/mjerenja" className="link-style">
-          <li>Mjerenja</li>
-        </Link>
+        <NavLink to="/mjerenja" className="link-style">
+          <FontAwesomeIcon className="icons-style" icon={faGaugeHigh} />
+          Mjerenja
+        </NavLink>
 
-        <Link to="/grupe" className="link-style">
-          <li>Grupe</li>
-        </Link>
+        <NavLink to="/grupe" className="link-style">
+          <FontAwesomeIcon className="icons-style" icon={faGripHorizontal} />
+          Grupe
+        </NavLink>
 
-        <Link to="/podgrupe" className="link-style">
-          <li>Podgrupe</li>
-        </Link>
+        <NavLink to="/podgrupe" className="link-style">
+          <FontAwesomeIcon className="icons-style" icon={faTableList} />
+          Podgrupe
+        </NavLink>
 
-        <Link to="/zaposlenici" className="link-style">
-          <li>Zaposlenici</li>
-        </Link>
-      </ul>
+        <NavLink to="/zaposlenici" className="link-style">
+          <FontAwesomeIcon className="icons-style" icon={faUserTie} />
+          Zaposlenici
+        </NavLink>
+      </nav>
     </div>
   );
 };

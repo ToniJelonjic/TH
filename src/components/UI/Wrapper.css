@@ -5,3 +5,33 @@
     margin-right: 0px;
     width: 80%;
   }
+
+  @media screen and (max-width: 1570px) {
+    
+    .app {
+      width: 77%;
+    }
+    
+  }
+
+  @media screen and (max-width: 1400px) {
+    
+    .app {
+      width: 73%;
+    }
+    
+  }
+
+  @media screen and (max-width: 1200px) {
+    
+    .app {
+      width: 70%;
+    }
+    
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1000px) {
+    
+    
+
+  }

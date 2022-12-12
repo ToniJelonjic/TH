@@ -7,7 +7,7 @@ const TablicaGrupe = (props) => {
       <table className="groups-table-style">
         <tr className="tr-style">
           {props.rows.map((row) => {
-            return <th className="thead-style">{row}</th>;
+            return <th key={row} className="thead-style">{row}</th>;
           })}
         </tr>
       </table>

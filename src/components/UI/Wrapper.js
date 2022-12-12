@@ -1,10 +1,14 @@
-import React from 'react'
-import './Wrapper.css'
+import React from "react";
+import "./Wrapper.css";
+import UserCard from "./UserCard";
 
 const Wrapper = (props) => {
   return (
-    <div className='app'>{props.children}</div>
-  )
-}
+    <div className="app">
+      <UserCard />
+      {props.children}
+    </div>
+  );
+};
 
-export default Wrapper
+export default Wrapper;
