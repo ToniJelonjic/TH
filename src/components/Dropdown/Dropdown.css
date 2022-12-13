@@ -14,7 +14,7 @@
     display: flex;
     align-items: center;
     justify-content: left;
-    padding-left: 20px;
+    padding-left: 35px;
 }
 
 .link-style {
@@ -39,3 +39,8 @@ nav a.active {
     transition: 0.3s ease;
 }
 
+@media screen and (max-width: 900px) {
+    .dropdown-style{
+        display: none;
+    }
+}

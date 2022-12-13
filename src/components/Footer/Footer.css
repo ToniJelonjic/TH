@@ -13,3 +13,9 @@
     font-family: 'Poppins';
     color: #a9a9aa;
 }
+
+@media screen and (max-width: 900px) {
+    .footer-style{
+        left: 0;
+    }
+}

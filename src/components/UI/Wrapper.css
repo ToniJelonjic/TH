@@ -3,13 +3,21 @@
     top: 83px;
     left: 270px;
     margin-right: 0px;
-    width: 80%;
+    width: 84%;
+  }
+
+  @media screen and (max-width: 1669px) {
+    
+    .app {
+      width: 82%;
+    }
+    
   }
 
   @media screen and (max-width: 1570px) {
     
     .app {
-      width: 77%;
+      width: 80%;
     }
     
   }
@@ -17,7 +25,7 @@
   @media screen and (max-width: 1400px) {
     
     .app {
-      width: 73%;
+      width: 78%;
     }
     
   }
@@ -25,7 +33,7 @@
   @media screen and (max-width: 1200px) {
     
     .app {
-      width: 70%;
+      width: 74%;
     }
     
   }
@@ -35,3 +43,10 @@
     
 
   }
+
+  @media screen and (max-width: 900px) {
+    .app{
+        left: 20px;
+        width: 88%;
+    }
+}

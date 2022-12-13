@@ -14,6 +14,7 @@ import Podgrupe from "./components/Dropdown/Podgrupe";
 import Zaposlenici from "./components/Dropdown/Zaposlenici";
 import FormAdd from "./components/UI/Forms/FormAdd";
 import 'font-awesome/css/font-awesome.min.css';
+import 'bootstrap/dist/css/bootstrap.css'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

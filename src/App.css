@@ -1,4 +1,8 @@
 body {
-  background-color: #eff1f5;
+  background-color: #eff1f5 !important;
   width: 100%;
+}
+
+.container {
+  background-color: #eff1f5;
 }
