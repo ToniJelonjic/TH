@@ -1,15 +1,15 @@
 .app {
     position: relative;
     top: 83px;
-    left: 270px;
+    left: 290px;
     margin-right: 0px;
-    width: 84%;
+    width: 83%;
   }
 
   @media screen and (max-width: 1669px) {
     
     .app {
-      width: 82%;
+      width: 81%;
     }
     
   }
@@ -17,7 +17,7 @@
   @media screen and (max-width: 1570px) {
     
     .app {
-      width: 80%;
+      width: 79%;
     }
     
   }
@@ -25,7 +25,7 @@
   @media screen and (max-width: 1400px) {
     
     .app {
-      width: 78%;
+      width: 77%;
     }
     
   }
@@ -33,7 +33,15 @@
   @media screen and (max-width: 1200px) {
     
     .app {
-      width: 74%;
+      width: 73%;
+    }
+    
+  }
+
+  @media screen and (max-width: 1100px) {
+    
+    .app {
+      width: 71%;
     }
     
   }
@@ -47,6 +55,12 @@
   @media screen and (max-width: 900px) {
     .app{
         left: 20px;
-        width: 88%;
+        width: 95%;
     }
+}
+
+@media screen and (max-width: 600px) {
+  .app{
+      width: 93%;
+  }
 }

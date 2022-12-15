@@ -4,20 +4,28 @@
     font-size: 14px;
     color: #a6a7c1;
     font-weight: 600;
-    margin-left: 10px;
     width: 100%;
-    display: flex;
     justify-content: space-around;
     align-items: center;
+    overflow: auto;
 }
 
 .th-desc-style {
     padding: 25px 25px 20px 25px;
-    text-align: left;
+    text-align: center;
     color: #a6a7c1;
     font-weight: 500;
     font-size: 14px;
-    justify-content: space-around;
+    justify-content: center ;
+}
+
+@media screen and (max-width: 1000px) {
+    .th-desc-style {
+        width: 120px;
+    }
+    .params-style {
+        padding: 15px 10px 15px 10px;
+    }
 }
 
 

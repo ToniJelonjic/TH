@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Dropdown.css";
-import Naslovnica from "./Naslovnica";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faChartLine } from "@fortawesome/free-solid-svg-icons";
-import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
 import { faGaugeHigh } from "@fortawesome/free-solid-svg-icons";
 import { faGripHorizontal } from "@fortawesome/free-solid-svg-icons";
 import { faTableList } from "@fortawesome/free-solid-svg-icons";
@@ -15,6 +10,12 @@ import { faUserTie } from "@fortawesome/free-solid-svg-icons";
 import { faComputer } from "@fortawesome/free-solid-svg-icons";
 
 const Dropdown = (props) => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const handleIsOpen = () => {
+    setIsOpen(true)
+  }
+
   return (
     <div className="dropdown-style">
       <nav>

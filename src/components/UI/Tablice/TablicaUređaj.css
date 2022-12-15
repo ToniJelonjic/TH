@@ -1,15 +1,13 @@
 .table-style {
     background-color: white;
-    margin-left: 10px;
-    display: flex;
+    text-align: center;
     align-items: center;
-    width: 100%;
     justify-content: space-around;
     padding: 10px 16px 10px 17px;
+    overflow: auto;
 }
 
 .device-table-info {
-    padding: 0 25px 0 25px;
     justify-content: center;
     align-items: center;
     border: 1px solid #f4f5f8;
@@ -19,8 +17,30 @@
     font-weight: 600;
     color: #575962;
     padding: 0 35px 0 35px;
+
+}
+
+tr td {
+    width: 5px;
 }
 
 table {
     border-spacing: 0px;
+    table-layout: fixed;
+    width: 100%;
+}
+
+@media screen and (max-width:900px) {
+    .device-table-info{
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+@media screen and (max-width:1100px) {
+    .device-table-info{
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 100px;
+    }
 }

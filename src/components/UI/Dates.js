@@ -3,7 +3,7 @@ import "./Dates.css";
 
 const Dates = (props) => {
   return (
-    <span className="">
+    <span className="dates-style">
       <input type="date" className="date-input-style" />
       <input type="date" className="date-input-style" />
       <select
