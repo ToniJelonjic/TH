@@ -3,14 +3,29 @@
   width: 250px;
   height: 70px;
   position: absolute;
-  top: -30px;
-  right: -25px;
+  top: 70px;
+  right: 0px;
   z-index: 100;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 .none {
     display: none;
+}
+
+.profile-style-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logout-style-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.row {
+   --bs-gutter-x: 0 !important;
 }

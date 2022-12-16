@@ -1,13 +1,21 @@
 .profile-button-style {
-    width: 40%;
-    height: 50%;
-    border-radius: 15px;
-    margin-left: 12px;
-    margin-right: 12px;
-    border: 1px solid #ebedf2;
-    cursor: pointer;
+  width: 100%;
+  border-radius: 15px;
+  border: 1px solid #ebedf2;
+  cursor: pointer;
+  padding: 10px;
 }
 
 .profile-button-style:hover {
-    background-color: #e7eaf3;
+  background-color: #e7eaf3;
+}
+
+.link-profile-style {
+  color: #212529;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.link-profile-style:hover {
+  color: #212529;
 }

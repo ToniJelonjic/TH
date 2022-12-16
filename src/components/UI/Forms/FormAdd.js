@@ -3,10 +3,13 @@ import { useLocation } from 'react-router-dom'
 import Dropdown from '../../Dropdown/Dropdown'
 import Footer from '../../Footer/Footer'
 import Header from '../../Header/Header'
+import ButtonSave from '../Buttons/ButtonSave'
 import Naslov from '../Naslovi/Naslov'
 import Podnaslov from '../Naslovi/Podnaslov'
 import Wrapper from '../Wrapper'
 import './FormAdd.css'
+import FormElements from './FormElements'
+import UserCard from '../UserCard'
 
 const FormAdd = (props) => {
   const location = useLocation()
@@ -23,9 +26,12 @@ const FormAdd = (props) => {
     <div>
         <Header />
         <Dropdown />
+        <UserCard />
         <Wrapper>
             <Naslov title={title} />
             <Podnaslov subtitle={formInfo.subtitle} />
+            <FormElements title={title} />
+            <ButtonSave />
 
         </Wrapper>
         <Footer /> 

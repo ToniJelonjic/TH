@@ -17,7 +17,7 @@
 
 .user-img-div {
     position: absolute;
-    right: 25px;
+    right: 30px;
     height: 60px;
     width: 60px;
     margin: auto;
@@ -29,4 +29,11 @@
 .user-img-div:hover {
     background-color: #2d2c3d;
     cursor: pointer;
+}
+
+@media screen and (max-width:1300px) {
+    .user-img-div{
+        right: 15px;
+
+    }
 }

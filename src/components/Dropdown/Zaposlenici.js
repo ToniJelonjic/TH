@@ -6,6 +6,7 @@ import Naslov from "../UI/Naslovi/Naslov";
 import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
 import TablicaInfo from "../UI/Tablice/TablicaInfo";
+import UserCard from "../UI/UserCard";
 
 const Zaposlenici = (props) => {
   const title = "Zaposlenici";
@@ -28,7 +29,7 @@ const Zaposlenici = (props) => {
     <>
       <Header />
       <Dropdown />
-
+      <UserCard />
       <Wrapper>
         <Naslov title={title} />
         <Podnaslov title={title} subtitle={subtitle} addButton={addButton} formInfo={formInfo}  />

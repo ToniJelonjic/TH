@@ -9,6 +9,7 @@ import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
 import Groups from "../UI/Groups";
 import Button from "../UI/Buttons/ButtonSearch";
+import UserCard from "../UI/UserCard";
 
 
 const Naslovnica = (props) => {
@@ -70,6 +71,7 @@ const Naslovnica = (props) => {
     <>
       <Header />
       <Dropdown />
+      <UserCard />
       <Wrapper>
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle[0]} />

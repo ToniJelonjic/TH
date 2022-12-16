@@ -9,6 +9,7 @@ import Podnaslov from "../UI/Naslovi/Podnaslov";
 import Groups from "../UI/Groups";
 import Button from "../UI/Buttons/ButtonSearch";
 import TablicaUređaj from "../UI/Tablice/TablicaUređaj";
+import UserCard from "../UI/UserCard";
 
 
 const Uređaji = (props) => {
@@ -54,6 +55,7 @@ const Uređaji = (props) => {
     <>
       <Header />
       <Dropdown />
+      <UserCard />
       <Wrapper>
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle} />

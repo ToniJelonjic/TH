@@ -11,6 +11,7 @@ import Groups from "../UI/Groups";
 import ButtonSearch from "../UI/Buttons/ButtonSearch";
 import Dates from "../UI/Dates";
 import ButtonExport from "../UI/Buttons/ButtonExport";
+import UserCard from "../UI/UserCard";
 
 const Mjerenja = (props) => {
   const title = "Mjerenja";
@@ -48,6 +49,7 @@ const Mjerenja = (props) => {
     <>
       <Header />
       <Dropdown />
+      <UserCard />
       <Wrapper>
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle} />

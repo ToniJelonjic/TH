@@ -7,6 +7,7 @@ import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
 import TablicaInfo from "../UI/Tablice/TablicaInfo";
 import ButtonAdd from "../UI/Buttons/ButtonAdd";
+import UserCard from "../UI/UserCard";
 
 const Grupe = (props) => {
   const title = "Grupe";
@@ -26,6 +27,7 @@ const Grupe = (props) => {
     <>
       <Header />
       <Dropdown />
+      <UserCard />
       <Wrapper>
         <Naslov title={title} />
         <Podnaslov title={title} subtitle={subtitle} addButton={addButton} formInfo={formInfo}  />

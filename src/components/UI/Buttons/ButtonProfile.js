@@ -1,10 +1,13 @@
-import React from 'react'
-import './ButtonProfile.css'
+import React from "react";
+import { Link } from "react-router-dom";
+import "./ButtonProfile.css";
 
 const ButtonProfile = () => {
   return (
-    <button className='profile-button-style'>Idi na profil</button>
-  )
-}
+    <Link className="link-profile-style" to={`/profil`}>
+      <button className="profile-button-style">Idi na profil</button>
+    </Link>
+  );
+};
 
-export default ButtonProfile
+export default ButtonProfile;

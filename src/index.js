@@ -13,6 +13,8 @@ import Grupe from "./components/Dropdown/Grupe";
 import Podgrupe from "./components/Dropdown/Podgrupe";
 import Zaposlenici from "./components/Dropdown/Zaposlenici";
 import FormAdd from "./components/UI/Forms/FormAdd";
+import Profile from "./components/Profile/Profile";
+import Login from "./components/UI/Login/Login";
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap/dist/css/bootstrap.css'
 
@@ -30,6 +32,8 @@ root.render(
         <Route path="/podgrupe" element={<Podgrupe />} />
         <Route path="/zaposlenici" element={<Zaposlenici />} />
         <Route path="/:slag/dodaj" element={<FormAdd />} />
+        <Route path="/profil" element={<Profile />} />
+        <Route path="/prijava" element={<Login />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
