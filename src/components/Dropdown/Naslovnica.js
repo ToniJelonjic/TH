@@ -10,6 +10,7 @@ import Podnaslov from "../UI/Naslovi/Podnaslov";
 import Groups from "../UI/Groups";
 import Button from "../UI/Buttons/ButtonSearch";
 import UserCard from "../UI/UserCard";
+import Warehouse from "../Warehouse/Warehouse";
 
 
 const Naslovnica = (props) => {
@@ -75,6 +76,7 @@ const Naslovnica = (props) => {
       <Wrapper>
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle[0]} />
+        <Warehouse />
         {/* <div className="">backend</div> */}
         <Podnaslov subtitle={subtitle[1]} />
         <Uređaj params={params1} />

@@ -1,33 +1,69 @@
 .params-style {
-    background-color: white;
-    padding: 15px 16px 15px 17px;
-    font-size: 14px;
-    color: #a6a7c1;
-    font-weight: 600;
-    width: 100%;
-    justify-content: space-around;
-    align-items: center;
-    overflow: auto;
+  background-color: white;
+  padding: 15px 16px 15px 17px;
+  font-size: 14px;
+  color: #a6a7c1;
+  font-weight: 600;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  overflow: auto;
 }
 
 .th-desc-style {
-    padding: 25px 25px 20px 25px;
-    text-align: center;
-    color: #a6a7c1;
-    font-weight: 500;
-    font-size: 14px;
-    justify-content: center ;
+  padding: 25px 25px 20px 25px;
+  text-align: center;
+  color: #a6a7c1;
+  font-weight: 500;
+  font-size: 14px;
+  justify-content: center;
+}
+
+.table-measure-data {
+  padding: 25px 25px 20px 25px;
+  text-align: center;
+  color: #7c7d8a;
+  font-weight: 500;
+  font-size: 14px;
+  justify-content: center;
+}
+
+.table-measure-data-name {
+  padding: 25px 25px 20px 25px;
+  text-align: center;
+  color: #575962;
+  font-weight: 500;
+  font-size: 14px;
+  justify-content: center;
+}
+
+.border-bottom {
+  border-bottom: 1px dotted #ebedf2;
+}
+
+.out-of-range {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.table-activity-data-name {
+  width: 100%;
+}
+
+.manufactor-label {
+  font-size: 11px;
+  color: #9699a2;
+  font-family: "Poppins";
+}
+
+.background-activity {
+  background-color: rgba(255, 0, 0, 0.1);
 }
 
 @media screen and (max-width: 1000px) {
-    .th-desc-style {
-        width: 120px;
-    }
-    .params-style {
-        padding: 15px 10px 15px 10px;
-    }
+  .th-desc-style {
+    width: 120px;
+  }
+  .params-style {
+    padding: 15px 10px 15px 10px;
+  }
 }
-
-
-
-

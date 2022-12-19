@@ -8,7 +8,7 @@ const FormElements = (props) => {
         <>
         <div className="row elements-div-style">
           <label className="col-lg-2 col-md-2 col-2 element-label-style">Naziv:</label>
-          <div className="col-lg-6 col-md-6 col-9">
+          <div className="col-lg-6 col-md-6 col-10">
             <input
               className="elements-input"
               type="text"
@@ -22,7 +22,7 @@ const FormElements = (props) => {
         <>
         <div className="row elements-div-style">
           <label className="col-lg-2 col-md-2 col-2 element-label-style">Naziv:</label>
-          <div className="col-lg-6 col-md-6 col-9">
+          <div className="col-lg-6 col-md-6 col-10">
             <input
               className="elements-input"
               type="text"
@@ -32,8 +32,8 @@ const FormElements = (props) => {
           </div>
         </div>
         <div className="row elements-div-style">
-          <label className="col-lg-2 col-md-2 col-2 element-label-style">Grupa:</label>
-          <div className="col-lg-6 col-md-6 col-9">
+          <label className="col-lg-2 col-md-2 col-2 element-label-style subgroup-label-style">Grupa:</label>
+          <div className="col-lg-6 col-md-6 col-10">
             <select className="elements-input">
               <option>Odaberi grupu</option>
             </select>
@@ -45,7 +45,7 @@ const FormElements = (props) => {
         <>
         <div className="row elements-div-style">
           <label className="col-lg-2 col-md-2 col-3 element-label-style">Ime i prezime:</label>
-          <div className="col-lg-6 col-md-6 col-8">
+          <div className="col-lg-6 col-md-6 col-10">
             <input
               className="elements-input"
               type="text"
@@ -57,7 +57,7 @@ const FormElements = (props) => {
         </div>
         <div className="row elements-div-style">
           <label className="col-lg-2 col-md-2 col-3 element-label-style">Korisničko ime:</label>
-          <div className="col-lg-6 col-md-6 col-8 ">
+          <div className="col-lg-6 col-md-6 col-10 ">
             <input
               className="elements-input"
               type="text"
@@ -68,7 +68,7 @@ const FormElements = (props) => {
         </div>
         <div className="row elements-div-style">
           <label className="col-lg-2 col-md-2 col-3 element-label-style">Lozinka:</label>
-          <div className="col-lg-6 col-md-6 col-8">
+          <div className="col-lg-6 col-md-6 col-10">
             <input
               className="elements-input"
               type="text"

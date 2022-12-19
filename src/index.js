@@ -17,6 +17,7 @@ import Profile from "./components/Profile/Profile";
 import Login from "./components/UI/Login/Login";
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap/dist/css/bootstrap.css'
+//import AuthContext from "./store/auth-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

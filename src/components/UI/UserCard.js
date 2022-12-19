@@ -5,7 +5,7 @@ import ButtonProfile from "./Buttons/ButtonProfile";
 
 const UserCard = () => {
   return (
-    <div className={`row user-card-style`}>
+    <div className={`row user-card-style none`}>
       <div className="col-6 profile-style-div">
       <ButtonProfile />
       </div>
