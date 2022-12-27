@@ -15,8 +15,10 @@ import Zaposlenici from "./components/Dropdown/Zaposlenici";
 import FormAdd from "./components/UI/Forms/FormAdd";
 import Profile from "./components/Profile/Profile";
 import Login from "./components/UI/Login/Login";
-import 'font-awesome/css/font-awesome.min.css';
-import 'bootstrap/dist/css/bootstrap.css'
+import "font-awesome/css/font-awesome.min.css";
+import "bootstrap/dist/css/bootstrap.css";
+import Edit from "./components/UI/Edit";
+import FormEdit from "./components/UI/Forms/FormEdit";
 //import AuthContext from "./store/auth-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -35,6 +37,7 @@ root.render(
         <Route path="/:slag/dodaj" element={<FormAdd />} />
         <Route path="/profil" element={<Profile />} />
         <Route path="/prijava" element={<Login />} />
+        <Route path="/:slag/uredi/:id" element={<FormEdit />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

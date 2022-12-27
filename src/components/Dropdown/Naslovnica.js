@@ -45,29 +45,6 @@ const Naslovnica = (props) => {
     ],
   };
 
-  const devices = {
-    deviceId: Math.random(),
-    title: "Pregled aktivnosti uređaja",
-    groupName: "activityGroup",
-    groupId: "activityGroupId",
-    subGroupName: "activitySubGroup",
-    subGroupId: "activitySubGroupId",
-    subGroupName: "deviceSubGroup",
-    subGroupId: "deviceSubGroupId",
-    groups: [
-      "Centar 2",
-      "Rodoc",
-      "Ilici",
-      "Cim"
-    ],
-    
-    subGroups: [
-      "Podrupa 1",
-      "Podgrupa 2",
-      "Podgrupa 3"
-    ],
-  };
-
   return (
     <>
       <Header />
@@ -82,7 +59,7 @@ const Naslovnica = (props) => {
         <Uređaj params={params1} />
         <Podnaslov subtitle={subtitle[2]} />
         <div className="select-div">
-          <Groups groups={devices} />
+          <Groups />
           <Button />
         </div>
 

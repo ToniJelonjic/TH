@@ -1,7 +1,7 @@
 .thead-style {
     border: 2px solid #f4f5f8;
     padding: 10px;
-    text-align: center;
+    text-align: l;
     color: #575962;
     font-weight: 500;
     font-size: 14px;
@@ -28,6 +28,21 @@ table {
     justify-content: space-around;
     align-items: center;
     overflow: hidden;
+}
+
+.actions-icon {
+    background: 0 0;
+    padding: 10px;
+    border-radius: 20px;
+    color: #575962;
+    cursor: pointer;
+}
+
+.actions-icon:hover {
+    border-color: #716aca!important;
+    color: #fff!important;
+    background-color: #716aca!important;
+    transition: 0.3s ease;
 }
 
 @media screen and (max-width: 900px) {

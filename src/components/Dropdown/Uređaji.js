@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Header/Header";
 import Dropdown from "./Dropdown";
 import Footer from "../Footer/Footer";
@@ -10,9 +10,22 @@ import Groups from "../UI/Groups";
 import Button from "../UI/Buttons/ButtonSearch";
 import TablicaUređaj from "../UI/Tablice/TablicaUređaj";
 import UserCard from "../UI/UserCard";
+import axios from "axios";
 
 
 const Uređaji = (props) => {
+
+  const [data, setData] = useState([])
+  const getData = async() => {
+    const {data} = await axios.get("https://localhost:44336/api/logeri/GetAll")
+    setData(data)
+  }
+
+  useEffect(() => {
+    getData()
+    //console.log(data[0])
+  }, [])
+
   const title = "Uređaji";
   const subtitle = "Uređaji";
   const params = {
@@ -63,7 +76,7 @@ const Uređaji = (props) => {
           <Groups groups={devices} />
           <Button />
         </div>
-        <TablicaUređaj params={params} />
+        <TablicaUređaj title={title} data={data} params={params} />
         {/* <Uređaj params={params} /> */}
       </Wrapper>
 

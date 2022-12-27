@@ -16,18 +16,26 @@
     font-family: 'Poppins';
     font-weight: 600;
     color: #575962;
-    padding: 0 35px 0 35px;
+    padding: 0 15px 0 15px;
 
 }
 
-tr td {
-    width: 5px;
+.active-user {
+    color: #00c5dc!important;
 }
+
+.non-active-user {
+    color: #f4516c!important;
+}
+
+.font {
+    font-weight: 100;
+}
+
 
 table {
     border-spacing: 0px;
     table-layout: fixed;
-    width: 100%;
 }
 
 @media screen and (max-width:900px) {

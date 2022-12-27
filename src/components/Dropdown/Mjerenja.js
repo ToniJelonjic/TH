@@ -1,5 +1,6 @@
-import React from "react";
-import './Mjerenja.css'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./Mjerenja.css";
 import Header from "../Header/Header";
 import Dropdown from "./Dropdown";
 import Footer from "../Footer/Footer";
@@ -10,26 +11,24 @@ import TablicaUređaj from "../UI/Tablice/TablicaUređaj";
 import Groups from "../UI/Groups";
 import ButtonSearch from "../UI/Buttons/ButtonSearch";
 import Dates from "../UI/Dates";
-import ButtonExport from "../UI/Buttons/ButtonExport";
 import UserCard from "../UI/UserCard";
 
 const Mjerenja = (props) => {
+  const [data, setData] = useState([]);
+  const getData = async () => {
+    const { data } = await axios.get(
+      "https://localhost:44336/api/logeri/GetAll"
+    );
+    setData(data);
+  };
+
+  useEffect(() => {
+    getData();
+    //console.log(data[0])
+  }, []);
+
   const title = "Mjerenja";
   const subtitle = "Mjerenja";
-  const grupe = {
-    groups: [
-      "Centar 2",
-      "Rodoc",
-      "Ilici",
-      "Cim"
-    ],
-    
-    subGroups: [
-      "Podrupa 1",
-      "Podgrupa 2",
-      "Podgrupa 3"
-    ],
-  }
 
   const params = {
     id: Math.random(),
@@ -53,10 +52,9 @@ const Mjerenja = (props) => {
       <Wrapper>
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle} />
-        {/* <ButtonExport /> */}
         <div className="measure-div">
-          <Dates />
-          <Groups groups={grupe} />
+          <Dates devices={data} />
+          <Groups />
           <ButtonSearch />
         </div>
         <TablicaUređaj params={params} />

@@ -14,9 +14,9 @@ const Dates = (props) => {
         <option disabled selected value="">
           Odaberite uređaj
         </option>
-        {/* {props.groups.subGroups.map((subGroup) => {
-          return <option>{subGroup}</option>;
-        })} */}
+        {props.devices.map((device) => {
+          return <option>{device.naziv}</option>;
+        })}
       </select>
     </span>
   );
