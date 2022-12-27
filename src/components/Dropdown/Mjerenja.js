@@ -12,8 +12,9 @@ import Groups from "../UI/Groups";
 import ButtonSearch from "../UI/Buttons/ButtonSearch";
 import Dates from "../UI/Dates";
 import UserCard from "../UI/UserCard";
+import Context from "../../store/Context";
 
-const Mjerenja = (props) => {
+const Mjerenja = () => {
   const [data, setData] = useState([]);
   const getData = async () => {
     const { data } = await axios.get(
@@ -45,7 +46,13 @@ const Mjerenja = (props) => {
   };
 
   return (
-    <>
+    <Context.Provider
+      value={{
+        data,
+        title,
+        subtitle,
+      }}
+    >
       <Header />
       <Dropdown />
       <UserCard />
@@ -60,7 +67,7 @@ const Mjerenja = (props) => {
         <TablicaUređaj params={params} />
       </Wrapper>
       <Footer />
-    </>
+    </Context.Provider>
   );
 };
 

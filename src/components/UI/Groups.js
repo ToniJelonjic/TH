@@ -3,42 +3,43 @@ import axios from "axios";
 import "./Groups.css";
 
 const Groups = (props) => {
-
-  const [groupValue, setGroupValue] = useState("")
-  const [subGroupValue, setSubGroupValue] = useState("")
+  const [groupValue, setGroupValue] = useState("");
+  const [subGroupValue, setSubGroupValue] = useState("");
 
   const handleGroupValue = (e) => {
-    setGroupValue(e.target.value)
-    console.log(groupValue)
-  }
+    setGroupValue(e.target.value);
+    //console.log(groupValue)
+  };
 
   const handleSubGroupValue = (e) => {
-    setSubGroupValue(e.target.value)
-    console.log(subGroupValue)
-  }
+    setSubGroupValue(e.target.value);
+    //console.log(subGroupValue)
+  };
 
+  const [groups, setGroups] = useState([]);
+  const getGroups = async () => {
+    const { data } = await axios.get(
+      "https://localhost:44336/api/grupe/GetAll"
+    );
+    setGroups(data);
+  };
 
-  const [groups, setGroups] = useState([])
-  const getGroups = async() => {
-    const {data} = await axios.get("https://localhost:44336/api/grupe/GetAll")
-    setGroups(data)
-  }
+  const [subGroups, setSubGroups] = useState([]);
+  const getSubGroups = async () => {
+    const { data } = await axios.get(
+      "https://localhost:44336/api/podgrupe/GetAll"
+    );
+    setSubGroups(data);
+  };
 
-  const [subGroups, setSubGroups] = useState([])
-  const getSubGroups = async() => {
-    const {data} = await axios.get("https://localhost:44336/api/podgrupe/GetAll")
-    setSubGroups(data)
-  }
-
-  
   useEffect(() => {
-    getGroups()
-    getSubGroups()
+    getGroups();
+    getSubGroups();
     //console.log(data[0])
-  }, [])
+  }, []);
 
   return (
-    <span className="">
+    <span>
       <select
         className="select-style" /* name={props.device.groupName} id={props.device.groupId} */
         onChange={handleGroupValue}

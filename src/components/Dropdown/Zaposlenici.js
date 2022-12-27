@@ -8,6 +8,7 @@ import Podnaslov from "../UI/Naslovi/Podnaslov";
 import TablicaInfo from "../UI/Tablice/TablicaInfo";
 import UserCard from "../UI/UserCard";
 import axios from "axios";
+import Context from "../../store/Context";
 
 const Zaposlenici = (props) => {
   const [data, setData] = useState([]);
@@ -44,18 +45,21 @@ const Zaposlenici = (props) => {
   };
 
   return (
-    <>
+    <Context.Provider
+      value={{
+        data,
+        title,
+        subtitle,
+        formInfo,
+        editFormInfo,
+      }}
+    >
       <Header />
       <Dropdown />
       <UserCard />
       <Wrapper>
         <Naslov title={title} />
-        <Podnaslov
-          title={title}
-          subtitle={subtitle}
-          addButton={addButton}
-          formInfo={formInfo}
-        />
+        <Podnaslov addButton={addButton} formInfo={formInfo} />
         <TablicaInfo
           title={title}
           subtitle={subtitle}
@@ -66,7 +70,7 @@ const Zaposlenici = (props) => {
       </Wrapper>
 
       <Footer />
-    </>
+    </Context.Provider>
   );
 };
 

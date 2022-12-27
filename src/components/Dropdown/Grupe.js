@@ -9,6 +9,7 @@ import TablicaInfo from "../UI/Tablice/TablicaInfo";
 import ButtonAdd from "../UI/Buttons/ButtonAdd";
 import UserCard from "../UI/UserCard";
 import axios from "axios";
+import Context from "../../store/Context";
 
 const Grupe = (props) => {
   const [data, setData] = useState([]);
@@ -38,18 +39,21 @@ const Grupe = (props) => {
   };
 
   return (
-    <>
+    <Context.Provider
+      value={{
+        data,
+        title,
+        subtitle,
+        formInfo,
+        editFormInfo,
+      }}
+    >
       <Header />
       <Dropdown />
       <UserCard />
       <Wrapper>
         <Naslov title={title} />
-        <Podnaslov
-          title={title}
-          subtitle={subtitle}
-          addButton={addButton}
-          formInfo={formInfo}
-        />
+        <Podnaslov addButton={addButton} />
         <TablicaInfo
           title={title}
           subtitle={subtitle}
@@ -60,7 +64,7 @@ const Grupe = (props) => {
         {/* <ButtonAdd name="Dodaj grupu" /> */}
       </Wrapper>
       <Footer />
-    </>
+    </Context.Provider>
   );
 };
 

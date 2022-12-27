@@ -5,7 +5,7 @@ import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const TablicaInfo = (props) => {
-  console.log(props, "info");
+  //console.log(props, "info");
   const { title } = props;
   const { subtitle } = props;
   const { editFormInfo } = props;

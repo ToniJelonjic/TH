@@ -12,7 +12,7 @@ import { useLocation } from "react-router-dom";
 
 const FormEdit = (props) => {
   const location = useLocation();
-  console.log(location, "formedit");
+  //console.log(location, "formedit");
   const { title } = location.state.title;
   const { subtitle } = location.state.subtitle;
   const { editFormInfo } = location.state.editFormInfo;

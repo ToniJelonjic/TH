@@ -11,9 +11,9 @@ import Groups from "../UI/Groups";
 import Button from "../UI/Buttons/ButtonSearch";
 import UserCard from "../UI/UserCard";
 import Warehouse from "../Warehouse/Warehouse";
+import Context from "../../store/Context";
 
-
-const Naslovnica = (props) => {
+const Naslovnica = () => {
   const title = "Naslovnica";
   const subtitle = [
     "Trenutno stanje uređaja",
@@ -46,7 +46,12 @@ const Naslovnica = (props) => {
   };
 
   return (
-    <>
+    <Context.Provider
+      value={{
+        title,
+        subtitle,
+      }}
+    >
       <Header />
       <Dropdown />
       <UserCard />
@@ -66,7 +71,7 @@ const Naslovnica = (props) => {
         <Uređaj params={params2} />
       </Wrapper>
       <Footer />
-    </>
+    </Context.Provider>
   );
 };
 

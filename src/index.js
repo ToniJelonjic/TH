@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -26,7 +26,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} exact />
+        <Route path="/" element={<Navigate to="/naslovnica" />} exact />
         {/* <RedirectFunction exact from='/' to='/naslovnica' />  */}
         <Route path="/naslovnica" element={<Homepage />} />
         <Route path="/uređaji" element={<Uređaji />} />

@@ -9,12 +9,12 @@ import { faTableList } from "@fortawesome/free-solid-svg-icons";
 import { faUserTie } from "@fortawesome/free-solid-svg-icons";
 import { faComputer } from "@fortawesome/free-solid-svg-icons";
 
-const Dropdown = (props) => {
-  const [isOpen, setIsOpen] = useState(false)
+const Dropdown = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleIsOpen = () => {
-    setIsOpen(true)
-  }
+    setIsOpen(true);
+  };
 
   return (
     <div className="dropdown-style">
