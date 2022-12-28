@@ -10,14 +10,16 @@ import Wrapper from "../Wrapper";
 import "./FormAdd.css";
 import FormElements from "./FormElements";
 import UserCard from "../UserCard";
+import Context from "../../../store/Context";
 
 const FormAdd = (props) => {
   const location = useLocation();
-  console.log(location, "loc");
+  //console.log(location, "loc");
   const { title } = location.state.title;
   const { subtitle } = location.state.subtitle;
   const { slag } = location.state.slag;
   const { formInfo } = location.state.formInfo;
+  console.log(formInfo, "forminfo");
 
   //useEffect(() => {}, []);
 

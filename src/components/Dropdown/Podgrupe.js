@@ -45,6 +45,7 @@ const Podgrupe = () => {
         subtitle,
         formInfo,
         editFormInfo,
+        addButton,
       }}
     >
       <Header />
@@ -52,14 +53,8 @@ const Podgrupe = () => {
       <UserCard />
       <Wrapper>
         <Naslov title={title} />
-        <Podnaslov addButton={addButton} />
-        <TablicaInfo
-          title={title}
-          subtitle={subtitle}
-          rows={table_rows}
-          data={data}
-          editFormInfo={editFormInfo}
-        />
+        <Podnaslov />
+        <TablicaInfo rows={table_rows} />
       </Wrapper>
 
       <Footer />

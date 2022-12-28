@@ -52,6 +52,7 @@ const Zaposlenici = (props) => {
         subtitle,
         formInfo,
         editFormInfo,
+        addButton,
       }}
     >
       <Header />
@@ -59,14 +60,8 @@ const Zaposlenici = (props) => {
       <UserCard />
       <Wrapper>
         <Naslov title={title} />
-        <Podnaslov addButton={addButton} formInfo={formInfo} />
-        <TablicaInfo
-          title={title}
-          subtitle={subtitle}
-          rows={table_rows}
-          data={data}
-          editFormInfo={editFormInfo}
-        />
+        <Podnaslov />
+        <TablicaInfo rows={table_rows} />
       </Wrapper>
 
       <Footer />

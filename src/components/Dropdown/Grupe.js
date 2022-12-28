@@ -46,6 +46,7 @@ const Grupe = (props) => {
         subtitle,
         formInfo,
         editFormInfo,
+        addButton,
       }}
     >
       <Header />
@@ -53,14 +54,8 @@ const Grupe = (props) => {
       <UserCard />
       <Wrapper>
         <Naslov title={title} />
-        <Podnaslov addButton={addButton} />
-        <TablicaInfo
-          title={title}
-          subtitle={subtitle}
-          rows={table_rows}
-          data={data}
-          editFormInfo={editFormInfo}
-        />
+        <Podnaslov />
+        <TablicaInfo rows={table_rows} />
         {/* <ButtonAdd name="Dodaj grupu" /> */}
       </Wrapper>
       <Footer />

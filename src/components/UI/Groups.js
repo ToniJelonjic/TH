@@ -49,7 +49,9 @@ const Groups = (props) => {
           Odaberite grupu
         </option>
         {groups.map((group) => {
-          return <option key={group.id}>{group.naziv}</option>;
+          if (group.klijentId === 3) {
+            return <option key={group.id}>{group.naziv}</option>;
+          }
         })}
       </select>
       <select
@@ -63,7 +65,9 @@ const Groups = (props) => {
           Odaberite podgrupu
         </option>
         {subGroups.map((subGroup) => {
-          return <option key={subGroup.id}>{subGroup.naziv}</option>;
+          if (subGroup.klijentId === 3 && subGroup.grupa === groupValue) {
+            return <option key={subGroup.id}>{subGroup.naziv}</option>;
+          }
         })}
       </select>
     </span>

@@ -1,17 +1,15 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import "./TablicaInfo.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import Context from "../../../store/Context";
 
 const TablicaInfo = (props) => {
-  //console.log(props, "info");
-  const { title } = props;
-  const { subtitle } = props;
-  const { editFormInfo } = props;
+  const { title, subtitle, data, editFormInfo } = useContext(Context);
   return (
     <div className="info-table-style">
-      {props.title === "Grupe" ? (
+      {title === "Grupe" ? (
         <table className="groups-table-style">
           <tr className="tr-style">
             {props.rows.map((row) => {
@@ -23,27 +21,30 @@ const TablicaInfo = (props) => {
             })}
           </tr>
 
-          {props.data.map((data) => {
-            return (
-              <tr key={data.id} id={data.id} className="tr-style">
-                <td className="thead-style">{data.naziv}</td>
-                <td className="thead-style">
-                  <Link
-                    to={`uredi/${data.id}`}
-                    state={{
-                      title: { title },
-                      subtitle: { subtitle },
-                      editFormInfo: { editFormInfo },
-                    }}
-                  >
-                    <FontAwesomeIcon className="actions-icon" icon={faEdit} />
-                  </Link>
-                </td>
-              </tr>
-            );
+          {data.map((data) => {
+            if (data.klijentId === 3) {
+              return (
+                <tr key={data.id} id={data.id} className="tr-style">
+                  <td className="thead-style">{data.naziv}</td>
+                  <td className="thead-style">
+                    <Link
+                      to={`uredi/${data.id}`}
+                      state={{
+                        name: data.naziv,
+                        title: { title },
+                        subtitle: { subtitle },
+                        editFormInfo: { editFormInfo },
+                      }}
+                    >
+                      <FontAwesomeIcon className="actions-icon" icon={faEdit} />
+                    </Link>
+                  </td>
+                </tr>
+              );
+            }
           })}
         </table>
-      ) : props.title === "Podgrupe" ? (
+      ) : title === "Podgrupe" ? (
         <table className="groups-table-style">
           <tr className="tr-style">
             {props.rows.map((row) => {
@@ -55,25 +56,28 @@ const TablicaInfo = (props) => {
             })}
           </tr>
 
-          {props.data.map((data) => {
-            return (
-              <tr key={data.id} id={data.id} className="tr-style">
-                <td className="thead-style">{data.naziv}</td>
-                <td className="thead-style">{data.grupa}</td>
-                <td className="thead-style">
-                  <Link
-                    to={`uredi/${data.id}`}
-                    state={{
-                      title: { title },
-                      subtitle: { subtitle },
-                      editFormInfo: { editFormInfo },
-                    }}
-                  >
-                    <FontAwesomeIcon className="actions-icon" icon={faEdit} />
-                  </Link>
-                </td>
-              </tr>
-            );
+          {data.map((data) => {
+            if (data.klijentId === 3) {
+              return (
+                <tr key={data.id} id={data.id} className="tr-style">
+                  <td className="thead-style">{data.naziv}</td>
+                  <td className="thead-style">{data.grupa}</td>
+                  <td className="thead-style">
+                    <Link
+                      to={`uredi/${data.id}`}
+                      state={{
+                        name: data.naziv,
+                        title: { title },
+                        subtitle: { subtitle },
+                        editFormInfo: { editFormInfo },
+                      }}
+                    >
+                      <FontAwesomeIcon className="actions-icon" icon={faEdit} />
+                    </Link>
+                  </td>
+                </tr>
+              );
+            }
           })}
         </table>
       ) : (
@@ -88,7 +92,7 @@ const TablicaInfo = (props) => {
             })}
           </tr>
 
-          {props.data.map((data) => {
+          {data.map((data) => {
             if (
               data.uloga === "Zaposlenik" &&
               data.klijent.includes("Hercegovina")
@@ -114,6 +118,8 @@ const TablicaInfo = (props) => {
                     <Link
                       to={`uredi/${data.id}`}
                       state={{
+                        name: data.imePrezime,
+                        username: data.ime,
                         title: { title },
                         subtitle: { subtitle },
                         editFormInfo: { editFormInfo },

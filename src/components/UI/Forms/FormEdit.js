@@ -9,6 +9,7 @@ import ButtonSave from "../Buttons/ButtonSave";
 import FormEditElements from "./FormEditElements";
 import Footer from "../../Footer/Footer";
 import { useLocation } from "react-router-dom";
+import Context from "../../../store/Context";
 
 const FormEdit = (props) => {
   const location = useLocation();
@@ -16,6 +17,8 @@ const FormEdit = (props) => {
   const { title } = location.state.title;
   const { subtitle } = location.state.subtitle;
   const { editFormInfo } = location.state.editFormInfo;
+  const { name } = location.state;
+  const { username } = location.state;
   return (
     <>
       <Header />
@@ -24,7 +27,7 @@ const FormEdit = (props) => {
       <Wrapper>
         <Naslov title={title} />
         <Podnaslov subtitle={editFormInfo.subtitle} />
-        <FormEditElements title={title} />
+        <FormEditElements name={name} title={title} username={username} />
         <ButtonSave />
       </Wrapper>
       <Footer />

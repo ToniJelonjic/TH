@@ -32,6 +32,7 @@
   height: 40px;
   font-size: 15px;
   background-color: white;
+  color: #575962;
 }
 
 .elements-input::placeholder {

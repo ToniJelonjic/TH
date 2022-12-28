@@ -1,6 +1,7 @@
 import React from "react";
 
 const FormEditElements = (props) => {
+  //console.log(props, "props");
   return (
     <>
       {props.title === "Grupe" ? (
@@ -14,6 +15,7 @@ const FormEditElements = (props) => {
                 className="elements-input"
                 type="text"
                 placeholder="Naziv"
+                defaultValue={props.name}
               ></input>
               <div className="placeholder-div-style">Unesite naziv grupe</div>
             </div>
@@ -30,6 +32,7 @@ const FormEditElements = (props) => {
                 className="elements-input"
                 type="text"
                 placeholder="Naziv"
+                defaultValue={props.name}
               ></input>
               <div className="placeholder-div-style">
                 Unesite naziv podgrupe
@@ -61,6 +64,7 @@ const FormEditElements = (props) => {
                 className="elements-input"
                 type="text"
                 placeholder="Ime i prezime"
+                defaultValue={props.name}
               ></input>
               <div className="placeholder-div-style">Unesite ime i prezime</div>
             </div>
@@ -74,6 +78,7 @@ const FormEditElements = (props) => {
                 className="elements-input"
                 type="text"
                 placeholder="Korisničko ime"
+                defaultValue={props.username}
               ></input>
               <div className="placeholder-div-style">
                 Unesite korisničko ime

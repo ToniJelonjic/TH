@@ -17,7 +17,6 @@ import Profile from "./components/Profile/Profile";
 import Login from "./components/UI/Login/Login";
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap/dist/css/bootstrap.css";
-import Edit from "./components/UI/Edit";
 import FormEdit from "./components/UI/Forms/FormEdit";
 //import AuthContext from "./store/auth-context";
 
