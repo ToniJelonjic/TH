@@ -48,12 +48,19 @@ const Uređaji = (props) => {
   const devices = {
     deviceId: Math.random(),
     title: "Uređaji",
-    groupName: "deviceGroup",
-    groupId: "deviceGroupId",
-    groups: ["Centar 2", "Rodoc", "Ilici", "Cim"],
-    subGroupName: "deviceSubGroup",
-    subGroupId: "deviceSubGroupId",
-    subGroups: ["Podrupa 1", "Podgrupa 2", "Podgrupa 3"],
+  };
+
+  const [groupValue, setGroupValue] = useState("");
+  const [subGroupValue, setSubGroupValue] = useState("");
+
+  const handleGroupValue = (e) => {
+    setGroupValue(e.target.value);
+    //console.log(groupValue);
+  };
+
+  const handleSubGroupValue = (e) => {
+    setSubGroupValue(e.target.value);
+    //console.log(subGroupValue);
   };
 
   return (
@@ -71,10 +78,22 @@ const Uređaji = (props) => {
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle} />
         <div className="select-div">
-          <Groups groups={devices} />
+          <Groups
+            groupValue={groupValue}
+            handleGroupValue={handleGroupValue}
+            subGroupValue={subGroupValue}
+            handleSubGroupValue={handleSubGroupValue}
+            groups={devices}
+          />
           <Button />
         </div>
-        <TablicaUređaj title={title} data={data} params={params} />
+        <TablicaUređaj
+          groupValue={groupValue}
+          subGroupValue={subGroupValue}
+          title={title}
+          data={data}
+          params={params}
+        />
         {/* <Uređaj params={params} /> */}
       </Wrapper>
 

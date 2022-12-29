@@ -28,6 +28,19 @@ const Mjerenja = () => {
     //console.log(data[0])
   }, []);
 
+  const [groupValue, setGroupValue] = useState("");
+  const [subGroupValue, setSubGroupValue] = useState("");
+
+  const handleGroupValue = (e) => {
+    setGroupValue(e.target.value);
+    //console.log(groupValue);
+  };
+
+  const handleSubGroupValue = (e) => {
+    setSubGroupValue(e.target.value);
+    //console.log(subGroupValue);
+  };
+
   const title = "Mjerenja";
   const subtitle = "Mjerenja";
 
@@ -64,7 +77,11 @@ const Mjerenja = () => {
           <Groups />
           <ButtonSearch />
         </div>
-        <TablicaUređaj params={params} />
+        <TablicaUređaj
+          groupValue={groupValue}
+          subGroupValue={subGroupValue}
+          params={params}
+        />
       </Wrapper>
       <Footer />
     </Context.Provider>

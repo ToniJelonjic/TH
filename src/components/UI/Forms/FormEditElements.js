@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const FormEditElements = (props) => {
   //console.log(props, "props");
+
+  const [groups, setGroups] = useState([]);
+  const getGroups = async () => {
+    const { data } = await axios.get(
+      "https://localhost:44336/api/grupe/GetAll"
+    );
+    setGroups(data);
+  };
+
+  useEffect(() => {
+    getGroups();
+    //console.log(data[0])
+  }, []);
   return (
     <>
       {props.title === "Grupe" ? (
@@ -46,6 +60,18 @@ const FormEditElements = (props) => {
             <div className="col-lg-6 col-md-6 col-10">
               <select className="elements-input">
                 <option>Odaberi grupu</option>
+                {groups.map((group) => {
+                  if (group.klijentId === 3) {
+                    return (
+                      <option
+                        key={group.id}
+                        //defaultValue={}
+                      >
+                        {group.naziv}
+                      </option>
+                    );
+                  }
+                })}
               </select>
               <div className="placeholder-div-style">
                 Odaberite pripadajuću grupu

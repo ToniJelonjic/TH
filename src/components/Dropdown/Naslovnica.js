@@ -12,6 +12,7 @@ import Button from "../UI/Buttons/ButtonSearch";
 import UserCard from "../UI/UserCard";
 import Warehouse from "../Warehouse/Warehouse";
 import Context from "../../store/Context";
+import TrenutnoStanje from "../UI/TrenutnoStanje";
 
 const Naslovnica = () => {
   const title = "Naslovnica";
@@ -59,6 +60,7 @@ const Naslovnica = () => {
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle[0]} />
         <Warehouse />
+        {/* <TrenutnoStanje /> */}
         {/* <div className="">backend</div> */}
         <Podnaslov subtitle={subtitle[1]} />
         <Uređaj params={params1} />

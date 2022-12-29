@@ -3,18 +3,7 @@ import axios from "axios";
 import "./Groups.css";
 
 const Groups = (props) => {
-  const [groupValue, setGroupValue] = useState("");
-  const [subGroupValue, setSubGroupValue] = useState("");
-
-  const handleGroupValue = (e) => {
-    setGroupValue(e.target.value);
-    //console.log(groupValue)
-  };
-
-  const handleSubGroupValue = (e) => {
-    setSubGroupValue(e.target.value);
-    //console.log(subGroupValue)
-  };
+  //console.log(props, "c");
 
   const [groups, setGroups] = useState([]);
   const getGroups = async () => {
@@ -42,22 +31,26 @@ const Groups = (props) => {
     <span>
       <select
         className="select-style" /* name={props.device.groupName} id={props.device.groupId} */
-        onChange={handleGroupValue}
-        value={groupValue}
+        onChange={props.handleGroupValue}
+        value={props.groupValue}
       >
         <option disabled selected value="">
           Odaberite grupu
         </option>
         {groups.map((group) => {
           if (group.klijentId === 3) {
-            return <option key={group.id}>{group.naziv}</option>;
+            return (
+              <option value={group.id} key={group.id}>
+                {group.naziv}
+              </option>
+            );
           }
         })}
       </select>
       <select
         className="select-style"
-        onChange={handleSubGroupValue}
-        value={subGroupValue}
+        onChange={props.handleSubGroupValue}
+        value={props.subGroupValue}
         /* name={props.device.subGroupName}
               id={props.device.subGroupId} */
       >
@@ -65,8 +58,12 @@ const Groups = (props) => {
           Odaberite podgrupu
         </option>
         {subGroups.map((subGroup) => {
-          if (subGroup.klijentId === 3 && subGroup.grupa === groupValue) {
-            return <option key={subGroup.id}>{subGroup.naziv}</option>;
+          if (subGroup.klijentId === 3) {
+            return (
+              <option value={subGroup.id} key={subGroup.id}>
+                {subGroup.naziv}
+              </option>
+            );
           }
         })}
       </select>

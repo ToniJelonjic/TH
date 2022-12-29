@@ -36,7 +36,11 @@ const TablicaInfo = (props) => {
                         editFormInfo: { editFormInfo },
                       }}
                     >
-                      <FontAwesomeIcon className="actions-icon" icon={faEdit} />
+                      <FontAwesomeIcon
+                        title="Uredi"
+                        className="actions-icon"
+                        icon={faEdit}
+                      />
                     </Link>
                   </td>
                 </tr>
@@ -72,7 +76,11 @@ const TablicaInfo = (props) => {
                         editFormInfo: { editFormInfo },
                       }}
                     >
-                      <FontAwesomeIcon className="actions-icon" icon={faEdit} />
+                      <FontAwesomeIcon
+                        title="Uredi"
+                        className="actions-icon"
+                        icon={faEdit}
+                      />
                     </Link>
                   </td>
                 </tr>
@@ -112,6 +120,7 @@ const TablicaInfo = (props) => {
                   </td>
                   <td className="thead-style">
                     <FontAwesomeIcon
+                      title="Promijeni status"
                       className="actions-icon"
                       icon={faEllipsis}
                     />
@@ -125,7 +134,11 @@ const TablicaInfo = (props) => {
                         editFormInfo: { editFormInfo },
                       }}
                     >
-                      <FontAwesomeIcon className="actions-icon" icon={faEdit} />
+                      <FontAwesomeIcon
+                        title="Uredi"
+                        className="actions-icon"
+                        icon={faEdit}
+                      />
                     </Link>
                   </td>
                 </tr>

@@ -19,7 +19,7 @@ const FormAdd = (props) => {
   const { subtitle } = location.state.subtitle;
   const { slag } = location.state.slag;
   const { formInfo } = location.state.formInfo;
-  console.log(formInfo, "forminfo");
+  //console.log(formInfo, "forminfo");
 
   //useEffect(() => {}, []);
 
