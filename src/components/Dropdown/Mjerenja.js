@@ -81,6 +81,7 @@ const Mjerenja = () => {
           groupValue={groupValue}
           subGroupValue={subGroupValue}
           params={params}
+          data={data}
         />
       </Wrapper>
       <Footer />

@@ -23,7 +23,7 @@ const TrenutnoStanje = () => {
   }, []);
   return (
     <div className="row devices-padding">
-      {data?.map((data) => {
+      {data.map((data) => {
         return (
           <div className="col-lg-3 col-md-4 col-12 device-styles">
             <div className="row">

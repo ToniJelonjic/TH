@@ -101,10 +101,13 @@ const TablicaInfo = (props) => {
           </tr>
 
           {data.map((data) => {
-            if (
-              data.uloga === "Zaposlenik" &&
-              data.klijent.includes("Hercegovina")
-            ) {
+            //ispraviti
+            //
+            //
+            if (data.uloga === "Zaposlenik" && data.firma === 3) {
+              //
+              //
+              //
               return (
                 <tr key={data.id} id={data.id} className="tr-style">
                   <td className="thead-style">{data.imePrezime}</td>
