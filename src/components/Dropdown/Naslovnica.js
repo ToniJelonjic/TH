@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Naslovnica.css";
 import Header from "../Header/Header";
 import Dropdown from "./Dropdown";
@@ -13,6 +13,7 @@ import UserCard from "../UI/UserCard";
 import Warehouse from "../Warehouse/Warehouse";
 import Context from "../../store/Context";
 import TrenutnoStanje from "../UI/TrenutnoStanje";
+import axios from "axios";
 
 const Naslovnica = () => {
   const title = "Naslovnica";

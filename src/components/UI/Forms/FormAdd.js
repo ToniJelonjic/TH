@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Dropdown from "../../Dropdown/Dropdown";
 import Footer from "../../Footer/Footer";
@@ -14,14 +14,10 @@ import Context from "../../../store/Context";
 
 const FormAdd = (props) => {
   const location = useLocation();
-  //console.log(location, "loc");
   const { title } = location.state.title;
   const { subtitle } = location.state.subtitle;
   const { slag } = location.state.slag;
   const { formInfo } = location.state.formInfo;
-  //console.log(formInfo, "forminfo");
-
-  //useEffect(() => {}, []);
 
   return (
     <div>
