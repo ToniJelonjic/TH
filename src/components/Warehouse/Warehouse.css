@@ -18,6 +18,18 @@
     flex-direction: column;
 }
 
+.download-icon-style {
+    color: #575962;
+    padding: 8px;
+    border-radius: 15px;
+    border: 1px solid #eff1f5;
+}
+
+.download-icon-style:hover {
+    background-color: #eff1f5;
+    transition: 0.3s ease;
+}
+
 .devices-padding {
     padding: 30px;
     background-color: white;

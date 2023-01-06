@@ -12,7 +12,6 @@ import Button from "../UI/Buttons/ButtonSearch";
 import UserCard from "../UI/UserCard";
 import Warehouse from "../Warehouse/Warehouse";
 import Context from "../../store/Context";
-import TrenutnoStanje from "../UI/TrenutnoStanje";
 import axios from "axios";
 
 const Naslovnica = () => {
@@ -61,17 +60,15 @@ const Naslovnica = () => {
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle[0]} />
         <Warehouse />
-        {/* <TrenutnoStanje /> */}
-        {/* <div className="">backend</div> */}
         <Podnaslov subtitle={subtitle[1]} />
-        <Uređaj params={params1} />
+        <Uređaj subtitle={subtitle[1]} params={params1} />
         <Podnaslov subtitle={subtitle[2]} />
         <div className="select-div">
           <Groups />
           <Button />
         </div>
 
-        <Uređaj params={params2} />
+        <Uređaj subtitle={subtitle[2]} params={params2} />
       </Wrapper>
       <Footer />
     </Context.Provider>

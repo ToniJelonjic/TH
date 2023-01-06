@@ -11,11 +11,11 @@ const Dates = (props) => {
         /* name={props.device.subGroupName}
               id={props.device.subGroupId} */
       >
-        <option disabled selected value="">
+        <option disabled defaultValue="Odaberite uređaj">
           Odaberite uređaj
         </option>
         {props.devices.map((device) => {
-          return <option>{device.naziv}</option>;
+          return <option key={device}>{device.naziv}</option>;
         })}
       </select>
     </span>
