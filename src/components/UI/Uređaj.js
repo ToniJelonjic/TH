@@ -80,7 +80,15 @@ const Uređaj = (props) => {
                     </td>
                     <td className="table-measure-data">{loger.tmin}</td>
                     <td className="table-measure-data">{loger.tmax}</td>
-                    <td className="table-measure-data">{loger.h}</td>
+                    <td
+                      className={`table-measure-data ${
+                        !loger.validHMin || !loger.validHMax
+                          ? "out-of-range"
+                          : ""
+                      }`}
+                    >
+                      {loger.h}
+                    </td>
                     <td className="table-measure-data">{loger.hmin}</td>
                     <td className="table-measure-data">{loger.hmax}</td>
                   </tr>

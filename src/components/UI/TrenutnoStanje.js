@@ -25,7 +25,7 @@ const TrenutnoStanje = () => {
     <div className="row devices-padding">
       {data.map((data) => {
         return (
-          <div className="col-lg-3 col-md-4 col-12 device-styles">
+          <div key={data.id} className="col-lg-3 col-md-4 col-12 device-styles">
             <div className="row">
               <h4 className="col-lg-10 col-md-10 col-10 device-title">
                 {data.naziv}

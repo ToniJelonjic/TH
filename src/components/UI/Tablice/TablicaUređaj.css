@@ -36,6 +36,11 @@
 table {
     border-spacing: 0px;
     table-layout: fixed;
+    width: max-content;
+}
+
+.content-style {
+    word-break: normal;
 }
 
 .pagination {

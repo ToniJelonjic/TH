@@ -46,6 +46,19 @@ const Naslovnica = () => {
     ],
   };
 
+  const [groupValue, setGroupValue] = useState("");
+  const [subGroupValue, setSubGroupValue] = useState("");
+
+  const handleGroupValue = (e) => {
+    setGroupValue(e.target.value);
+    //console.log(groupValue);
+  };
+
+  const handleSubGroupValue = (e) => {
+    setSubGroupValue(e.target.value);
+    //console.log(subGroupValue);
+  };
+
   return (
     <Context.Provider
       value={{
@@ -57,6 +70,10 @@ const Naslovnica = () => {
       <Dropdown />
       <UserCard />
       <Wrapper>
+        <div>
+          --------------------------OSTAO FILTER PREGLED
+          MJERENJA------------------------------
+        </div>
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle[0]} />
         <Warehouse />
@@ -64,7 +81,12 @@ const Naslovnica = () => {
         <Uređaj subtitle={subtitle[1]} params={params1} />
         <Podnaslov subtitle={subtitle[2]} />
         <div className="select-div">
-          <Groups />
+          <Groups
+            groupValue={groupValue}
+            handleGroupValue={handleGroupValue}
+            subGroupValue={subGroupValue}
+            handleSubGroupValue={handleSubGroupValue}
+          />
           <Button />
         </div>
 

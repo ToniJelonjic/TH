@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./TablicaUređaj.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from "react-paginate";
 
 const TablicaUređaj = (props) => {
@@ -27,7 +27,7 @@ const TablicaUređaj = (props) => {
     <div className="table-style">
       {props.title === "Uređaji" ? (
         <>
-          <table>
+          <table className="content-style">
             <tbody>
               <tr>
                 {props.params.params.map((parameter) => {
@@ -75,11 +75,18 @@ const TablicaUređaj = (props) => {
                           //   editFormInfo: { editFormInfo },
                           // }}
                         ></Link>
-                        <FontAwesomeIcon
-                          title="Uredi"
-                          className="actions-icon"
-                          icon={faEdit}
-                        />
+                        <div>
+                          <FontAwesomeIcon
+                            title="Promijeni status"
+                            className="actions-icon"
+                            icon={faEllipsis}
+                          />
+                          <FontAwesomeIcon
+                            title="Uredi"
+                            className="actions-icon"
+                            icon={faEdit}
+                          />
+                        </div>
                       </td>
                     </tr>
                   );

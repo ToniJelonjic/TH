@@ -78,6 +78,7 @@ const Mjerenja = () => {
           <ButtonSearch />
         </div>
         <TablicaUređaj
+          title={title}
           groupValue={groupValue}
           subGroupValue={subGroupValue}
           params={params}

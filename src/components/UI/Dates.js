@@ -11,7 +11,7 @@ const Dates = (props) => {
         /* name={props.device.subGroupName}
               id={props.device.subGroupId} */
       >
-        <option disabled defaultValue="Odaberite uređaj">
+        <option hidden defaultValue="Odaberite uređaj">
           Odaberite uređaj
         </option>
         {props.devices.map((device) => {

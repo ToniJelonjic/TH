@@ -34,7 +34,7 @@ const Groups = (props) => {
         onChange={props.handleGroupValue}
         value={props.groupValue}
       >
-        <option disabled defaultValue="Odaberite grupu">
+        <option hidden defaultValue="Odaberite grupu">
           Odaberite grupu
         </option>
         {groups.map((group) => {
@@ -54,11 +54,14 @@ const Groups = (props) => {
         /* name={props.device.subGroupName}
               id={props.device.subGroupId} */
       >
-        <option disabled value="Odaberite podgrupu">
+        <option hidden defaultValue="Odaberite podgrupu">
           Odaberite podgrupu
         </option>
         {subGroups.map((subGroup) => {
-          if (subGroup.klijentId === 3) {
+          if (
+            subGroup.klijentId === 3 &&
+            props.groupValue === subGroup.grupaId.toString()
+          ) {
             return (
               <option value={subGroup.id} key={subGroup.id}>
                 {subGroup.naziv}

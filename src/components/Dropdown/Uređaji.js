@@ -83,7 +83,6 @@ const Uređaji = (props) => {
             handleGroupValue={handleGroupValue}
             subGroupValue={subGroupValue}
             handleSubGroupValue={handleSubGroupValue}
-            groups={devices}
           />
           <Button />
         </div>
