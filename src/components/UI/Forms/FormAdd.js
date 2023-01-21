@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import Dropdown from "../../Dropdown/Dropdown";
 import Footer from "../../Footer/Footer";
@@ -13,11 +13,29 @@ import UserCard from "../UserCard";
 import Context from "../../../store/Context";
 
 const FormAdd = (props) => {
-  const location = useLocation();
-  const { title } = location.state.title;
-  const { subtitle } = location.state.subtitle;
-  const { slag } = location.state.slag;
-  const { formInfo } = location.state.formInfo;
+  const { title, subtitle, formInfo, name, setName, onSave } = useContext(
+    Context
+  );
+
+  const [group, setGroup] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleName = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleGroup = (e) => {
+    setGroup(e.target.value);
+  };
+
+  const handleUsername = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
 
   return (
     <div>
@@ -26,9 +44,28 @@ const FormAdd = (props) => {
       <UserCard />
       <Wrapper>
         <Naslov title={title} />
-        <Podnaslov subtitle={formInfo.subtitle} />
-        <FormElements title={title} />
-        <ButtonSave />
+        {/* greska neka 
+        ispraviti
+        sto prije */}
+        {/* <Podnaslov subtitle={formInfo.subtitle} /> */}
+        <FormElements
+          title={title}
+          name={name}
+          handleName={handleName}
+          username={username}
+          handleUsername={handleUsername}
+          group={group}
+          handleGroup={handleGroup}
+          password={password}
+          handlePassword={handlePassword}
+        />
+        <ButtonSave
+        //save={saveGroup}
+        // name={name}
+        // username={username}
+        // group={group}
+        // password={password}
+        />
       </Wrapper>
       <Footer />
     </div>

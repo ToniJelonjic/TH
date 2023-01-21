@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./ButtonSave.css";
+import Context from "../../../store/Context";
 
-const ButtonSave = (props) => {
+const ButtonSave = () => {
+  const { onSave } = useContext(Context);
+  const handleDiscard = () => {
+    console.log("works");
+  };
+
   return (
     <div className="row save-discard-div">
       <div className="col-lg-2"></div>
       <div className="col-lg-6">
-        <button className="button-save-style">Spremi</button>
-        <button className="button-discard-style">Odbaci</button>
+        <button onClick={onSave} className="button-save-style">
+          Spremi
+        </button>
+        <button onClick={handleDiscard} className="button-discard-style">
+          Odbaci
+        </button>
       </div>
     </div>
   );

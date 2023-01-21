@@ -22,7 +22,7 @@ const Podnaslov = (props) => {
         {subtitle === "Grupe" ||
         subtitle === "Podgrupe" ||
         subtitle === "Zaposlenici" ? (
-          <ButtonAdd addButton={addButton} />
+          <ButtonAdd />
         ) : (
           subtitle === "Mjerenja" && <ButtonExport />
         )}

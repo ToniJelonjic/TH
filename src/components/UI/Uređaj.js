@@ -4,6 +4,11 @@ import "./Uređaj.css";
 import ReactPaginate from "react-paginate";
 
 const Uređaj = (props) => {
+  //console.log(props, "props");
+  //napraviti
+  //drugacije
+  //kroz
+  //props
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
@@ -22,7 +27,11 @@ const Uređaj = (props) => {
           data:
             props.subtitle === "Pregled mjerenja van opsega"
               ? { klijentID: 3 }
-              : { klijentID: 3, grupaId: 0, podgrupaId: 0 },
+              : {
+                  klijentID: 3,
+                  grupaId: 0,
+                  podgrupaId: 0,
+                },
           //
           //
           //
@@ -131,6 +140,7 @@ const Uređaj = (props) => {
 
               {currentItems.map((loger) => {
                 if (loger.idklijenta === 3) {
+                  //if(loger.grupaid === props.groupValue || loger.podgrupaid === props.subGroupValue) {}
                   return (
                     <tr
                       key={loger.id}

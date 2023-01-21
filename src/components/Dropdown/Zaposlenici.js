@@ -9,8 +9,10 @@ import TablicaInfo from "../UI/Tablice/TablicaInfo";
 import UserCard from "../UI/UserCard";
 import axios from "axios";
 import Context from "../../store/Context";
+import FormAdd from "../UI/Forms/FormAdd";
 
 const Zaposlenici = (props) => {
+  const [isAddClicked, setIsAddClicked] = useState(false);
   const [data, setData] = useState([]);
   const getData = async () => {
     const { data } = await axios.get(
@@ -53,15 +55,22 @@ const Zaposlenici = (props) => {
         formInfo,
         editFormInfo,
         addButton,
+        setIsAddClicked,
       }}
     >
       <Header />
       <Dropdown />
       <UserCard />
       <Wrapper>
-        <Naslov title={title} />
-        <Podnaslov />
-        <TablicaInfo rows={table_rows} />
+        {isAddClicked ? (
+          <FormAdd />
+        ) : (
+          <>
+            <Naslov title={title} />
+            <Podnaslov />
+            <TablicaInfo rows={table_rows} />
+          </>
+        )}
       </Wrapper>
 
       <Footer />

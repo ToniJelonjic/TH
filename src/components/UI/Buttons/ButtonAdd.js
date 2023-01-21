@@ -4,11 +4,17 @@ import Context from "../../../store/Context";
 import "./ButtonAdd.css";
 
 const ButtonAdd = (props) => {
-  const { title, subtitle, formInfo } = useContext(Context);
+  const { title, subtitle, formInfo, addButton, setIsAddClicked } = useContext(
+    Context
+  );
   const [slag, setSlag] = useState("");
   useEffect(() => {
     setSlag(subtitle.toLowerCase());
   }, []);
+
+  const handleClick = () => {
+    setIsAddClicked(true);
+  };
 
   return (
     <Link
@@ -21,7 +27,9 @@ const ButtonAdd = (props) => {
         formInfo: { formInfo },
       }}
     >
-      <button className="add-button-style">{props.addButton}</button>
+      <button onClick={handleClick} className="add-button-style">
+        {addButton}
+      </button>
     </Link>
   );
 };

@@ -46,8 +46,10 @@ const Naslovnica = () => {
     ],
   };
 
-  const [groupValue, setGroupValue] = useState("");
-  const [subGroupValue, setSubGroupValue] = useState("");
+  const [groupValue, setGroupValue] = useState(0);
+  const [subGroupValue, setSubGroupValue] = useState(0);
+  const [outOfRange, setOutOfRange] = useState();
+  const [deviceActivity, setDeviceActivity] = useState();
 
   const handleGroupValue = (e) => {
     setGroupValue(e.target.value);
@@ -58,6 +60,59 @@ const Naslovnica = () => {
     setSubGroupValue(e.target.value);
     //console.log(subGroupValue);
   };
+
+  const getOutOfRange = async () => {
+    const res = await axios
+      .get(
+        "https://localhost:44336/api/Mjerenja/GetAllCritical",
+        // "https://localhost:44336/api/Logeri/ProvjeraMjerenja",
+        {
+          //ispraviti
+          //
+          //
+          data: { klijentID: 3 },
+          // {
+          //     klijentID: 3,
+          //     grupaId: 0,
+          //     podgrupaId: 0,
+          //   },
+          //
+          //
+          //
+        }
+      )
+      .then(function(response) {
+        //console.log(response.data, "response out of range");
+        setOutOfRange(response.data);
+      });
+  };
+
+  const getDeviceActivity = async () => {
+    const res = await axios
+      .get("https://localhost:44336/api/Logeri/ProvjeraMjerenja", {
+        //ispraviti
+        //
+        //
+        data:
+          // { klijentID: 3 }
+          {
+            klijentID: 3,
+            grupaId: groupValue,
+            podgrupaId: subGroupValue,
+          },
+        //
+        //
+        //
+      })
+      .then(function(response) {
+        setDeviceActivity(response.data);
+      });
+  };
+
+  useEffect(() => {
+    getOutOfRange();
+    getDeviceActivity();
+  }, []);
 
   return (
     <Context.Provider
@@ -70,15 +125,16 @@ const Naslovnica = () => {
       <Dropdown />
       <UserCard />
       <Wrapper>
-        <div>
-          --------------------------OSTAO FILTER PREGLED
-          MJERENJA------------------------------
-        </div>
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle[0]} />
         <Warehouse />
         <Podnaslov subtitle={subtitle[1]} />
-        <Uređaj subtitle={subtitle[1]} params={params1} />
+        <Uređaj
+          subtitle={subtitle[1]}
+          params={params1}
+          getData={getOutOfRange}
+          data={outOfRange}
+        />
         <Podnaslov subtitle={subtitle[2]} />
         <div className="select-div">
           <Groups
@@ -87,10 +143,22 @@ const Naslovnica = () => {
             subGroupValue={subGroupValue}
             handleSubGroupValue={handleSubGroupValue}
           />
-          <Button />
+          <span className="span-button-style">
+            <button onClick={getDeviceActivity} className="button-style">
+              Pretraži
+            </button>
+          </span>
+          {/* <Button /> */}
         </div>
 
-        <Uređaj subtitle={subtitle[2]} params={params2} />
+        <Uređaj
+          subtitle={subtitle[2]}
+          params={params2}
+          groupValue={groupValue}
+          subGroupValue={subGroupValue}
+          getData={getDeviceActivity}
+          data={deviceActivity}
+        />
       </Wrapper>
       <Footer />
     </Context.Provider>

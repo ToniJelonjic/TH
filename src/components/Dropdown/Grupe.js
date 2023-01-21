@@ -10,8 +10,11 @@ import ButtonAdd from "../UI/Buttons/ButtonAdd";
 import UserCard from "../UI/UserCard";
 import axios from "axios";
 import Context from "../../store/Context";
+import FormAdd from "../UI/Forms/FormAdd";
 
 const Grupe = (props) => {
+  const [isAddClicked, setIsAddClicked] = useState(false);
+  const [name, setName] = useState("");
   const [data, setData] = useState([]);
   const getData = async () => {
     const { data } = await axios.get(
@@ -38,6 +41,20 @@ const Grupe = (props) => {
     subtitle: "Uredi grupu",
   };
 
+  const onSave = () => {
+    axios
+      .post(`https://localhost:44336/api/grupe/Insert`, {
+        KlijentID: 3,
+        Naziv: name,
+      })
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
+
   return (
     <Context.Provider
       value={{
@@ -47,16 +64,25 @@ const Grupe = (props) => {
         formInfo,
         editFormInfo,
         addButton,
+        setIsAddClicked,
+        onSave,
+        name,
+        setName,
       }}
     >
       <Header />
       <Dropdown />
       <UserCard />
       <Wrapper>
-        <Naslov title={title} />
-        <Podnaslov />
-        <TablicaInfo rows={table_rows} />
-        {/* <ButtonAdd name="Dodaj grupu" /> */}
+        {isAddClicked ? (
+          <FormAdd />
+        ) : (
+          <>
+            <Naslov title={title} />
+            <Podnaslov />
+            <TablicaInfo rows={table_rows} />
+          </>
+        )}
       </Wrapper>
       <Footer />
     </Context.Provider>

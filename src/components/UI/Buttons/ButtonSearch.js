@@ -1,10 +1,12 @@
 import React from "react";
 import "./ButtonSearch.css";
 
-const Button = () => {
+const Button = (props) => {
   return (
     <span className="span-button-style">
-      <button className="button-style">Pretraži</button>
+      <button onClick={props.handleActivityFilter} className="button-style">
+        Pretraži
+      </button>
     </span>
   );
 };
