@@ -13,6 +13,8 @@ import FormAdd from "../UI/Forms/FormAdd";
 
 const Podgrupe = () => {
   const [isAddClicked, setIsAddClicked] = useState(false);
+  const [name, setName] = useState("");
+  const [group, setGroup] = useState("");
   const [data, setData] = useState([]);
   const getData = async () => {
     const { data } = await axios.get(
@@ -39,6 +41,29 @@ const Podgrupe = () => {
     subtitle: "Uredi podgrupu",
   };
 
+  const handleName = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleGroup = (e) => {
+    setGroup(e.target.value);
+  };
+
+  const onSave = () => {
+    axios
+      .post(`https://localhost:44336/api/podgrupe/Insert`, {
+        KlijentId: 3,
+        Naziv: name,
+        grupaId: group,
+      })
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
+
   return (
     <Context.Provider
       value={{
@@ -49,6 +74,11 @@ const Podgrupe = () => {
         editFormInfo,
         addButton,
         setIsAddClicked,
+        onSave,
+        name,
+        handleName,
+        group,
+        handleGroup,
       }}
     >
       <Header />
@@ -60,7 +90,7 @@ const Podgrupe = () => {
         ) : (
           <>
             <Naslov title={title} />
-            <Podnaslov />
+            <Podnaslov subtitle={subtitle} />
             <TablicaInfo rows={table_rows} />
           </>
         )}

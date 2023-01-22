@@ -67,7 +67,7 @@ const Zaposlenici = (props) => {
         ) : (
           <>
             <Naslov title={title} />
-            <Podnaslov />
+            <Podnaslov subtitle={subtitle} />
             <TablicaInfo rows={table_rows} />
           </>
         )}

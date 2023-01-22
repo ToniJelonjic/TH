@@ -12,7 +12,9 @@ import Mjerenja from "./components/Dropdown/Mjerenja";
 import Grupe from "./components/Dropdown/Grupe";
 import Podgrupe from "./components/Dropdown/Podgrupe";
 import Zaposlenici from "./components/Dropdown/Zaposlenici";
-import FormAdd from "./components/UI/Forms/FormAdd";
+import GroupFormAdd from "./components/UI/Forms/GroupFormAdd";
+import SubgroupFormAdd from "./components/UI/Forms/SubgroupFormAdd";
+import EmployeeFormAdd from "./components/UI/Forms/EmployeeFormAdd";
 import Profile from "./components/Profile/Profile";
 import Login from "./components/UI/Login/Login";
 import "font-awesome/css/font-awesome.min.css";
@@ -33,7 +35,9 @@ root.render(
         <Route path="/grupe" element={<Grupe />} />
         <Route path="/podgrupe" element={<Podgrupe />} />
         <Route path="/zaposlenici" element={<Zaposlenici />} />
-        <Route path="/:slag/dodaj" element={<FormAdd />} />
+        <Route path="/grupe/dodaj" element={<GroupFormAdd />} />
+        <Route path="/podgrupe/dodaj" element={<SubgroupFormAdd />} />
+        <Route path="/zaposlenici/dodaj" element={<EmployeeFormAdd />} />
         <Route path="/profil" element={<Profile />} />
         <Route path="/prijava" element={<Login />} />
         <Route path="/:slag/uredi/:id" element={<FormEdit />} />

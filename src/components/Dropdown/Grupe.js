@@ -41,6 +41,14 @@ const Grupe = (props) => {
     subtitle: "Uredi grupu",
   };
 
+  const handleName = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleIsAddClicked = (e) => {
+    setIsAddClicked(!isAddClicked);
+  };
+
   const onSave = () => {
     axios
       .post(`https://localhost:44336/api/grupe/Insert`, {
@@ -64,25 +72,19 @@ const Grupe = (props) => {
         formInfo,
         editFormInfo,
         addButton,
-        setIsAddClicked,
+        handleIsAddClicked,
         onSave,
         name,
-        setName,
+        handleName,
       }}
     >
       <Header />
       <Dropdown />
       <UserCard />
       <Wrapper>
-        {isAddClicked ? (
-          <FormAdd />
-        ) : (
-          <>
-            <Naslov title={title} />
-            <Podnaslov />
-            <TablicaInfo rows={table_rows} />
-          </>
-        )}
+        <Naslov title={title} />
+        <Podnaslov subtitle={subtitle} />
+        <TablicaInfo rows={table_rows} />
       </Wrapper>
       <Footer />
     </Context.Provider>

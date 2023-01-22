@@ -4,33 +4,40 @@ import Context from "../../../store/Context";
 import "./ButtonAdd.css";
 
 const ButtonAdd = (props) => {
-  const { title, subtitle, formInfo, addButton, setIsAddClicked } = useContext(
-    Context
-  );
+  const {
+    title,
+    subtitle,
+    formInfo,
+    addButton,
+    handleIsAddClicked,
+  } = useContext(Context);
   const [slag, setSlag] = useState("");
   useEffect(() => {
     setSlag(subtitle.toLowerCase());
   }, []);
 
-  const handleClick = () => {
-    setIsAddClicked(true);
-  };
-
   return (
-    <Link
-      to={`/${slag}/dodaj`}
-      className="link-style"
-      state={{
-        slag: { slag },
-        title: { title },
-        subtitle: { subtitle },
-        formInfo: { formInfo },
-      }}
-    >
-      <button onClick={handleClick} className="add-button-style">
-        {addButton}
-      </button>
-    </Link>
+    <>
+      {subtitle === "Grupe" ? (
+        <Link to={`/grupe/dodaj`} className="link-style">
+          <button onClick={handleIsAddClicked} className="add-button-style">
+            {addButton}
+          </button>
+        </Link>
+      ) : subtitle === "Podgrupe" ? (
+        <Link to={`/podgrupe/dodaj`} className="link-style">
+          <button onClick={handleIsAddClicked} className="add-button-style">
+            {addButton}
+          </button>
+        </Link>
+      ) : (
+        <Link to={`/zaposlenici/dodaj`} className="link-style">
+          <button onClick={handleIsAddClicked} className="add-button-style">
+            {addButton}
+          </button>
+        </Link>
+      )}
+    </>
   );
 };
 

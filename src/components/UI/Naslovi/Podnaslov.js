@@ -5,7 +5,8 @@ import "./Podnaslov.css";
 import Context from "../../../store/Context";
 
 const Podnaslov = (props) => {
-  const { subtitle, addButton } = useContext(Context);
+  const { subtitle } = props;
+  console.log(subtitle, "podnaslov");
   //console.log(subtitle, "podn");
   //const {title} = props
   // const { subtitle } = props;
@@ -13,11 +14,7 @@ const Podnaslov = (props) => {
   // const { addButton } = props;
   return (
     <div className="subtitle">
-      {subtitle === "Grupe" ||
-      subtitle === "Podgrupe" ||
-      subtitle === "Zaposlenici"
-        ? subtitle
-        : props.subtitle}
+      {subtitle}
       <div className="add-button-position">
         {subtitle === "Grupe" ||
         subtitle === "Podgrupe" ||
