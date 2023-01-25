@@ -38,6 +38,7 @@ const GroupFormEdit = () => {
   const onSave = () => {
     axios
       .post(`https://localhost:44336/api/grupe/Edit`, {
+        Id: groupId,
         KlijentID: 3,
         Naziv: name,
       })

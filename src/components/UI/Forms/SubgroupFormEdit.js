@@ -42,6 +42,7 @@ const SubgroupFormEdit = () => {
   const onSave = () => {
     axios
       .post(`https://localhost:44336/api/podgrupe/Edit`, {
+        Id: subgroupId,
         KlijentId: 3,
         Naziv: name,
         GrupaId: groupId,

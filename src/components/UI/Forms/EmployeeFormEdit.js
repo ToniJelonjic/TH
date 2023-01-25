@@ -59,6 +59,7 @@ const EmployeeFormEdit = () => {
         //kada
         //se uradi
         //login
+        Id: employeeId,
         Ime: username,
         Lozinka: password,
         Status: true,
