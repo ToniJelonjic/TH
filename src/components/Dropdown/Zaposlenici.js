@@ -62,15 +62,11 @@ const Zaposlenici = (props) => {
       <Dropdown />
       <UserCard />
       <Wrapper>
-        {isAddClicked ? (
-          <FormAdd />
-        ) : (
-          <>
-            <Naslov title={title} />
-            <Podnaslov subtitle={subtitle} />
-            <TablicaInfo rows={table_rows} />
-          </>
-        )}
+        <>
+          <Naslov title={title} />
+          <Podnaslov subtitle={subtitle} />
+          <TablicaInfo rows={table_rows} />
+        </>
       </Wrapper>
 
       <Footer />

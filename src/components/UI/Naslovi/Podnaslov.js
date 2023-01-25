@@ -6,7 +6,7 @@ import Context from "../../../store/Context";
 
 const Podnaslov = (props) => {
   const { subtitle } = props;
-  console.log(subtitle, "podnaslov");
+  //console.log(subtitle, "podnaslov");
   //console.log(subtitle, "podn");
   //const {title} = props
   // const { subtitle } = props;

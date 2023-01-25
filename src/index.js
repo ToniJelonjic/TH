@@ -15,6 +15,9 @@ import Zaposlenici from "./components/Dropdown/Zaposlenici";
 import GroupFormAdd from "./components/UI/Forms/GroupFormAdd";
 import SubgroupFormAdd from "./components/UI/Forms/SubgroupFormAdd";
 import EmployeeFormAdd from "./components/UI/Forms/EmployeeFormAdd";
+import GroupFormEdit from "./components/UI/Forms/GroupFormEdit";
+import SubgroupFormEdit from "./components/UI/Forms/SubgroupFormEdit.js";
+import EmployeeFormEdit from "./components/UI/Forms/EmployeeFormEdit";
 import Profile from "./components/Profile/Profile";
 import Login from "./components/UI/Login/Login";
 import "font-awesome/css/font-awesome.min.css";
@@ -38,9 +41,11 @@ root.render(
         <Route path="/grupe/dodaj" element={<GroupFormAdd />} />
         <Route path="/podgrupe/dodaj" element={<SubgroupFormAdd />} />
         <Route path="/zaposlenici/dodaj" element={<EmployeeFormAdd />} />
+        <Route path="/grupe/uredi/:id" element={<GroupFormEdit />} />
+        <Route path="/podgrupe/uredi/:id" element={<SubgroupFormEdit />} />
+        <Route path="/zaposlenici/uredi/:id" element={<EmployeeFormEdit />} />
         <Route path="/profil" element={<Profile />} />
         <Route path="/prijava" element={<Login />} />
-        <Route path="/:slag/uredi/:id" element={<FormEdit />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

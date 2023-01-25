@@ -1,12 +1,16 @@
-import React from 'react'
-import './ButtonExport.css'
+import React from "react";
+import "./ButtonExport.css";
 
 const ButtonExport = () => {
-  return (
-    <button className='button-export-style'>
-        Export to EXCEL
-    </button>
-  )
-}
+  const handleClick = () => {
+    console.log("bit ce nesto");
+  };
 
-export default ButtonExport
+  return (
+    <button onClick={handleClick} className="button-export-style">
+      Export to EXCEL
+    </button>
+  );
+};
+
+export default ButtonExport;

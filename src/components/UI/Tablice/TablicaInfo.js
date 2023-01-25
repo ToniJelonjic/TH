@@ -29,7 +29,7 @@ const TablicaInfo = (props) => {
                     <td className="thead-style">{data.naziv}</td>
                     <td className="thead-style">
                       <Link
-                        to={`uredi/${data.id}`}
+                        to={`/grupe/uredi/${data.id}`}
                         state={{
                           name: data.naziv,
                           title: { title },
@@ -71,7 +71,7 @@ const TablicaInfo = (props) => {
                     <td className="thead-style">{data.grupa}</td>
                     <td className="thead-style">
                       <Link
-                        to={`uredi/${data.id}`}
+                        to={`/podgrupe/uredi/${data.id}`}
                         state={{
                           name: data.naziv,
                           title: { title },
@@ -92,7 +92,7 @@ const TablicaInfo = (props) => {
             })}
           </tbody>
         </table>
-      ) : (
+      ) : title === "Zaposlenici" ? (
         <table className="groups-table-style">
           <tbody>
             <tr className="tr-style">
@@ -133,7 +133,7 @@ const TablicaInfo = (props) => {
                         icon={faEllipsis}
                       />
                       <Link
-                        to={`uredi/${data.id}`}
+                        to={`/zaposlenici/uredi/${data.id}`}
                         state={{
                           name: data.imePrezime,
                           username: data.ime,
@@ -155,6 +155,8 @@ const TablicaInfo = (props) => {
             })}
           </tbody>
         </table>
+      ) : (
+        ""
       )}
     </div>
   );

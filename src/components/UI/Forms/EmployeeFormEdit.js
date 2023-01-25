@@ -8,8 +8,29 @@ import Wrapper from "../Wrapper";
 import "./FormAdd.css";
 import UserCard from "../UserCard";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
-const EmployeeFormAdd = (props) => {
+const EmployeeFormEdit = () => {
+  const location = useLocation();
+  let employeeId = location.pathname.split("/")[3];
+  const [data, setData] = useState([]);
+  const getData = async () => {
+    const { data } = await axios.get(
+      "https://localhost:44336/api/korisnici/GetAll"
+    );
+    setData(data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  //   const nesto = data.forEach((employee) => {
+  //     if (parseInt(employee.id) === parseInt(employeeId)) {
+  //       return [employee.imePrezime, employee.username];
+  //     }
+  //   });
+
   const title = "Zaposlenici";
   const subtitle = "Novi zaposlenik";
 
@@ -31,7 +52,7 @@ const EmployeeFormAdd = (props) => {
 
   const onSave = () => {
     axios
-      .post(`https://localhost:44336/api/korisnici/Insert`, {
+      .post(`https://localhost:44336/api/korisnici/Edit`, {
         //ispraviti
         //dummy
         //podatke
@@ -54,6 +75,12 @@ const EmployeeFormAdd = (props) => {
         console.log(error);
       });
   };
+
+  const nesto = data.forEach((employee) => {
+    if (parseInt(employee.id) === parseInt(employeeId)) {
+      return [employee.imePrezime, employee.ime];
+    }
+  });
 
   return (
     <div>
@@ -125,4 +152,4 @@ const EmployeeFormAdd = (props) => {
   );
 };
 
-export default EmployeeFormAdd;
+export default EmployeeFormEdit;

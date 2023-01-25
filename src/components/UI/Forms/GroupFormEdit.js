@@ -8,12 +8,28 @@ import Wrapper from "../Wrapper";
 import "./FormAdd.css";
 import UserCard from "../UserCard";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
-const GroupFormAdd = () => {
+const GroupFormEdit = () => {
+  const location = useLocation();
+  let groupId = location.pathname.split("/")[3];
+  const [data, setData] = useState([]);
+  const getData = async () => {
+    const { data } = await axios.get(
+      "https://localhost:44336/api/grupe/GetAll"
+    );
+    setData(data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   const title = "Grupe";
   const subtitle = "Nova grupa";
 
-  const [name, setName] = useState("");
+  const [name, setName] = useState(nameValue);
+  const [nameValue, setNameValue] = useState("");
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -21,7 +37,7 @@ const GroupFormAdd = () => {
 
   const onSave = () => {
     axios
-      .post(`https://localhost:44336/api/grupe/Insert`, {
+      .post(`https://localhost:44336/api/grupe/Edit`, {
         KlijentID: 3,
         Naziv: name,
       })
@@ -32,6 +48,12 @@ const GroupFormAdd = () => {
         console.log(error);
       });
   };
+
+  const nesto = data.forEach((group) => {
+    if (parseInt(group.id) === parseInt(groupId)) {
+      return group.naziv;
+    }
+  });
 
   return (
     <div>
@@ -51,6 +73,7 @@ const GroupFormAdd = () => {
                 className="elements-input"
                 type="text"
                 placeholder="Naziv"
+                //value={nesto}
                 onChange={handleName}
               ></input>
               <div className="placeholder-div-style">Unesite naziv grupe</div>
@@ -72,4 +95,4 @@ const GroupFormAdd = () => {
   );
 };
 
-export default GroupFormAdd;
+export default GroupFormEdit;

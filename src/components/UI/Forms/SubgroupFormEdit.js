@@ -6,12 +6,25 @@ import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
 import "./FormAdd.css";
-import FormElements from "./FormElements";
 import UserCard from "../UserCard";
-import { Link } from "react-router-dom";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
-const SubgroupFormAdd = (props) => {
+const SubgroupFormEdit = () => {
+  const location = useLocation();
+  let subgroupId = location.pathname.split("/")[3];
+  const [subgroups, setSubgroups] = useState([]);
+  const getSubgroups = async () => {
+    const { data } = await axios.get(
+      "https://localhost:44336/api/podgrupe/GetAll"
+    );
+    setSubgroups(data);
+  };
+
+  useEffect(() => {
+    getSubgroups();
+  }, []);
+
   const title = "Podrupe";
   const subtitle = "Nova podgrupa";
 
@@ -26,17 +39,9 @@ const SubgroupFormAdd = (props) => {
     setGroupId(e.target.value);
   };
 
-  const [groups, setGroups] = useState([]);
-  const getGroups = async () => {
-    const { data } = await axios.get(
-      "https://localhost:44336/api/grupe/GetAll"
-    );
-    setGroups(data);
-  };
-
   const onSave = () => {
     axios
-      .post(`https://localhost:44336/api/podgrupe/Insert`, {
+      .post(`https://localhost:44336/api/podgrupe/Edit`, {
         KlijentId: 3,
         Naziv: name,
         GrupaId: groupId,
@@ -49,9 +54,11 @@ const SubgroupFormAdd = (props) => {
       });
   };
 
-  useEffect(() => {
-    getGroups();
-  }, []);
+  const nesto = subgroups.forEach((subgroup) => {
+    if (parseInt(subgroup.id) === parseInt(subgroupId)) {
+      return [subgroup.naziv, subgroup.grupaId];
+    }
+  });
 
   return (
     <div>
@@ -85,7 +92,7 @@ const SubgroupFormAdd = (props) => {
             <div className="col-lg-6 col-md-6 col-10">
               <select onChange={handleGroupId} className="elements-input">
                 <option>Odaberi grupu</option>
-                {groups.map((group) => {
+                {subgroups.map((group) => {
                   if (group.klijentId === 3) {
                     return (
                       <option
@@ -120,4 +127,4 @@ const SubgroupFormAdd = (props) => {
   );
 };
 
-export default SubgroupFormAdd;
+export default SubgroupFormEdit;
