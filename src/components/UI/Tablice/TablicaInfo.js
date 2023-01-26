@@ -6,6 +6,17 @@ import { Link } from "react-router-dom";
 import Context from "../../../store/Context";
 
 const TablicaInfo = (props) => {
+  const [isClicked, setIsClicked] = useState(false);
+  const [statusId, setStatusId] = useState();
+
+  const handleClick = (e) => {
+    setIsClicked(!isClicked);
+    console.log(isClicked);
+    let id = e.target.value;
+    setStatusId(id);
+    console.log(e.target.value, "status");
+  };
+
   const { title, subtitle, data, editFormInfo } = useContext(Context);
   return (
     <div className="info-table-style">
@@ -28,15 +39,7 @@ const TablicaInfo = (props) => {
                   <tr key={data.id} id={data.id} className="tr-style">
                     <td className="thead-style">{data.naziv}</td>
                     <td className="thead-style">
-                      <Link
-                        to={`/grupe/uredi/${data.id}`}
-                        state={{
-                          name: data.naziv,
-                          title: { title },
-                          subtitle: { subtitle },
-                          editFormInfo: { editFormInfo },
-                        }}
-                      >
+                      <Link to={`/grupe/uredi/${data.id}`}>
                         <FontAwesomeIcon
                           title="Uredi"
                           className="actions-icon"
@@ -70,15 +73,7 @@ const TablicaInfo = (props) => {
                     <td className="thead-style">{data.naziv}</td>
                     <td className="thead-style">{data.grupa}</td>
                     <td className="thead-style">
-                      <Link
-                        to={`/podgrupe/uredi/${data.id}`}
-                        state={{
-                          name: data.naziv,
-                          title: { title },
-                          subtitle: { subtitle },
-                          editFormInfo: { editFormInfo },
-                        }}
-                      >
+                      <Link to={`/podgrupe/uredi/${data.id}`}>
                         <FontAwesomeIcon
                           title="Uredi"
                           className="actions-icon"
@@ -131,17 +126,17 @@ const TablicaInfo = (props) => {
                         title="Promijeni status"
                         className="actions-icon"
                         icon={faEllipsis}
+                        value={data.id}
+                        onClick={handleClick}
                       />
-                      <Link
-                        to={`/zaposlenici/uredi/${data.id}`}
-                        state={{
-                          name: data.imePrezime,
-                          username: data.ime,
-                          title: { title },
-                          subtitle: { subtitle },
-                          editFormInfo: { editFormInfo },
-                        }}
-                      >
+                      {isClicked ? (
+                        <>
+                          {console.log(data.id)}
+                          <div className="status-change">Promijeni status</div>
+                        </>
+                      ) : null}
+
+                      <Link to={`/zaposlenici/uredi/${data.id}`}>
                         <FontAwesomeIcon
                           title="Uredi"
                           className="actions-icon"

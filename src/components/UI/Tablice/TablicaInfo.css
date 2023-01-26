@@ -60,3 +60,11 @@ table {
         width: 100px;
     }
 }
+
+.status-change {
+    position: absolute;
+    border: 1px solid grey;
+    padding: 3px;
+    left: 100;
+    cursor: pointer;
+}

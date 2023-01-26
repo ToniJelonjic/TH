@@ -13,17 +13,26 @@ import { useLocation } from "react-router-dom";
 const SubgroupFormEdit = () => {
   const location = useLocation();
   let subgroupId = location.pathname.split("/")[3];
-  const [subgroups, setSubgroups] = useState([]);
-  const getSubgroups = async () => {
+  const [groups, setGroups] = useState([]);
+  const getGroups = async () => {
     const { data } = await axios.get(
-      "https://localhost:44336/api/podgrupe/GetAll"
+      "https://localhost:44336/api/grupe/GetAll"
     );
-    setSubgroups(data);
+    setGroups(data);
   };
 
   useEffect(() => {
-    getSubgroups();
+    getGroups();
+    getData();
   }, []);
+
+  const [data, setData] = useState([]);
+  const getData = async () => {
+    const { data } = await axios.get(
+      "https://localhost:44336/api/podgrupe/GetAll"
+    );
+    setData(data);
+  };
 
   const title = "Podrupe";
   const subtitle = "Nova podgrupa";
@@ -55,9 +64,9 @@ const SubgroupFormEdit = () => {
       });
   };
 
-  const nesto = subgroups.forEach((subgroup) => {
+  const nesto = data.forEach((subgroup) => {
     if (parseInt(subgroup.id) === parseInt(subgroupId)) {
-      return [subgroup.naziv, subgroup.grupaId];
+      return subgroup.naziv, subgroup.grupaId;
     }
   });
 
@@ -93,7 +102,7 @@ const SubgroupFormEdit = () => {
             <div className="col-lg-6 col-md-6 col-10">
               <select onChange={handleGroupId} className="elements-input">
                 <option>Odaberi grupu</option>
-                {subgroups.map((group) => {
+                {groups.map((group) => {
                   if (group.klijentId === 3) {
                     return (
                       <option

@@ -79,7 +79,7 @@ const EmployeeFormEdit = () => {
 
   const nesto = data.forEach((employee) => {
     if (parseInt(employee.id) === parseInt(employeeId)) {
-      return [employee.imePrezime, employee.ime];
+      return employee.imePrezime, employee.ime;
     }
   });
 
