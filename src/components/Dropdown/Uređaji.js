@@ -12,6 +12,7 @@ import TablicaUređaj from "../UI/Tablice/TablicaUređaj";
 import UserCard from "../UI/UserCard";
 import axios from "axios";
 import Context from "../../store/Context";
+import DeviceFilter from "../UI/Filters/DeviceFilter";
 
 const Uređaji = (props) => {
   const [data, setData] = useState([]);
@@ -77,23 +78,7 @@ const Uređaji = (props) => {
       <Wrapper>
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle} />
-        <div className="select-div">
-          <Groups
-            groupValue={groupValue}
-            handleGroupValue={handleGroupValue}
-            subGroupValue={subGroupValue}
-            handleSubGroupValue={handleSubGroupValue}
-          />
-          <Button />
-        </div>
-        <TablicaUređaj
-          groupValue={groupValue}
-          subGroupValue={subGroupValue}
-          title={title}
-          data={data}
-          params={params}
-        />
-        {/* <Uređaj params={params} /> */}
+        <DeviceFilter params={params} />
       </Wrapper>
 
       <Footer />

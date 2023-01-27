@@ -13,6 +13,7 @@ import ButtonSearch from "../UI/Buttons/ButtonSearch";
 import Dates from "../UI/Dates";
 import UserCard from "../UI/UserCard";
 import Context from "../../store/Context";
+import MeasuresFilter from "../UI/Filters/MeasuresFilter";
 
 const Mjerenja = () => {
   const [data, setData] = useState([]);
@@ -72,11 +73,12 @@ const Mjerenja = () => {
       <Wrapper>
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle} />
-        <div className="measure-div">
+        {/* <div className="measure-div">
           <Dates devices={data} />
           <Groups />
           <ButtonSearch />
-        </div>
+        </div> */}
+        <MeasuresFilter />
         <TablicaUređaj
           title={title}
           groupValue={groupValue}

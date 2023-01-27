@@ -13,6 +13,7 @@ import UserCard from "../UI/UserCard";
 import Warehouse from "../Warehouse/Warehouse";
 import Context from "../../store/Context";
 import axios from "axios";
+import ActivityFilter from "../UI/Filters/ActivityFilter";
 
 const Naslovnica = () => {
   const title = "Naslovnica";
@@ -136,7 +137,7 @@ const Naslovnica = () => {
           data={outOfRange}
         />
         <Podnaslov subtitle={subtitle[2]} />
-        <div className="select-div">
+        {/* <div className="select-div">
           <Groups
             groupValue={groupValue}
             handleGroupValue={handleGroupValue}
@@ -148,17 +149,18 @@ const Naslovnica = () => {
               Pretraži
             </button>
           </span>
-          {/* <Button /> */}
-        </div>
+        </div> */}
 
-        <Uređaj
+        <ActivityFilter subtitle={subtitle[2]} params={params2} />
+
+        {/* <Uređaj
           subtitle={subtitle[2]}
           params={params2}
           groupValue={groupValue}
           subGroupValue={subGroupValue}
           getData={getDeviceActivity}
           data={deviceActivity}
-        />
+        /> */}
       </Wrapper>
       <Footer />
     </Context.Provider>
