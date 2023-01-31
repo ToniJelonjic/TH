@@ -8,17 +8,27 @@ import Wrapper from "../Wrapper";
 import "./FormAdd.css";
 import UserCard from "../UserCard";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const GroupFormEdit = () => {
   const location = useLocation();
   let groupId = location.pathname.split("/")[3];
   const [data, setData] = useState([]);
+  //const [nesto, setNesto] = useState("");
+  const [name, setName] = useState("");
   const getData = async () => {
-    const { data } = await axios.get(
-      "https://localhost:44336/api/grupe/GetAll"
-    );
-    setData(data);
+    await axios
+      .get("https://localhost:44336/api/grupe/GetAll")
+      .then((data) => {
+        data.data.filter((group) => {
+          if (parseInt(group.id) === parseInt(groupId)) {
+            setName(group.naziv);
+          }
+        });
+      })
+      .catch((err) => {
+        console.log("error");
+      });
   };
 
   useEffect(() => {
@@ -26,9 +36,8 @@ const GroupFormEdit = () => {
   }, []);
 
   const title = "Grupe";
-  const subtitle = "Nova grupa";
+  const subtitle = "Uredi grupu";
 
-  const [name, setName] = useState(nameValue);
   const [nameValue, setNameValue] = useState("");
 
   const handleName = (e) => {
@@ -50,12 +59,6 @@ const GroupFormEdit = () => {
       });
   };
 
-  const nesto = data.forEach((group) => {
-    if (parseInt(group.id) === parseInt(groupId)) {
-      return group.naziv;
-    }
-  });
-
   return (
     <div>
       <Header />
@@ -74,7 +77,7 @@ const GroupFormEdit = () => {
                 className="elements-input"
                 type="text"
                 placeholder="Naziv"
-                //value={nesto}
+                value={name}
                 onChange={handleName}
               ></input>
               <div className="placeholder-div-style">Unesite naziv grupe</div>
@@ -84,10 +87,14 @@ const GroupFormEdit = () => {
         <div className="row save-discard-div">
           <div className="col-lg-2"></div>
           <div className="col-lg-6">
-            <button onClick={onSave} className="button-save-style">
-              Spremi
-            </button>
-            <button className="button-discard-style">Odbaci</button>
+            <Link to="/grupe">
+              <button onClick={onSave} className="button-save-style">
+                Spremi
+              </button>
+            </Link>
+            <Link to="/grupe">
+              <button className="button-discard-style">Odbaci</button>
+            </Link>
           </div>
         </div>
       </Wrapper>

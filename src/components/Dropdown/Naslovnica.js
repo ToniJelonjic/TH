@@ -62,59 +62,6 @@ const Naslovnica = () => {
     //console.log(subGroupValue);
   };
 
-  const getOutOfRange = async () => {
-    const res = await axios
-      .get(
-        "https://localhost:44336/api/Mjerenja/GetAllCritical",
-        // "https://localhost:44336/api/Logeri/ProvjeraMjerenja",
-        {
-          //ispraviti
-          //
-          //
-          data: { klijentID: 3 },
-          // {
-          //     klijentID: 3,
-          //     grupaId: 0,
-          //     podgrupaId: 0,
-          //   },
-          //
-          //
-          //
-        }
-      )
-      .then(function(response) {
-        //console.log(response.data, "response out of range");
-        setOutOfRange(response.data);
-      });
-  };
-
-  const getDeviceActivity = async () => {
-    const res = await axios
-      .get("https://localhost:44336/api/Logeri/ProvjeraMjerenja", {
-        //ispraviti
-        //
-        //
-        data:
-          // { klijentID: 3 }
-          {
-            klijentID: 3,
-            grupaId: groupValue,
-            podgrupaId: subGroupValue,
-          },
-        //
-        //
-        //
-      })
-      .then(function(response) {
-        setDeviceActivity(response.data);
-      });
-  };
-
-  useEffect(() => {
-    getOutOfRange();
-    getDeviceActivity();
-  }, []);
-
   return (
     <Context.Provider
       value={{
@@ -130,12 +77,7 @@ const Naslovnica = () => {
         <Podnaslov subtitle={subtitle[0]} />
         <Warehouse />
         <Podnaslov subtitle={subtitle[1]} />
-        <Uređaj
-          subtitle={subtitle[1]}
-          params={params1}
-          getData={getOutOfRange}
-          data={outOfRange}
-        />
+        <Uređaj params={params1} />
         <Podnaslov subtitle={subtitle[2]} />
         {/* <div className="select-div">
           <Groups

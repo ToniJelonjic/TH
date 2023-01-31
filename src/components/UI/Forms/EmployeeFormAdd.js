@@ -8,6 +8,7 @@ import Wrapper from "../Wrapper";
 import "./FormAdd.css";
 import UserCard from "../UserCard";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const EmployeeFormAdd = (props) => {
   const title = "Zaposlenici";
@@ -16,6 +17,7 @@ const EmployeeFormAdd = (props) => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [saved, setSaved] = useState(false);
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -48,6 +50,7 @@ const EmployeeFormAdd = (props) => {
         Active: false,
       })
       .then(function(response) {
+        setSaved(true);
         console.log(response);
       })
       .catch(function(error) {
@@ -113,10 +116,14 @@ const EmployeeFormAdd = (props) => {
         <div className="row save-discard-div">
           <div className="col-lg-2"></div>
           <div className="col-lg-6">
-            <button onClick={onSave} className="button-save-style">
-              Spremi
-            </button>
-            <button className="button-discard-style">Odbaci</button>
+            <Link to="/zaposlenici">
+              <button onClick={onSave} className="button-save-style">
+                Spremi
+              </button>
+            </Link>
+            <Link to="/zaposlenici">
+              <button className="button-discard-style">Odbaci</button>
+            </Link>
           </div>
         </div>
       </Wrapper>

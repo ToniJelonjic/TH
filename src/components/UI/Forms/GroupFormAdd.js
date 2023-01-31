@@ -8,6 +8,7 @@ import Wrapper from "../Wrapper";
 import "./FormAdd.css";
 import UserCard from "../UserCard";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const GroupFormAdd = () => {
   const title = "Grupe";
@@ -60,10 +61,14 @@ const GroupFormAdd = () => {
         <div className="row save-discard-div">
           <div className="col-lg-2"></div>
           <div className="col-lg-6">
-            <button onClick={onSave} className="button-save-style">
-              Spremi
-            </button>
-            <button className="button-discard-style">Odbaci</button>
+            <Link to="/grupe">
+              <button onClick={onSave} className="button-save-style">
+                Spremi
+              </button>
+            </Link>
+            <Link to="/grupe">
+              <button className="button-discard-style">Odbaci</button>
+            </Link>
           </div>
         </div>
       </Wrapper>

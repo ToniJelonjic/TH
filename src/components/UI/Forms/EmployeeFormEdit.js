@@ -8,31 +8,34 @@ import Wrapper from "../Wrapper";
 import "./FormAdd.css";
 import UserCard from "../UserCard";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const EmployeeFormEdit = () => {
   const location = useLocation();
   let employeeId = location.pathname.split("/")[3];
   const [data, setData] = useState([]);
   const getData = async () => {
-    const { data } = await axios.get(
-      "https://localhost:44336/api/korisnici/GetAll"
-    );
-    setData(data);
+    await axios
+      .get("https://localhost:44336/api/korisnici/GetAll")
+      .then((response) => {
+        response.data.filter((employee) => {
+          if (parseInt(employee.id) === parseInt(employeeId)) {
+            setName(employee.imePrezime.trimEnd());
+            setUsername(employee.ime.trimEnd());
+          }
+        });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
     getData();
   }, []);
 
-  //   const nesto = data.forEach((employee) => {
-  //     if (parseInt(employee.id) === parseInt(employeeId)) {
-  //       return [employee.imePrezime, employee.username];
-  //     }
-  //   });
-
   const title = "Zaposlenici";
-  const subtitle = "Novi zaposlenik";
+  const subtitle = "Uredi zaposlenika";
 
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
@@ -77,12 +80,6 @@ const EmployeeFormEdit = () => {
       });
   };
 
-  const nesto = data.forEach((employee) => {
-    if (parseInt(employee.id) === parseInt(employeeId)) {
-      return employee.imePrezime, employee.ime;
-    }
-  });
-
   return (
     <div>
       <Header />
@@ -102,6 +99,7 @@ const EmployeeFormEdit = () => {
                 type="text"
                 placeholder="Ime i prezime"
                 onChange={handleName}
+                value={name}
                 /* defaultValue={props.title === "Profil" ? "Admin" : null} */
               ></input>
               <div className="placeholder-div-style">Unesite ime i prezime</div>
@@ -117,6 +115,7 @@ const EmployeeFormEdit = () => {
                 type="text"
                 placeholder="Korisničko ime"
                 onChange={handleUsername}
+                value={username}
               ></input>
               <div className="placeholder-div-style">
                 Unesite korisničko ime
@@ -141,10 +140,14 @@ const EmployeeFormEdit = () => {
         <div className="row save-discard-div">
           <div className="col-lg-2"></div>
           <div className="col-lg-6">
-            <button onClick={onSave} className="button-save-style">
-              Spremi
-            </button>
-            <button className="button-discard-style">Odbaci</button>
+            <Link to="/zaposlenici">
+              <button onClick={onSave} className="button-save-style">
+                Spremi
+              </button>
+            </Link>
+            <Link to="/zaposlenici">
+              <button className="button-discard-style">Odbaci</button>
+            </Link>
           </div>
         </div>
       </Wrapper>

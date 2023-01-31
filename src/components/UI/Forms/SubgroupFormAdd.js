@@ -6,7 +6,6 @@ import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
 import "./FormAdd.css";
-import FormElements from "./FormElements";
 import UserCard from "../UserCard";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -108,10 +107,14 @@ const SubgroupFormAdd = (props) => {
         <div className="row save-discard-div">
           <div className="col-lg-2"></div>
           <div className="col-lg-6">
-            <button onClick={onSave} className="button-save-style">
-              Spremi
-            </button>
-            <button className="button-discard-style">Odbaci</button>
+            <Link to="/podgrupe">
+              <button onClick={onSave} className="button-save-style">
+                Spremi
+              </button>
+            </Link>
+            <Link to="/podgrupe">
+              <button className="button-discard-style">Odbaci</button>
+            </Link>
           </div>
         </div>
       </Wrapper>

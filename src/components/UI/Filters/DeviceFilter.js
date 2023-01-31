@@ -19,24 +19,24 @@ const DeviceFilter = (props) => {
 
   const handleGroupValue = (e) => {
     setGroupValue(e.target.value);
-    //console.log(groupValue);
+    console.log(e.target.value);
   };
 
   const handleSubGroupValue = (e) => {
     setSubGroupValue(e.target.value);
-    //console.log(subGroupValue);
+    console.log(e.target.value);
   };
 
   const getCurrentCondition = async () => {
-    const res = await axios
-      .get("https://localhost:44336/api/Logeri/GetAll", {
+    await axios
+      .get("https://localhost:44336/api/logeri/GetAll", {
         //ispraviti
         //
         //
-        data: {
+        params: {
           klijentID: 3,
-          grupaId: groupValue,
-          podgrupaId: subGroupValue,
+          grupaID: parseInt(groupValue),
+          podgrupaID: parseInt(subGroupValue),
         },
         //
         //
@@ -44,6 +44,8 @@ const DeviceFilter = (props) => {
       })
       .then(function(response) {
         setCurrentCondition(response.data);
+        console.log(response.data, "dddd");
+        localStorage.setItem("items", JSON.stringify(response.data));
       });
   };
 
@@ -60,6 +62,7 @@ const DeviceFilter = (props) => {
       .get("https://localhost:44336/api/podgrupe/GetAll")
       .then(function(response) {
         setSubGroups(response.data);
+        console.log(response.data, "fewmnflewnjgnwrjgnjkenjk");
       });
   };
 
@@ -67,12 +70,18 @@ const DeviceFilter = (props) => {
     getGroups();
     getSubGroups();
     getCurrentCondition();
+  }, []);
+
+  useEffect(() => {
+    let currentCondition = JSON.parse(localStorage.getItem("items"));
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(currentCondition.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(currentCondition.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, currentCondition]);
 
   const handlePageClick = (event) => {
+    let currentCondition = JSON.parse(localStorage.getItem("items"));
+    //let currentCondition = localStorage.getItem("items");
     const newOffset = (event.selected * itemsPerPage) % currentCondition.length;
     setItemOffset(newOffset);
   };
@@ -98,85 +107,24 @@ const DeviceFilter = (props) => {
             {item.active ? "Aktivan" : "Neaktivan"}
           </td>
           <td className="thead-style">
-            <Link
-              to={``}
-              // state={{
-              //   name: data.imePrezime,
-              //   username: data.ime,
-              //   title: { title },
-              //   subtitle: { subtitle },
-              //   editFormInfo: { editFormInfo },
-              // }}
-            ></Link>
+            <Link to={``}></Link>
             <div>
               <FontAwesomeIcon
                 title="Promijeni status"
                 className="actions-icon"
                 icon={faEllipsis}
               />
-              <FontAwesomeIcon
-                title="Uredi"
-                className="actions-icon"
-                icon={faEdit}
-              />
-            </div>
-          </td>
-        </tr>
-      );
-    }
-  });
-
-  const filteredItems = currentItems.map((item) => {
-    if (item.idklijenta === 3) {
-      if (
-        parseInt(item.grupaid) === parseInt(groupValue) &&
-        parseInt(item.podgrupaid) === parseInt(subGroupValue)
-      ) {
-        return (
-          <tr key={item.id}>
-            <td className="device-table-info">{item.naziv}</td>
-            <td className="device-table-info font">{item.klijent}</td>
-            <td className="device-table-info font">{item.email1}</td>
-            <td className="device-table-info font">{item.email2}</td>
-            <td className="device-table-info font">{item.tmin}</td>
-            <td className="device-table-info font">{item.tmax}</td>
-            <td className="device-table-info font">{item.hmin}</td>
-            <td className="device-table-info font">{item.hmax}</td>
-
-            <td
-              className={`device-table-info font ${
-                item.active ? "active-user" : "non-active-user"
-              }`}
-            >
-              {item.active ? "Aktivan" : "Neaktivan"}
-            </td>
-            <td className="thead-style">
-              <Link
-                to={``}
-                // state={{
-                //   name: data.imePrezime,
-                //   username: data.ime,
-                //   title: { title },
-                //   subtitle: { subtitle },
-                //   editFormInfo: { editFormInfo },
-                // }}
-              ></Link>
-              <div>
-                <FontAwesomeIcon
-                  title="Promijeni status"
-                  className="actions-icon"
-                  icon={faEllipsis}
-                />
+              <Link to={`/uredjaji/uredi/${item.id}`}>
                 <FontAwesomeIcon
                   title="Uredi"
                   className="actions-icon"
                   icon={faEdit}
                 />
-              </div>
-            </td>
-          </tr>
-        );
-      }
+              </Link>
+            </div>
+          </td>
+        </tr>
+      );
     }
   });
 
@@ -225,7 +173,11 @@ const DeviceFilter = (props) => {
           </select>
         </span>
         <span className="span-button-style">
-          <button onClick={getCurrentCondition} className="button-style">
+          <button
+            //onClick={() => getCurrentCondition(groupValue, subGroupValue)}
+            onClick={getCurrentCondition}
+            className="button-style"
+          >
             Pretraži
           </button>
         </span>
@@ -242,8 +194,9 @@ const DeviceFilter = (props) => {
                 );
               })}
             </tr>
-
-            {groupValue === 0 || subGroupValue === 0 ? items : filteredItems}
+            {items}
+            {/* {count >= 1 ? (isClicked ? filteredItems : filteredItems) : items} */}
+            {/* {groupValue === 0 || subGroupValue === 0 ? items : filteredItems} */}
           </tbody>
         </table>
         <div className="paginate-div-style">

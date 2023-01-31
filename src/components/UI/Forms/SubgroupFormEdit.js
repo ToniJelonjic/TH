@@ -8,17 +8,21 @@ import Wrapper from "../Wrapper";
 import "./FormAdd.css";
 import UserCard from "../UserCard";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const SubgroupFormEdit = () => {
   const location = useLocation();
   let subgroupId = location.pathname.split("/")[3];
   const [groups, setGroups] = useState([]);
   const getGroups = async () => {
-    const { data } = await axios.get(
-      "https://localhost:44336/api/grupe/GetAll"
-    );
-    setGroups(data);
+    await axios
+      .get("https://localhost:44336/api/grupe/GetAll")
+      .then((response) => {
+        setGroups(response.data);
+      })
+      .catch((err) => {
+        console.log("error");
+      });
   };
 
   useEffect(() => {
@@ -28,14 +32,24 @@ const SubgroupFormEdit = () => {
 
   const [data, setData] = useState([]);
   const getData = async () => {
-    const { data } = await axios.get(
-      "https://localhost:44336/api/podgrupe/GetAll"
-    );
-    setData(data);
+    await axios
+      .get("https://localhost:44336/api/podgrupe/GetAll")
+      .then((response) => {
+        response.data.filter((subgroup) => {
+          if (parseInt(subgroup.id) === parseInt(subgroupId)) {
+            setName(subgroup.naziv);
+            setGroupId(subgroup.grupaId);
+            console.log(subgroup.naziv);
+          }
+        });
+      })
+      .catch((err) => {
+        console.log("error");
+      });
   };
 
   const title = "Podrupe";
-  const subtitle = "Nova podgrupa";
+  const subtitle = "Uredi podgrupu";
 
   const [name, setName] = useState("");
   const [groupId, setGroupId] = useState();
@@ -64,12 +78,6 @@ const SubgroupFormEdit = () => {
       });
   };
 
-  const nesto = data.forEach((subgroup) => {
-    if (parseInt(subgroup.id) === parseInt(subgroupId)) {
-      return subgroup.naziv, subgroup.grupaId;
-    }
-  });
-
   return (
     <div>
       <Header />
@@ -89,6 +97,7 @@ const SubgroupFormEdit = () => {
                 type="text"
                 placeholder="Naziv"
                 onChange={handleName}
+                value={name}
               ></input>
               <div className="placeholder-div-style">
                 Unesite naziv podgrupe
@@ -101,11 +110,12 @@ const SubgroupFormEdit = () => {
             </label>
             <div className="col-lg-6 col-md-6 col-10">
               <select onChange={handleGroupId} className="elements-input">
-                <option>Odaberi grupu</option>
+                <option hidden>Odaberi grupu</option>
                 {groups.map((group) => {
                   if (group.klijentId === 3) {
                     return (
                       <option
+                        selected={group.id == groupId}
                         key={group.id}
                         value={group.id}
                         //defaultValue={}
@@ -125,10 +135,14 @@ const SubgroupFormEdit = () => {
         <div className="row save-discard-div">
           <div className="col-lg-2"></div>
           <div className="col-lg-6">
-            <button onClick={onSave} className="button-save-style">
-              Spremi
-            </button>
-            <button className="button-discard-style">Odbaci</button>
+            <Link to="/podgrupe">
+              <button onClick={onSave} className="button-save-style">
+                Spremi
+              </button>
+            </Link>
+            <Link to="/podgrupe">
+              <button className="button-discard-style">Odbaci</button>
+            </Link>
           </div>
         </div>
       </Wrapper>

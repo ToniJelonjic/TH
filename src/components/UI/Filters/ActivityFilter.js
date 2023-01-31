@@ -5,7 +5,6 @@ import ReactPaginate from "react-paginate";
 const ActivityFilter = (props) => {
   const [groupValue, setGroupValue] = useState(0);
   const [subGroupValue, setSubGroupValue] = useState(0);
-  const [deviceActivity, setDeviceActivity] = useState();
   const [subGroups, setSubGroups] = useState([]);
   const [groups, setGroups] = useState([]);
   //const [filteredData, setFilteredData] = useState();
@@ -18,24 +17,24 @@ const ActivityFilter = (props) => {
 
   const handleGroupValue = (e) => {
     setGroupValue(e.target.value);
-    //console.log(groupValue);
+    console.log(e.target.value);
   };
 
   const handleSubGroupValue = (e) => {
     setSubGroupValue(e.target.value);
-    //console.log(subGroupValue);
+    console.log(e.target.value);
   };
 
   const getCurrentCondition = async () => {
-    const res = await axios
-      .get("https://localhost:44336/api/Logeri/ProvjeraMjerenja", {
+    await axios
+      .get("https://localhost:44336/api/logeri/ProvjeraMjerenja", {
         //ispraviti
         //
         //
-        data: {
+        params: {
           klijentID: 3,
-          grupaId: groupValue,
-          podgrupaId: subGroupValue,
+          grupaID: parseInt(groupValue),
+          podgrupaID: parseInt(subGroupValue),
         },
         //
         //
@@ -43,6 +42,7 @@ const ActivityFilter = (props) => {
       })
       .then(function(response) {
         setCurrentCondition(response.data);
+        localStorage.setItem("items", JSON.stringify(response.data));
       });
   };
 
@@ -60,45 +60,23 @@ const ActivityFilter = (props) => {
     setSubGroups(data);
   };
 
-  //   const handleFilteredData = () => {
-  //     currentItems.map((device) => {
-  //       if (
-  //         parseInt(device.grupaid) === parseInt(groupValue) &&
-  //         parseInt(device.podgrupaid) === parseInt(subGroupValue)
-  //       ) {
-  //         setFilteredData(device);
-  //         // console.log(device.grupaid, "device");
-  //         // console.log(groupValue, "value");
-  //       }
-  //     });
-  //   };
+  useEffect(() => {
+    getGroups();
+    getSubGroups();
+    getCurrentCondition();
+  }, []);
 
-  // const subCategoriesArr = categories.map((category, index) => {
-  //   return(
-  //     category.categories.map((cat, i) => {
-  //       return(
-  //         cat.subCategories.filter(val => {
-  //           if (val.name.toLowerCase().includes(search.toLowerCase()))
-  //             return val
-  //         }).map(val => {
-  //           return (
-  //             <ul key={i} className="remove-bullets">
-  //               <li className='company-services'>
-  //                 <input
-  //                   type='checkbox'
-  //                   name={val.name}
-  //                   value={val.name}
-  //                   className="checkbox-margin"
-  //                 />
-  //                 {val.name}
-  //               </li>
-  //             </ul>
-  //           )
-  //         })
-  //       )
-  //     })
-  //   )
-  // })
+  useEffect(() => {
+    let currentCondition = JSON.parse(localStorage.getItem("items"));
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(currentCondition.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(currentCondition.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, currentCondition]);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % currentCondition.length;
+    setItemOffset(newOffset);
+  };
 
   const items = currentItems.map((loger) => {
     return (
@@ -111,13 +89,14 @@ const ActivityFilter = (props) => {
           <div className="manufactor-label">{loger.klijent}</div>
         </td>
         <td className="table-measure-data">
-          {loger.vrijemeMjerenja !== null ? (
+          {loger.vrijemeMjerenja == null ? (
+            ""
+          ) : (
             <>
+              {/* {loger.vrijemeMjerenja} */}
               {loger.vrijemeMjerenja.slice(0, 11).replace("T", " ")}
               {loger.vrijemeMjerenja.slice(11, 19)}
             </>
-          ) : (
-            ""
           )}
         </td>
         <td className="table-measure-data">{loger.tmin}</td>
@@ -127,47 +106,6 @@ const ActivityFilter = (props) => {
       </tr>
     );
   });
-
-  const filteredItems = currentItems.map((loger) => {
-    if (
-      parseInt(loger.grupaid) === parseInt(groupValue) &&
-      parseInt(loger.podgrupaid) === parseInt(subGroupValue)
-    ) {
-      return (
-        <tr
-          key={loger.id}
-          className={`border-bottom ${loger.valid ? "" : "activity-valid"}`}
-        >
-          <td className="table-measure-data-name">
-            <div className="table-activity-data-name">{loger.naziv}</div>
-            <div className="manufactor-label">{loger.klijent}</div>
-          </td>
-          <td className="table-measure-data">
-            {loger.vrijemeMjerenja.slice(0, 11).replace("T", " ")}
-            {loger.vrijemeMjerenja.slice(11, 19)}
-          </td>
-          <td className="table-measure-data">{loger.tmin}</td>
-          <td className="table-measure-data">{loger.tmax}</td>
-          <td className="table-measure-data">{loger.hmin}</td>
-          <td className="table-measure-data">{loger.hmax}</td>
-        </tr>
-      );
-    }
-  });
-
-  useEffect(() => {
-    getGroups();
-    getSubGroups();
-    getCurrentCondition();
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(currentCondition.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(currentCondition.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, currentCondition]);
-
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % currentCondition.length;
-    setItemOffset(newOffset);
-  };
 
   return (
     <div className="params-style">
@@ -231,7 +169,7 @@ const ActivityFilter = (props) => {
             })}
           </tr>
 
-          {groupValue === 0 || subGroupValue === 0 ? items : filteredItems}
+          {items}
 
           {/* {currentItems.map((loger) => {
             if (loger.idklijenta === 3) {
