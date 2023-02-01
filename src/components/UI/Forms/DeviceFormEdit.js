@@ -34,6 +34,8 @@ const DeviceFormEdit = () => {
   const [users, setUsers] = useState([]);
   const [groupValue, setGroupValue] = useState(0);
   const [subGroupValue, setSubGroupValue] = useState(0);
+  const [groupId, setGroupId] = useState();
+  const [subgroupId, setSubgroupId] = useState();
 
   const title = "Uređaji";
   const subtitle = "Uredi uređaj";
@@ -84,8 +86,8 @@ const DeviceFormEdit = () => {
         //
         params: {
           klijentID: 3,
-          grupaID: 0,
-          podgrupaID: 0,
+          grupaID: groupValue,
+          podgrupaID: subGroupValue,
         },
         //
         //
@@ -93,7 +95,26 @@ const DeviceFormEdit = () => {
       })
       .then(function(response) {
         setData(response.data);
+        response.data.filter((device) => {
+          if (parseInt(device.id) === parseInt(deviceId)) {
+            setName(device.naziv.trim());
+            setGroupId(device.grupaid);
+            setSubgroupId(device.podgrupaid);
+            console.log(device.grupaid, "grupa");
+            console.log(device.podgrupaid, "podgrupa");
+            setEmail1(device.email1.trim());
+            setEmail2(device.email2.trim());
+            setMinTemp(device.tmin);
+            setMaxTemp(device.tmax);
+            setMinH(device.hmin);
+            setMaxH(device.hmax);
+            setUsers(device.korisnici);
+            setDeviceCode(device.sifraUredjaja);
+          }
+        });
+
         console.log(response.data, "dddd");
+
         //localStorage.setItem("items", JSON.stringify(response.data));
       });
   };
@@ -111,7 +132,6 @@ const DeviceFormEdit = () => {
       .get("https://localhost:44336/api/podgrupe/GetAll")
       .then(function(response) {
         setSubgroups(response.data);
-        console.log(response.data, "fewmnflewnjgnwrjgnjkenjk");
       });
   };
 
@@ -120,6 +140,14 @@ const DeviceFormEdit = () => {
     getSubgroups();
     getData();
   }, []);
+
+  // data.forEach((device) => {
+  //   if (device.id == deviceId) {
+  //     device.korisnici.forEach((user) => {
+  //       console.log(user.ime);
+  //     });
+  //   }
+  // });
 
   const onSave = () => {
     axios
@@ -130,18 +158,18 @@ const DeviceFormEdit = () => {
         //kada
         //se uradi
         //login
-        Id: 414,
+        Id: parseInt(deviceId),
         Naziv: name,
         Idklijenta: 3,
         Idposlovnice: null,
-        Tmin: minTemp,
-        Tmax: maxTemp,
-        Hmin: minH,
-        Hmax: maxH,
+        Tmin: parseFloat(minTemp),
+        Tmax: parseFloat(maxTemp),
+        Hmin: parseFloat(minH),
+        Hmax: parseFloat(maxH),
         Email1: email1,
         Email2: email2,
-        Grupaid: groupValue,
-        Podgrupaid: subGroupValue,
+        Grupaid: parseInt(groupValue),
+        Podgrupaid: parseInt(subGroupValue),
         Active: true, //?????????
         SifraUredjaja: deviceCode,
       })
@@ -183,7 +211,7 @@ const DeviceFormEdit = () => {
             </label>
             <div className="col-lg-6 col-md-6 col-10">
               <select
-                value={groupValue}
+                value={groupId}
                 onChange={handleGroupValue}
                 className="elements-input"
               >
@@ -192,7 +220,7 @@ const DeviceFormEdit = () => {
                   if (group.klijentId === 3) {
                     return (
                       <option
-                        //selected={group.id == groupId}
+                        selected={group.id == groupId}
                         key={group.id}
                         value={group.id}
                       >
@@ -216,7 +244,7 @@ const DeviceFormEdit = () => {
               <select
                 className="elements-input"
                 onChange={handleSubGroupValue}
-                value={subGroupValue}
+                value={subgroupId}
               >
                 <option hidden defaultValue="Odaberite podgrupu">
                   Odaberite podgrupu
@@ -224,7 +252,11 @@ const DeviceFormEdit = () => {
                 {subgroups.map((subGroup) => {
                   if (subGroup.klijentId === 3) {
                     return (
-                      <option value={subGroup.id} key={subGroup.id}>
+                      <option
+                        selected={subGroup.id == subgroupId}
+                        value={subGroup.id}
+                        key={subGroup.id}
+                      >
                         {subGroup.naziv}
                       </option>
                     );
@@ -316,7 +348,7 @@ const DeviceFormEdit = () => {
                 onChange={handleMinH}
               ></input>
               <div className="placeholder-div-style">
-                Unesite maksimalnu vlažnost
+                Unesite minimalnu vlažnost
               </div>
             </div>
           </div>
@@ -338,16 +370,36 @@ const DeviceFormEdit = () => {
               </div>
             </div>
           </div>
+
+          <div className="row elements-div-style">
+            <label className="col-lg-2 col-md-2 col-2 element-label-style">
+              Korisnici:
+            </label>
+            <div className="col-lg-6 col-md-6 col-10 mt-2">
+              {users.map((user) => {
+                return (
+                  <>
+                    <input
+                      checked={user.checked}
+                      className="check"
+                      type="checkbox"
+                    />
+                    <span className="users-style">{user.ime}</span>
+                  </>
+                );
+              })}
+            </div>
+          </div>
         </form>
         <div className="row save-discard-div">
           <div className="col-lg-2"></div>
           <div className="col-lg-6">
-            <Link to="/uredjaji">
+            <Link to="/uređaji">
               <button onClick={onSave} className="button-save-style">
                 Spremi
               </button>
             </Link>
-            <Link to="/uredjaji">
+            <Link to="/uređaji">
               <button className="button-discard-style">Odbaci</button>
             </Link>
           </div>

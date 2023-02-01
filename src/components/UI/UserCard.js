@@ -1,16 +1,19 @@
 import React from "react";
 import "./UserCard.css";
-import ButtonLogOut from "./Buttons/ButtonLogOut";
-import ButtonProfile from "./Buttons/ButtonProfile";
+import { Link } from "react-router-dom";
 
 const UserCard = () => {
   return (
-    <div className={`row user-card-style none`}>
+    <div className={`row user-card-style`}>
       <div className="col-6 profile-style-div">
-      <ButtonProfile />
+        <Link className="link-profile-style" to={`/profil`}>
+          <button className="profile-button-style">Idi na profil</button>
+        </Link>
       </div>
       <div className="col-6 logout-style-div">
-      <ButtonLogOut />
+        <Link className="link-profile-style" to={`/prijava`}>
+          <button className="logout-button-style">Odjava</button>
+        </Link>
       </div>
     </div>
   );

@@ -114,7 +114,7 @@ const DeviceFilter = (props) => {
                 className="actions-icon"
                 icon={faEllipsis}
               />
-              <Link to={`/uredjaji/uredi/${item.id}`}>
+              <Link to={`/uređaji/uredi/${item.id}`}>
                 <FontAwesomeIcon
                   title="Uredi"
                   className="actions-icon"

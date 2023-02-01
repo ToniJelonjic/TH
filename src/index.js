@@ -45,7 +45,7 @@ root.render(
         <Route path="/grupe/uredi/:id" element={<GroupFormEdit />} />
         <Route path="/podgrupe/uredi/:id" element={<SubgroupFormEdit />} />
         <Route path="/zaposlenici/uredi/:id" element={<EmployeeFormEdit />} />
-        <Route path="/uredjaji/uredi/:id" element={<DeviceFormEdit />} />
+        <Route path="/uređaji/uredi/:id" element={<DeviceFormEdit />} />
         <Route path="/profil" element={<Profile />} />
         <Route path="/prijava" element={<Login />} />
       </Routes>
