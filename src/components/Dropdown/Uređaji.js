@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import Header from "../Header/Header";
 import Dropdown from "./Dropdown";
 import Footer from "../Footer/Footer";
-import Uređaj from "../UI/Uređaj";
+//import Uređaj from "../UI/Uređaj";
 import Naslov from "../UI/Naslovi/Naslov";
 import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
-import Groups from "../UI/Groups";
-import Button from "../UI/Buttons/ButtonSearch";
-import TablicaUređaj from "../UI/Tablice/TablicaUređaj";
+//import Groups from "../UI/Groups";
+//import Button from "../UI/Buttons/ButtonSearch";
+//import TablicaUređaj from "../UI/Tablice/TablicaUređaj";
 import UserCard from "../UI/UserCard";
 import axios from "axios";
 import Context from "../../store/Context";
@@ -25,7 +25,6 @@ const Uređaji = (props) => {
 
   useEffect(() => {
     getData();
-    //console.log(data[0])
   }, []);
 
   const title = "Uređaji";
@@ -44,24 +43,6 @@ const Uređaji = (props) => {
       "Status",
       "Akcije",
     ],
-  };
-
-  const devices = {
-    deviceId: Math.random(),
-    title: "Uređaji",
-  };
-
-  const [groupValue, setGroupValue] = useState("");
-  const [subGroupValue, setSubGroupValue] = useState("");
-
-  const handleGroupValue = (e) => {
-    setGroupValue(e.target.value);
-    //console.log(groupValue);
-  };
-
-  const handleSubGroupValue = (e) => {
-    setSubGroupValue(e.target.value);
-    //console.log(subGroupValue);
   };
 
   const [isUserClicked, setIsUserClicked] = useState(false);

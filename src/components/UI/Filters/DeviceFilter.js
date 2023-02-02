@@ -44,13 +44,13 @@ const DeviceFilter = (props) => {
       })
       .then(function(response) {
         setCurrentCondition(response.data);
-        console.log(response.data, "dddd");
+        //console.log(response.data, "dddd");
         localStorage.setItem("items", JSON.stringify(response.data));
       });
   };
 
   const getGroups = async () => {
-    const res = await axios
+    await axios
       .get("https://localhost:44336/api/grupe/GetAll")
       .then(function(response) {
         setGroups(response.data);
@@ -58,11 +58,11 @@ const DeviceFilter = (props) => {
   };
 
   const getSubGroups = async () => {
-    const res = await axios
+    await axios
       .get("https://localhost:44336/api/podgrupe/GetAll")
       .then(function(response) {
         setSubGroups(response.data);
-        console.log(response.data, "fewmnflewnjgnwrjgnjkenjk");
+        //console.log(response.data, "fewmnflewnjgnwrjgnjkenjk");
       });
   };
 
@@ -86,47 +86,49 @@ const DeviceFilter = (props) => {
     setItemOffset(newOffset);
   };
 
-  const items = currentItems.map((item) => {
-    if (item.idklijenta === 3) {
-      return (
-        <tr key={item.id}>
-          <td className="device-table-info">{item.naziv}</td>
-          <td className="device-table-info font">{item.klijent}</td>
-          <td className="device-table-info font">{item.email1}</td>
-          <td className="device-table-info font">{item.email2}</td>
-          <td className="device-table-info font">{item.tmin}</td>
-          <td className="device-table-info font">{item.tmax}</td>
-          <td className="device-table-info font">{item.hmin}</td>
-          <td className="device-table-info font">{item.hmax}</td>
+  const items = currentItems
+    .sort((a, b) => a.id - b.id)
+    .map((item) => {
+      if (item.idklijenta === 3) {
+        return (
+          <tr key={item.id}>
+            <td className="device-table-info">{item.naziv}</td>
+            <td className="device-table-info font">{item.klijent}</td>
+            <td className="device-table-info font">{item.email1}</td>
+            <td className="device-table-info font">{item.email2}</td>
+            <td className="device-table-info font">{item.tmin}</td>
+            <td className="device-table-info font">{item.tmax}</td>
+            <td className="device-table-info font">{item.hmin}</td>
+            <td className="device-table-info font">{item.hmax}</td>
 
-          <td
-            className={`device-table-info font ${
-              item.active ? "active-user" : "non-active-user"
-            }`}
-          >
-            {item.active ? "Aktivan" : "Neaktivan"}
-          </td>
-          <td className="thead-style">
-            <Link to={``}></Link>
-            <div>
-              <FontAwesomeIcon
-                title="Promijeni status"
-                className="actions-icon"
-                icon={faEllipsis}
-              />
-              <Link to={`/uređaji/uredi/${item.id}`}>
+            <td
+              className={`device-table-info font ${
+                item.active ? "active-user" : "non-active-user"
+              }`}
+            >
+              {item.active ? "Aktivan" : "Neaktivan"}
+            </td>
+            <td className="thead-style">
+              <Link to={``}></Link>
+              <div>
                 <FontAwesomeIcon
-                  title="Uredi"
+                  title="Promijeni status"
                   className="actions-icon"
-                  icon={faEdit}
+                  icon={faEllipsis}
                 />
-              </Link>
-            </div>
-          </td>
-        </tr>
-      );
-    }
-  });
+                <Link to={`/uređaji/uredi/${item.id}`}>
+                  <FontAwesomeIcon
+                    title="Uredi"
+                    className="actions-icon"
+                    icon={faEdit}
+                  />
+                </Link>
+              </div>
+            </td>
+          </tr>
+        );
+      }
+    });
 
   return (
     <>

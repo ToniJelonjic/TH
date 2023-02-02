@@ -4,17 +4,7 @@ import Context from "../../../store/Context";
 import "./ButtonAdd.css";
 
 const ButtonAdd = (props) => {
-  const {
-    title,
-    subtitle,
-    formInfo,
-    addButton,
-    handleIsAddClicked,
-  } = useContext(Context);
-  const [slag, setSlag] = useState("");
-  useEffect(() => {
-    setSlag(subtitle.toLowerCase());
-  }, []);
+  const { subtitle, addButton, handleIsAddClicked } = useContext(Context);
 
   return (
     <>

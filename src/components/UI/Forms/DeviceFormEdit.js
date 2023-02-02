@@ -12,15 +12,9 @@ import { Link, useLocation } from "react-router-dom";
 
 const DeviceFormEdit = () => {
   const location = useLocation();
-  //console.log(location.pathname.split("/")[3]);
   let deviceId = location.pathname.split("/")[3];
 
-  //postaviti
-  //sve
-  //varijable
-  //u zahtjevu
-
-  const [data, setData] = useState([]);
+  //const [data, setData] = useState([]);
   const [name, setName] = useState("");
   const [groups, setGroups] = useState([]); //u zahtjevu
   const [subgroups, setSubgroups] = useState([]); //u zahtjevu
@@ -36,6 +30,7 @@ const DeviceFormEdit = () => {
   const [subGroupValue, setSubGroupValue] = useState(0);
   const [groupId, setGroupId] = useState();
   const [subgroupId, setSubgroupId] = useState();
+  const [status, setStatus] = useState();
 
   const title = "Uređaji";
   const subtitle = "Uredi uređaj";
@@ -94,7 +89,7 @@ const DeviceFormEdit = () => {
         //
       })
       .then(function(response) {
-        setData(response.data);
+        //setData(response.data);
         response.data.filter((device) => {
           if (parseInt(device.id) === parseInt(deviceId)) {
             setName(device.naziv.trim());
@@ -113,14 +108,14 @@ const DeviceFormEdit = () => {
           }
         });
 
-        console.log(response.data, "dddd");
+        //console.log(response.data, "dddd");
 
         //localStorage.setItem("items", JSON.stringify(response.data));
       });
   };
 
   const getGroups = async () => {
-    const res = await axios
+    await axios
       .get("https://localhost:44336/api/grupe/GetAll")
       .then(function(response) {
         setGroups(response.data);
@@ -128,7 +123,7 @@ const DeviceFormEdit = () => {
   };
 
   const getSubgroups = async () => {
-    const res = await axios
+    await axios
       .get("https://localhost:44336/api/podgrupe/GetAll")
       .then(function(response) {
         setSubgroups(response.data);
@@ -174,6 +169,7 @@ const DeviceFormEdit = () => {
         SifraUredjaja: deviceCode,
       })
       .then(function(response) {
+        setStatus(response.status);
         console.log(response);
       })
       .catch(function(error) {
@@ -400,16 +396,17 @@ const DeviceFormEdit = () => {
         <div className="row save-discard-div">
           <div className="col-lg-2"></div>
           <div className="col-lg-6">
-            <Link to="/uređaji">
-              <button onClick={onSave} className="button-save-style">
-                Spremi
-              </button>
-            </Link>
+            <button onClick={onSave} className="button-save-style">
+              Spremi
+            </button>
             <Link to="/uređaji">
               <button className="button-discard-style">Odbaci</button>
             </Link>
           </div>
         </div>
+        {status == 200 && (
+          <div className="success-div">Uspješno ste uredili podatke.</div>
+        )}
       </Wrapper>
       <Footer />
     </div>

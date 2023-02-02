@@ -6,11 +6,9 @@ import Naslov from "../UI/Naslovi/Naslov";
 import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
 import TablicaInfo from "../UI/Tablice/TablicaInfo";
-import ButtonAdd from "../UI/Buttons/ButtonAdd";
 import UserCard from "../UI/UserCard";
 import axios from "axios";
 import Context from "../../store/Context";
-import FormAdd from "../UI/Forms/FormAdd";
 
 const Grupe = (props) => {
   const [isAddClicked, setIsAddClicked] = useState(false);

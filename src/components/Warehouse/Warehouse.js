@@ -28,6 +28,7 @@ const Warehouse = (props) => {
       })
       .then(function(response) {
         setCurrentCondition(response.data);
+        //console.log(response.data, "ddd");
       });
   };
 
@@ -92,8 +93,22 @@ const Warehouse = (props) => {
                     <div className="device-temp-style">{device.h}</div>
                   </div>
                 </div>
-                <div className="row"></div>
-                <div className="device-status">Pregledaj stanje</div>
+                <div className="row">
+                  <div className="align-items col-lg-6 col-md-6 col-6">
+                    Raspon (T)
+                  </div>
+                  <div className="align-items col-lg-6 col-md-6 col-6">
+                    Raspon (H)
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="align-items col-lg-6 col-md-6 col-6">
+                    {device.tmin} - {device.tmax}
+                  </div>
+                  <div className="align-items col-lg-6 col-md-6 col-6">
+                    {device.hmin} - {device.hmax}
+                  </div>
+                </div>
               </div>
             </div>
           );

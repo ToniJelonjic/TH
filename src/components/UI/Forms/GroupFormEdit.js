@@ -13,9 +13,9 @@ import { Link, useLocation } from "react-router-dom";
 const GroupFormEdit = () => {
   const location = useLocation();
   let groupId = location.pathname.split("/")[3];
-  const [data, setData] = useState([]);
-  //const [nesto, setNesto] = useState("");
   const [name, setName] = useState("");
+  const [status, setStatus] = useState();
+
   const getData = async () => {
     await axios
       .get("https://localhost:44336/api/grupe/GetAll")
@@ -38,8 +38,6 @@ const GroupFormEdit = () => {
   const title = "Grupe";
   const subtitle = "Uredi grupu";
 
-  const [nameValue, setNameValue] = useState("");
-
   const handleName = (e) => {
     setName(e.target.value);
   };
@@ -52,6 +50,7 @@ const GroupFormEdit = () => {
         Naziv: name,
       })
       .then(function(response) {
+        setStatus(response.status);
         console.log(response);
       })
       .catch(function(error) {
@@ -93,16 +92,17 @@ const GroupFormEdit = () => {
         <div className="row save-discard-div">
           <div className="col-lg-2"></div>
           <div className="col-lg-6">
-            <Link to="/grupe">
-              <button onClick={onSave} className="button-save-style">
-                Spremi
-              </button>
-            </Link>
+            <button onClick={onSave} className="button-save-style">
+              Spremi
+            </button>
             <Link to="/grupe">
               <button className="button-discard-style">Odbaci</button>
             </Link>
           </div>
         </div>
+        {status == 200 && (
+          <div className="success-div">Uspješno ste uredili podatke.</div>
+        )}
       </Wrapper>
       <Footer />
     </div>

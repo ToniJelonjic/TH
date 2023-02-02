@@ -40,6 +40,7 @@ const EmployeeFormEdit = () => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [status, setStatus] = useState();
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -74,6 +75,7 @@ const EmployeeFormEdit = () => {
       })
       .then(function(response) {
         console.log(response);
+        setStatus(response.status);
       })
       .catch(function(error) {
         console.log(error);
@@ -146,16 +148,17 @@ const EmployeeFormEdit = () => {
         <div className="row save-discard-div">
           <div className="col-lg-2"></div>
           <div className="col-lg-6">
-            <Link to="/zaposlenici">
-              <button onClick={onSave} className="button-save-style">
-                Spremi
-              </button>
-            </Link>
+            <button onClick={onSave} className="button-save-style">
+              Spremi
+            </button>
             <Link to="/zaposlenici">
               <button className="button-discard-style">Odbaci</button>
             </Link>
           </div>
         </div>
+        {status == 200 && (
+          <div className="success-div">Uspješno ste uredili podatke.</div>
+        )}
       </Wrapper>
       <Footer />
     </div>

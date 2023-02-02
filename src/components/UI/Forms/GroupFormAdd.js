@@ -15,6 +15,7 @@ const GroupFormAdd = () => {
   const subtitle = "Nova grupa";
 
   const [name, setName] = useState("");
+  const [status, setStatus] = useState();
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -27,6 +28,7 @@ const GroupFormAdd = () => {
         Naziv: name,
       })
       .then(function(response) {
+        setStatus(response.status);
         console.log(response);
       })
       .catch(function(error) {
@@ -67,16 +69,17 @@ const GroupFormAdd = () => {
         <div className="row save-discard-div">
           <div className="col-lg-2"></div>
           <div className="col-lg-6">
-            <Link to="/grupe">
-              <button onClick={onSave} className="button-save-style">
-                Spremi
-              </button>
-            </Link>
+            <button onClick={onSave} className="button-save-style">
+              Spremi
+            </button>
             <Link to="/grupe">
               <button className="button-discard-style">Odbaci</button>
             </Link>
           </div>
         </div>
+        {status == 200 && (
+          <div className="success-div">Uspješno ste dodali novu grupu.</div>
+        )}
       </Wrapper>
       <Footer />
     </div>

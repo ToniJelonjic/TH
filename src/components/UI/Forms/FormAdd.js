@@ -13,7 +13,7 @@ import UserCard from "../UserCard";
 import Context from "../../../store/Context";
 
 const FormAdd = (props) => {
-  console.log(props, "props form add");
+  //console.log(props, "props form add");
   const { title, subtitle, formInfo, name, setName, onSave } = useContext(
     Context
   );

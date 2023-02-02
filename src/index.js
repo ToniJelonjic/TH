@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
 import "./index.css";
-import App from "./App";
+//import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "typeface-roboto";
 import "@fontsource/poppins";
@@ -22,7 +22,7 @@ import Profile from "./components/Profile/Profile";
 import Login from "./components/UI/Login/Login";
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap/dist/css/bootstrap.css";
-import FormEdit from "./components/UI/Forms/FormEdit";
+//import FormEdit from "./components/UI/Forms/FormEdit";
 import DeviceFormEdit from "./components/UI/Forms/DeviceFormEdit";
 //import AuthContext from "./store/auth-context";
 

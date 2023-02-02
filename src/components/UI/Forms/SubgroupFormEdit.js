@@ -30,7 +30,7 @@ const SubgroupFormEdit = () => {
     getData();
   }, []);
 
-  const [data, setData] = useState([]);
+  //const [data, setData] = useState([]);
   const getData = async () => {
     await axios
       .get("https://localhost:44336/api/podgrupe/GetAll")
@@ -39,7 +39,7 @@ const SubgroupFormEdit = () => {
           if (parseInt(subgroup.id) === parseInt(subgroupId)) {
             setName(subgroup.naziv);
             setGroupId(subgroup.grupaId);
-            console.log(subgroup.naziv);
+            //console.log(subgroup.naziv);
           }
         });
       })
@@ -53,6 +53,7 @@ const SubgroupFormEdit = () => {
 
   const [name, setName] = useState("");
   const [groupId, setGroupId] = useState();
+  const [status, setStatus] = useState();
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -71,6 +72,7 @@ const SubgroupFormEdit = () => {
         GrupaId: groupId,
       })
       .then(function(response) {
+        setStatus(response.status);
         console.log(response);
       })
       .catch(function(error) {
@@ -141,16 +143,17 @@ const SubgroupFormEdit = () => {
         <div className="row save-discard-div">
           <div className="col-lg-2"></div>
           <div className="col-lg-6">
-            <Link to="/podgrupe">
-              <button onClick={onSave} className="button-save-style">
-                Spremi
-              </button>
-            </Link>
+            <button onClick={onSave} className="button-save-style">
+              Spremi
+            </button>
             <Link to="/podgrupe">
               <button className="button-discard-style">Odbaci</button>
             </Link>
           </div>
         </div>
+        {status == 200 && (
+          <div className="success-div">Uspješno ste uredili podatke.</div>
+        )}
       </Wrapper>
       <Footer />
     </div>
