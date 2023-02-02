@@ -1,5 +1,6 @@
 .burger {
     display: none;
+    cursor: pointer;
   }
   
   .burger div {

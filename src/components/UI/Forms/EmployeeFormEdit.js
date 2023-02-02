@@ -80,11 +80,17 @@ const EmployeeFormEdit = () => {
       });
   };
 
+  const [isUserClicked, setIsUserClicked] = useState(false);
+
+  const handleUserClick = () => {
+    setIsUserClicked(!isUserClicked);
+  };
+
   return (
     <div>
-      <Header />
+      <Header onClick={handleUserClick} />
       <Dropdown />
-      <UserCard />
+      {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle} />

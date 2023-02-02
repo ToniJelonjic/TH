@@ -2,17 +2,11 @@ import React, { useContext, useState } from "react";
 import "./Hamburger.css";
 import AuthContext from "../../store/Context";
 
-const Hamburger = () => {
-  const { isOpen, handleIsOpen } = useContext(AuthContext);
-  //console.log(isOpen)
-  const [a, setA] = useState(false);
-  const handleA = () => {
-    setA(!a);
-    console.log(a);
-  };
+const Hamburger = (props) => {
+  const { onBurger } = props;
 
   return (
-    <div className="burger" onClick={handleA}>
+    <div className="burger" onClick={onBurger}>
       <div></div>
       <div></div>
       <div></div>

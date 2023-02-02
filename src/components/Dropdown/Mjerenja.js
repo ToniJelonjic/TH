@@ -59,6 +59,12 @@ const Mjerenja = () => {
     ],
   };
 
+  const [isUserClicked, setIsUserClicked] = useState(false);
+
+  const handleUserClick = () => {
+    setIsUserClicked(!isUserClicked);
+  };
+
   return (
     <Context.Provider
       value={{
@@ -67,9 +73,9 @@ const Mjerenja = () => {
         subtitle,
       }}
     >
-      <Header />
+      <Header onClick={handleUserClick} />
       <Dropdown />
-      <UserCard />
+      {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle} />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../Header/Header";
 import Dropdown from "../Dropdown/Dropdown";
 import UserCard from "../UI/UserCard";
@@ -11,11 +11,18 @@ import ButtonSave from "../UI/Buttons/ButtonSave";
 const Profile = (props) => {
   const title = "Profil";
   const subtitle = "Profil";
+
+  const [isUserClicked, setIsUserClicked] = useState(false);
+
+  const handleUserClick = () => {
+    setIsUserClicked(!isUserClicked);
+  };
+
   return (
     <>
-      <Header />
+      <Header onClick={handleUserClick} />
       <Dropdown />
-      <UserCard />
+      {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle} />

@@ -62,6 +62,18 @@ const Naslovnica = () => {
     //console.log(subGroupValue);
   };
 
+  const [isUserClicked, setIsUserClicked] = useState(false);
+  const [isBurgerClicked, setIsBurgerClicked] = useState(false);
+
+  const handleUserClick = () => {
+    setIsUserClicked(!isUserClicked);
+  };
+
+  const handleBurgerClick = () => {
+    setIsBurgerClicked(!isBurgerClicked);
+    console.log(isBurgerClicked);
+  };
+
   return (
     <Context.Provider
       value={{
@@ -69,9 +81,10 @@ const Naslovnica = () => {
         subtitle,
       }}
     >
-      <Header />
-      <Dropdown />
-      <UserCard />
+      <Header onClick={handleUserClick} onBurger={handleBurgerClick} />
+      <Dropdown isClicked={isBurgerClicked} handleClick={handleBurgerClick} />
+      {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
+
       <Wrapper>
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle[0]} />
