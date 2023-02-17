@@ -25,30 +25,33 @@ import "bootstrap/dist/css/bootstrap.css";
 //import FormEdit from "./components/UI/Forms/FormEdit";
 import DeviceFormEdit from "./components/UI/Forms/DeviceFormEdit";
 //import AuthContext from "./store/auth-context";
+import { AuthProvider } from "./context/AuthProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Navigate to="/naslovnica" />} exact />
-        {/* <RedirectFunction exact from='/' to='/naslovnica' />  */}
-        <Route path="/naslovnica" element={<Homepage />} />
-        <Route path="/uređaji" element={<Uređaji />} />
-        <Route path="/mjerenja" element={<Mjerenja />} />
-        <Route path="/grupe" element={<Grupe />} />
-        <Route path="/podgrupe" element={<Podgrupe />} />
-        <Route path="/zaposlenici" element={<Zaposlenici />} />
-        <Route path="/grupe/dodaj" element={<GroupFormAdd />} />
-        <Route path="/podgrupe/dodaj" element={<SubgroupFormAdd />} />
-        <Route path="/zaposlenici/dodaj" element={<EmployeeFormAdd />} />
-        <Route path="/grupe/uredi/:id" element={<GroupFormEdit />} />
-        <Route path="/podgrupe/uredi/:id" element={<SubgroupFormEdit />} />
-        <Route path="/zaposlenici/uredi/:id" element={<EmployeeFormEdit />} />
-        <Route path="/uređaji/uredi/:id" element={<DeviceFormEdit />} />
-        <Route path="/profil" element={<Profile />} />
-        <Route path="/prijava" element={<Login />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/*" element={<Navigate to="/naslovnica" />} exact />
+          {/* <RedirectFunction exact from='/' to='/naslovnica' />  */}
+          <Route path="/naslovnica" element={<Homepage />} />
+          <Route path="/uređaji" element={<Uređaji />} />
+          <Route path="/mjerenja" element={<Mjerenja />} />
+          <Route path="/grupe" element={<Grupe />} />
+          <Route path="/podgrupe" element={<Podgrupe />} />
+          <Route path="/zaposlenici" element={<Zaposlenici />} />
+          <Route path="/grupe/dodaj" element={<GroupFormAdd />} />
+          <Route path="/podgrupe/dodaj" element={<SubgroupFormAdd />} />
+          <Route path="/zaposlenici/dodaj" element={<EmployeeFormAdd />} />
+          <Route path="/grupe/uredi/:id" element={<GroupFormEdit />} />
+          <Route path="/podgrupe/uredi/:id" element={<SubgroupFormEdit />} />
+          <Route path="/zaposlenici/uredi/:id" element={<EmployeeFormEdit />} />
+          <Route path="/uređaji/uredi/:id" element={<DeviceFormEdit />} />
+          <Route path="/profil" element={<Profile />} />
+          <Route path="/prijava" element={<Login />} />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

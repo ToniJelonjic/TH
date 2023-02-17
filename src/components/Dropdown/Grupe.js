@@ -7,7 +7,7 @@ import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
 import TablicaInfo from "../UI/Tablice/TablicaInfo";
 import UserCard from "../UI/UserCard";
-import axios from "axios";
+import axios from "../../api/axios";
 import Context from "../../store/Context";
 
 const Grupe = (props) => {
@@ -15,9 +15,7 @@ const Grupe = (props) => {
   const [name, setName] = useState("");
   const [data, setData] = useState([]);
   const getData = async () => {
-    const { data } = await axios.get(
-      "https://localhost:44336/api/grupe/GetAll"
-    );
+    const { data } = await axios.get("/grupe/GetAll");
     setData(data);
   };
 

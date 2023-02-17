@@ -60,6 +60,28 @@ input::placeholder {
     justify-content: center;
 }
 
+.sign-in-button-style {
+    text-align: center;
+    padding: 15px 50px;
+    margin-top: 30px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: #9816f4;
+    border-color: #9816f4;
+    color: white;
+    border-radius: 60px;
+    box-shadow: 0 5px 10px 2px rgba(152,22,244,.19)!important;
+    font-size: 13px;
+    font-weight: 400;
+    font-family: "Poppins";
+}
+
+.sign-in-button-style:hover {
+    background-color: #840ad9;
+    border-color: #7c0acd;
+}
+
 @media screen and (max-width:700px) {
     .logo-style-div{
         padding-top: 50px;
