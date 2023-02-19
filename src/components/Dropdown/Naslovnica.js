@@ -88,34 +88,12 @@ const Naslovnica = () => {
       <Wrapper>
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle[0]} />
-        <Warehouse />
+        {/* <Warehouse /> */}
         <Podnaslov subtitle={subtitle[1]} />
-        <Uređaj params={params1} />
+        {/* <Uređaj params={params1} /> */}
         <Podnaslov subtitle={subtitle[2]} />
-        {/* <div className="select-div">
-          <Groups
-            groupValue={groupValue}
-            handleGroupValue={handleGroupValue}
-            subGroupValue={subGroupValue}
-            handleSubGroupValue={handleSubGroupValue}
-          />
-          <span className="span-button-style">
-            <button onClick={getDeviceActivity} className="button-style">
-              Pretraži
-            </button>
-          </span>
-        </div> */}
 
-        <ActivityFilter subtitle={subtitle[2]} params={params2} />
-
-        {/* <Uređaj
-          subtitle={subtitle[2]}
-          params={params2}
-          groupValue={groupValue}
-          subGroupValue={subGroupValue}
-          getData={getDeviceActivity}
-          data={deviceActivity}
-        /> */}
+        {/* <ActivityFilter subtitle={subtitle[2]} params={params2} /> */}
       </Wrapper>
       <Footer />
     </Context.Provider>

@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import AuthContext from "../../../context/AuthProvider";
 import "./Login.css";
 import logo from "../../../images/logo-1.png";
@@ -10,6 +11,10 @@ const Login = () => {
   const { setAuth } = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  //const from = location.state.from.pathname || "/";
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -29,27 +34,36 @@ const Login = () => {
       const response = await axios.get(loginUrl, {
         params: { username, password },
       });
-      // if (response.status === 204) {
-      //   setErrMsg("Fuck");
-      // }
-      console.log(response);
-      //localStorage.setItem("token", response.data.token);
-      const token = response.data.token;
-      //console.log(token, "token");
-      const role = response.data.ulogaID;
-      setAuth({ username, password, role, token });
-      setUsername("");
-      setPassword("");
+      if (response.status === 200) {
+        console.log(response);
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("role", response.data.ulogaID);
+        localStorage.setItem("klijentID", response.data.firma);
+        const token = response.data.token;
+        //console.log(token, "token");
+        const role = response.data.ulogaID;
+        const klijentID = response.data.firma;
+        console.log(klijentID, "idkli");
+        setAuth({ username, password, role, token, klijentID });
+        setUsername("");
+        setPassword("");
+        //navigate(from, { replace: true });
+        navigate("http://localhost:3000/naslovnica");
+      } else if (response.status === 204) {
+        console.log("Fuck");
+        setErrMsg("Neispravno korisničko ime ili lozinka");
+      }
     } catch (err) {
       if (!err.response) {
         setErrMsg("No Server Response");
       } else if (err.response.status === 400) {
-        setErrMsg("Missin Username or Password");
+        setErrMsg("Missing Username or Password");
       } else if (err.response.status === 401) {
         setErrMsg("Unathorized");
       } else {
         setErrMsg("Login Failed");
       }
+      errRef.current.focus();
       console.log(err);
     }
   };
@@ -64,19 +78,12 @@ const Login = () => {
 
   return (
     <>
-      <div
-        ref={errRef}
-        className={errMsg ? "errmsg" : "offscreen"}
-        aria-live="assertive"
-      >
-        {errMsg}
-      </div>
       <div className="login-div">
         <div className="logo-style-div">
           <img className="logo-img" src={logo} alt=""></img>
         </div>
-        <div className="sign-in-div">Sign In To Admin</div>
 
+        <div className="sign-in-div">Sign In To Admin</div>
         <div className="center-form">
           <form onSubmit={handleSubmit}>
             <div className="input-padding">
@@ -107,6 +114,13 @@ const Login = () => {
               <button className="sign-in-button-style">Sign In</button>
             </div>
           </form>
+        </div>
+        <div
+          ref={errRef}
+          className={errMsg ? "errmsg" : "offscreen"}
+          aria-live="assertive"
+        >
+          {errMsg}
         </div>
       </div>
     </>

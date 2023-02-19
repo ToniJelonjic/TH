@@ -4,13 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthProvider";
 
-const UserCard = (props) => {
-  //const { onClick } = props;
+const UserCard = () => {
   const { setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     setAuth({});
+    localStorage.setItem("token", "");
+    localStorage.setItem("role", "");
+    localStorage.setItem("klijentID", "");
     navigate("/prijava");
   };
 

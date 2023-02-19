@@ -7,6 +7,16 @@
     background-image: url("../../../images/logo-1.png");
 }
 
+.errmsg {
+    width: 25%;
+    margin: auto;
+    text-align: center;
+    margin-top: 50px;
+    background-color: rgb(255, 95, 95);
+    padding: 10px;
+    border-radius: 5px;
+}
+
 .center-form {
     padding-top: 50px;
     display: flex;

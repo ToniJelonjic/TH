@@ -17,15 +17,18 @@ import EmployeeFormEdit from "./components/UI/Forms/EmployeeFormEdit";
 import Profile from "./components/Profile/Profile";
 import Login from "./components/UI/Login/Login";
 import DeviceFormEdit from "./components/UI/Forms/DeviceFormEdit";
+import RequireAuth from "./components/RequireAuth";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         {/* public routes */}
-        <Route path="/naslovnica" element={<Homepage />} />
-        <Route path="/uređaji" element={<Uređaji />} />
-        <Route path="/mjerenja" element={<Mjerenja />} />
+        <RequireAuth>
+          <Route path="/naslovnica" element={<Homepage />} />
+          <Route path="/uređaji" element={<Uređaji />} />
+          <Route path="/mjerenja" element={<Mjerenja />} />
+        </RequireAuth>
         <Route path="/grupe" element={<Grupe />} />
         <Route path="/podgrupe" element={<Podgrupe />} />
         <Route path="/zaposlenici" element={<Zaposlenici />} />

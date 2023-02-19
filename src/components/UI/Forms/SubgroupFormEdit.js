@@ -13,6 +13,9 @@ import { Link, useLocation } from "react-router-dom";
 const SubgroupFormEdit = () => {
   const location = useLocation();
   let subgroupId = location.pathname.split("/")[3];
+
+  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
+
   const [groups, setGroups] = useState([]);
   const getGroups = async () => {
     await axios
@@ -120,7 +123,7 @@ const SubgroupFormEdit = () => {
               <select onChange={handleGroupId} className="elements-input">
                 <option hidden>Odaberi grupu</option>
                 {groups.map((group) => {
-                  if (group.klijentId === 3) {
+                  if (group.klijentId === klijentID) {
                     return (
                       <option
                         selected={group.id == groupId}

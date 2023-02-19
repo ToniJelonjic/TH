@@ -20,6 +20,7 @@ import SubgroupFormEdit from "./components/UI/Forms/SubgroupFormEdit.js";
 import EmployeeFormEdit from "./components/UI/Forms/EmployeeFormEdit";
 import Profile from "./components/Profile/Profile";
 import Login from "./components/UI/Login/Login";
+import Missing from "./components/Missing";
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap/dist/css/bootstrap.css";
 //import FormEdit from "./components/UI/Forms/FormEdit";
@@ -50,6 +51,7 @@ root.render(
           <Route path="/uređaji/uredi/:id" element={<DeviceFormEdit />} />
           <Route path="/profil" element={<Profile />} />
           <Route path="/prijava" element={<Login />} />
+          <Route path="*" element={<Missing />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

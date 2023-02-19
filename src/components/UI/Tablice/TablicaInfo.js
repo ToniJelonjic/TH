@@ -9,6 +9,9 @@ const TablicaInfo = (props) => {
   const [isClicked, setIsClicked] = useState(false);
   const [statusId, setStatusId] = useState();
 
+  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
+  let role = JSON.parse(localStorage.getItem("role"));
+
   const handleClick = (e) => {
     setIsClicked(!isClicked);
     console.log(isClicked);
@@ -34,7 +37,7 @@ const TablicaInfo = (props) => {
             </tr>
 
             {data.map((data) => {
-              if (data.klijentId === 3) {
+              if (data.klijentId === klijentID) {
                 return (
                   <tr key={data.id} id={data.id} className="tr-style">
                     <td className="thead-style">{data.naziv}</td>
@@ -67,7 +70,7 @@ const TablicaInfo = (props) => {
             </tr>
 
             {data.map((data) => {
-              if (data.klijentId === 3) {
+              if (data.klijentId === klijentID) {
                 return (
                   <tr key={data.id} id={data.id} className="tr-style">
                     <td className="thead-style">{data.naziv}</td>
@@ -104,7 +107,7 @@ const TablicaInfo = (props) => {
               //ispraviti
               //
               //
-              if (data.uloga === "Zaposlenik" && data.firma === 3) {
+              if (data.ulogaID === role && data.firma === klijentID) {
                 //
                 //
                 //

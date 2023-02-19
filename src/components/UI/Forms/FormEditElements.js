@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const FormEditElements = (props) => {
-  //console.log(props, "props");
+  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
   const [groups, setGroups] = useState([]);
   const getGroups = async () => {
@@ -61,7 +61,7 @@ const FormEditElements = (props) => {
               <select className="elements-input">
                 <option>Odaberi grupu</option>
                 {groups.map((group) => {
-                  if (group.klijentId === 3) {
+                  if (group.klijentId === klijentID) {
                     return (
                       <option
                         key={group.id}

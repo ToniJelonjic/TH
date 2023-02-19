@@ -4,6 +4,7 @@ import "./Groups.css";
 
 const Groups = (props) => {
   //console.log(props, "c");
+  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
   const [groups, setGroups] = useState([]);
   const getGroups = async () => {
@@ -38,7 +39,7 @@ const Groups = (props) => {
           Odaberite grupu
         </option>
         {groups.map((group) => {
-          if (group.klijentId === 3) {
+          if (group.klijentId === klijentID) {
             return (
               <option value={group.id} key={group.id}>
                 {group.naziv}
@@ -59,7 +60,7 @@ const Groups = (props) => {
         </option>
         {subGroups.map((subGroup) => {
           if (
-            subGroup.klijentId === 3 &&
+            subGroup.klijentId === klijentID &&
             props.groupValue === subGroup.grupaId.toString()
           ) {
             return (

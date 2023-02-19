@@ -6,6 +6,8 @@ import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from "react-paginate";
 
 const TablicaUređaj = (props) => {
+  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
+
   const { data } = props;
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -42,7 +44,7 @@ const TablicaUređaj = (props) => {
                 //ispraviti kasnije
                 //
                 //
-                if (item.idklijenta === 3) {
+                if (item.idklijenta === klijentID) {
                   //
                   //
                   //

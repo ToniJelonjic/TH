@@ -7,7 +7,8 @@ const ActivityFilter = (props) => {
   const [subGroupValue, setSubGroupValue] = useState(0);
   const [subGroups, setSubGroups] = useState([]);
   const [groups, setGroups] = useState([]);
-  //const [filteredData, setFilteredData] = useState();
+
+  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -120,7 +121,7 @@ const ActivityFilter = (props) => {
               Odaberite grupu
             </option>
             {groups.map((group) => {
-              if (group.klijentId === 3) {
+              if (group.klijentId === klijentID) {
                 return (
                   <option value={group.id} key={group.id}>
                     {group.naziv}
@@ -139,7 +140,7 @@ const ActivityFilter = (props) => {
             </option>
             {subGroups.map((subGroup) => {
               if (
-                subGroup.klijentId === 3 &&
+                subGroup.klijentId === klijentID &&
                 groupValue === subGroup.grupaId.toString()
               ) {
                 return (
@@ -170,61 +171,6 @@ const ActivityFilter = (props) => {
           </tr>
 
           {items}
-
-          {/* {currentItems.map((loger) => {
-            if (loger.idklijenta === 3) {
-              if (groupValue === 0 && subGroupValue === 0) {
-                return (
-                  <tr
-                    key={loger.id}
-                    className={`border-bottom ${
-                      loger.valid ? "" : "activity-valid"
-                    }`}
-                  >
-                    <td className="table-measure-data-name">
-                      <div className="table-activity-data-name">
-                        {loger.naziv}
-                      </div>
-                      <div className="manufactor-label">{loger.klijent}</div>
-                    </td>
-                    <td className="table-measure-data">
-                      {loger.vrijemeMjerenja}
-                    </td>
-                    <td className="table-measure-data">{loger.tmin}</td>
-                    <td className="table-measure-data">{loger.tmax}</td>
-                    <td className="table-measure-data">{loger.hmin}</td>
-                    <td className="table-measure-data">{loger.hmax}</td>
-                  </tr>
-                );
-              } else if (
-                parseInt(loger.grupaid) === parseInt(groupValue) ||
-                parseInt(loger.podgrupaid) === parseInt(subGroupValue)
-              ) {
-                return (
-                  <tr
-                    key={loger.id}
-                    className={`border-bottom ${
-                      loger.valid ? "" : "activity-valid"
-                    }`}
-                  >
-                    <td className="table-measure-data-name">
-                      <div className="table-activity-data-name">
-                        {loger.naziv}
-                      </div>
-                      <div className="manufactor-label">{loger.klijent}</div>
-                    </td>
-                    <td className="table-measure-data">
-                      {loger.vrijemeMjerenja}
-                    </td>
-                    <td className="table-measure-data">{loger.tmin}</td>
-                    <td className="table-measure-data">{loger.tmax}</td>
-                    <td className="table-measure-data">{loger.hmin}</td>
-                    <td className="table-measure-data">{loger.hmax}</td>
-                  </tr>
-                );
-              }
-            }
-          })} */}
         </tbody>
       </table>
       <div className="paginate-div-style">

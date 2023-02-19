@@ -14,6 +14,8 @@ const SubgroupFormAdd = (props) => {
   const title = "Podrupe";
   const subtitle = "Nova podgrupa";
 
+  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
+
   const [name, setName] = useState("");
   const [groupId, setGroupId] = useState();
   const [status, setStatus] = useState();
@@ -93,7 +95,7 @@ const SubgroupFormAdd = (props) => {
               <select onChange={handleGroupId} className="elements-input">
                 <option>Odaberi grupu</option>
                 {groups.map((group) => {
-                  if (group.klijentId === 3) {
+                  if (group.klijentId === klijentID) {
                     return (
                       <option
                         key={group.id}

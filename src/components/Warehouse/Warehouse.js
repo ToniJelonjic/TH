@@ -9,7 +9,9 @@ import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from "react-paginate";
 import axios from "axios";
 
-const Warehouse = (props) => {
+const Warehouse = () => {
+  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
+
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
@@ -47,7 +49,7 @@ const Warehouse = (props) => {
   return (
     <div className="row devices-padding">
       {currentItems.map((device) => {
-        if (device.idklijenta === 3) {
+        if (device.idklijenta === klijentID) {
           return (
             <div
               key={device.id}

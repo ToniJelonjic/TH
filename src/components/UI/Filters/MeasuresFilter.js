@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ReactPaginate from "react-paginate";
+//import ReactPaginate from "react-paginate";
 
 const MeasuresFilter = () => {
   let defaultDate = new Date();
   defaultDate.setDate(defaultDate.getDate());
+
+  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
   const [date, setDate] = useState(defaultDate);
 
@@ -101,7 +103,7 @@ const MeasuresFilter = () => {
               Odaberite grupu
             </option>
             {groups.map((group) => {
-              if (group.klijentId === 3) {
+              if (group.klijentId === klijentID) {
                 return (
                   <option value={group.id} key={group.id}>
                     {group.naziv}
@@ -120,7 +122,7 @@ const MeasuresFilter = () => {
             </option>
             {subGroups.map((subGroup) => {
               if (
-                subGroup.klijentId === 3 &&
+                subGroup.klijentId === klijentID &&
                 groupValue === subGroup.grupaId.toString()
               ) {
                 return (

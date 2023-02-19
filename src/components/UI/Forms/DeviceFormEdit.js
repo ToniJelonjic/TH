@@ -32,6 +32,8 @@ const DeviceFormEdit = () => {
   const [subgroupId, setSubgroupId] = useState();
   const [status, setStatus] = useState();
 
+  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
+
   const title = "Uređaji";
   const subtitle = "Uredi uređaj";
 
@@ -219,7 +221,7 @@ const DeviceFormEdit = () => {
               >
                 <option hidden>Odaberi grupu</option>
                 {groups.map((group) => {
-                  if (group.klijentId === 3) {
+                  if (group.klijentId === klijentID) {
                     return (
                       <option
                         selected={group.id == groupId}
@@ -252,7 +254,7 @@ const DeviceFormEdit = () => {
                   Odaberite podgrupu
                 </option>
                 {subgroups.map((subGroup) => {
-                  if (subGroup.klijentId === 3) {
+                  if (subGroup.klijentId === klijentID) {
                     return (
                       <option
                         selected={subGroup.id == subgroupId}

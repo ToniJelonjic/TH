@@ -4,6 +4,7 @@ import axios from "axios";
 
 const FormElements = (props) => {
   //console.log(props, "propsssss");
+  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
   const [groups, setGroups] = useState([]);
   const getGroups = async () => {
@@ -66,7 +67,7 @@ const FormElements = (props) => {
               <select onChange={props.handleGroup} className="elements-input">
                 <option>Odaberi grupu</option>
                 {groups.map((group) => {
-                  if (group.klijentId === 3) {
+                  if (group.klijentId === klijentID) {
                     return (
                       <option
                         key={group.id}

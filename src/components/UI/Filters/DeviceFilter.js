@@ -11,6 +11,8 @@ const DeviceFilter = (props) => {
   const [subGroups, setSubGroups] = useState([]);
   const [groups, setGroups] = useState([]);
 
+  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
+
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
@@ -89,7 +91,7 @@ const DeviceFilter = (props) => {
   const items = currentItems
     .sort((a, b) => a.id - b.id)
     .map((item) => {
-      if (item.idklijenta === 3) {
+      if (item.idklijenta === klijentID) {
         return (
           <tr key={item.id}>
             <td className="device-table-info">{item.naziv}</td>
@@ -143,7 +145,7 @@ const DeviceFilter = (props) => {
               Odaberite grupu
             </option>
             {groups.map((group) => {
-              if (group.klijentId === 3) {
+              if (parseInt(group.klijentId) === parseInt(klijentID)) {
                 return (
                   <option value={group.id} key={group.id}>
                     {group.naziv}
@@ -162,7 +164,7 @@ const DeviceFilter = (props) => {
             </option>
             {subGroups.map((subGroup) => {
               if (
-                subGroup.klijentId === 3 &&
+                subGroup.klijentId === klijentID &&
                 groupValue === subGroup.grupaId.toString()
               ) {
                 return (
