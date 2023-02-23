@@ -36,7 +36,7 @@ const DeviceFilter = (props) => {
         //
         //
         params: {
-          klijentID: 3,
+          klijentID: klijentID,
           grupaID: parseInt(groupValue),
           podgrupaID: parseInt(subGroupValue),
         },

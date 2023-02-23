@@ -19,11 +19,11 @@ const Zaposlenici = (props) => {
       "https://localhost:44336/api/korisnici/GetAll"
     );
     setData(data);
+    //console.log(data);
   };
 
   useEffect(() => {
     getData();
-    //console.log(data[0])
   }, []);
 
   const title = "Zaposlenici";
@@ -51,6 +51,16 @@ const Zaposlenici = (props) => {
   const handleUserClick = () => {
     setIsUserClicked(!isUserClicked);
   };
+
+  let isClicked = false;
+
+  let updatedData = data.map((item) => {
+    //console.log(item, "item");
+    let updated = { ...item, isClicked };
+    return updated;
+  });
+
+  //console.log(updatedData, "updated");
 
   return (
     <Context.Provider

@@ -13,17 +13,15 @@ import useAuth from "../../hooks/useAuth";
 const Dropdown = (props) => {
   const { isClicked, handleBurgerClick } = props;
   const { auth } = useAuth();
-  console.log(auth.role);
+  //console.log(auth.role);
   let role = JSON.parse(localStorage.getItem("role"));
 
   useEffect(() => {
-    console.log(role);
+    //console.log(role);
   }, []);
 
   return (
-    <div
-      className={`${isClicked ? "dropdown-style-mobile" : "dropdown-style"}`}
-    >
+    <div className={`${isClicked ? "dropdown-style" : "dropdown-style"}`}>
       {role === 1 ? (
         <nav>
           <NavLink

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Context from "../../../store/Context";
+import ChangeStatus from "../ChangeStatus";
 
 const TablicaInfo = (props) => {
   const [isClicked, setIsClicked] = useState(false);
@@ -14,10 +15,6 @@ const TablicaInfo = (props) => {
 
   const handleClick = (e) => {
     setIsClicked(!isClicked);
-    console.log(isClicked);
-    let id = e.target.value;
-    setStatusId(id);
-    console.log(e.target.value, "status");
   };
 
   const { title, subtitle, data, editFormInfo } = useContext(Context);
@@ -36,13 +33,13 @@ const TablicaInfo = (props) => {
               })}
             </tr>
 
-            {data.map((data) => {
-              if (data.klijentId === klijentID) {
+            {data.map((item) => {
+              if (item.klijentId === klijentID) {
                 return (
-                  <tr key={data.id} id={data.id} className="tr-style">
-                    <td className="thead-style">{data.naziv}</td>
+                  <tr key={item.id} id={item.id} className="tr-style">
+                    <td className="thead-style">{item.naziv}</td>
                     <td className="thead-style">
-                      <Link to={`/grupe/uredi/${data.id}`}>
+                      <Link to={`/grupe/uredi/${item.id}`}>
                         <FontAwesomeIcon
                           title="Uredi"
                           className="actions-icon"
@@ -69,14 +66,14 @@ const TablicaInfo = (props) => {
               })}
             </tr>
 
-            {data.map((data) => {
-              if (data.klijentId === klijentID) {
+            {data.map((item) => {
+              if (item.klijentId === klijentID) {
                 return (
-                  <tr key={data.id} id={data.id} className="tr-style">
-                    <td className="thead-style">{data.naziv}</td>
-                    <td className="thead-style">{data.grupa}</td>
+                  <tr key={item.id} id={item.id} className="tr-style">
+                    <td className="thead-style">{item.naziv}</td>
+                    <td className="thead-style">{item.grupa}</td>
                     <td className="thead-style">
-                      <Link to={`/podgrupe/uredi/${data.id}`}>
+                      <Link to={`/podgrupe/uredi/${item.id}`}>
                         <FontAwesomeIcon
                           title="Uredi"
                           className="actions-icon"
@@ -103,43 +100,35 @@ const TablicaInfo = (props) => {
               })}
             </tr>
 
-            {data.map((data) => {
-              //ispraviti
-              //
-              //
-              if (data.ulogaID === role && data.firma === klijentID) {
-                //
-                //
-                //
+            {data.map((item) => {
+              if (item.ulogaID === role && item.firma === klijentID) {
                 return (
-                  <tr key={data.id} id={data.id} className="tr-style">
-                    <td className="thead-style">{data.imePrezime}</td>
-                    <td className="thead-style">{data.ime}</td>
-                    <td className="thead-style">{data.klijent}</td>
-                    <td className="thead-style">{data.uloga}</td>
+                  <tr key={item.id} id={item.id} className="tr-style">
+                    <td className="thead-style">{item.imePrezime}</td>
+                    <td className="thead-style">{item.ime}</td>
+                    <td className="thead-style">{item.klijent}</td>
+                    <td className="thead-style">{item.uloga}</td>
                     <td
                       className={`thead-style ${
-                        data.status ? "active-user" : "non-active-user"
+                        item.status ? "active-user" : "non-active-user"
                       }`}
                     >
-                      {data.status ? "Aktivan" : "Neaktivan"}
+                      {item.status ? "Aktivan" : "Neaktivan"}
                     </td>
                     <td className="thead-style">
                       <FontAwesomeIcon
                         title="Promijeni status"
                         className="actions-icon"
                         icon={faEllipsis}
-                        value={data.id}
-                        onClick={handleClick}
+                        value={item.id}
                       />
-                      {isClicked ? (
-                        <>
-                          {console.log(data.id)}
-                          <div className="status-change">Promijeni status</div>
-                        </>
-                      ) : null}
+                      <ChangeStatus
+                        data={item}
+                        isClicked={isClicked}
+                        id={item.id}
+                      />
 
-                      <Link to={`/zaposlenici/uredi/${data.id}`}>
+                      <Link to={`/zaposlenici/uredi/${item.id}`}>
                         <FontAwesomeIcon
                           title="Uredi"
                           className="actions-icon"

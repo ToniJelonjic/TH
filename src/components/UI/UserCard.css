@@ -1,5 +1,5 @@
 .user-card-style {
-  background-color: white;
+  background-color: rgb(244, 244, 244);
   width: 250px;
   height: 70px;
   position: absolute;
@@ -8,6 +8,7 @@
   z-index: 100;
   display: flex;
   align-items: center;
+  border-bottom-left-radius: 5px;
 }
 
 .none {
@@ -28,4 +29,38 @@
 
 .row {
    --bs-gutter-x: 0 !important;
+}
+
+.profile-button-style {
+  width: 100%;
+  border-radius: 15px;
+  border: 1px solid #dddee3;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.profile-button-style:hover {
+  background-color: #dadde7;
+}
+
+.link-profile-style {
+  color: #212529;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.link-profile-style:hover {
+  color: #212529;
+}
+
+.logout-button-style {
+  width: 100%;
+  border-radius: 15px;
+  border: 1px solid #dddee3;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.logout-button-style:hover {
+  background-color: #dadde7;
 }

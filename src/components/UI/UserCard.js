@@ -10,9 +10,13 @@ const UserCard = () => {
 
   const handleLogout = async () => {
     setAuth({});
-    localStorage.setItem("token", "");
-    localStorage.setItem("role", "");
-    localStorage.setItem("klijentID", "");
+    localStorage.removeItem("id");
+    localStorage.removeItem("token");
+    localStorage.removeItem("data");
+    localStorage.removeItem("role");
+    localStorage.removeItem("klijentID");
+    localStorage.removeItem("imePrezime");
+    localStorage.removeItem("korisnickoIme");
     navigate("/prijava");
   };
 

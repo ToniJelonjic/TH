@@ -8,11 +8,14 @@ import Podnaslov from "../UI/Naslovi/Podnaslov";
 import FormElements from "../UI/Forms/FormElements";
 import ButtonSave from "../UI/Buttons/ButtonSave";
 import axios from "axios";
+import ProfileForm from "../UI/Forms/ProfileForm";
 
 const Profile = (props) => {
   const title = "Profil";
   const subtitle = "Profil";
 
+  //let imePrezime = JSON.parse(localStorage.getItem("imePrezime"));
+  //let korisnickoIme = JSON.parse(localStorage.getItem("korisnickoIme"));
   const [isUserClicked, setIsUserClicked] = useState(false);
 
   const handleUserClick = () => {
@@ -41,8 +44,9 @@ const Profile = (props) => {
       <Wrapper>
         <Naslov title={title} />
         <Podnaslov subtitle={subtitle} />
-        <FormElements title={title} />
-        <ButtonSave />
+        {/* <FormElements title={title} /> */}
+        <ProfileForm />
+        {/* <ButtonSave /> */}
       </Wrapper>
     </>
   );

@@ -21,6 +21,7 @@ import EmployeeFormEdit from "./components/UI/Forms/EmployeeFormEdit";
 import Profile from "./components/Profile/Profile";
 import Login from "./components/UI/Login/Login";
 import Missing from "./components/Missing";
+import ProfileForm from "./components/UI/Forms/ProfileForm";
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap/dist/css/bootstrap.css";
 //import FormEdit from "./components/UI/Forms/FormEdit";

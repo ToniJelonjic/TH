@@ -31,8 +31,11 @@ const DeviceFormEdit = () => {
   const [groupId, setGroupId] = useState();
   const [subgroupId, setSubgroupId] = useState();
   const [status, setStatus] = useState();
+  const [checked, setChecked] = useState();
+  const [userID, setUserID] = useState();
+  const [klijentID, setKlijentID] = useState();
 
-  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
+  //let klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
   const title = "Uređaji";
   const subtitle = "Uredi uređaj";
@@ -75,22 +78,24 @@ const DeviceFormEdit = () => {
     console.log(e.target.value);
   };
 
+  const handleIsChecked = (e) => {
+    setChecked(e.target.checked);
+    setUserID(e.target.value);
+    console.log(e.target.value, "id");
+    console.log(e.target.checked, "checked");
+  };
+
   const getData = async () => {
     await axios
       .get("https://localhost:44336/api/logeri/GetAll", {
-        //ispraviti
-        //
-        //
         params: {
-          klijentID: 3,
+          klijentID: klijentID,
           grupaID: groupValue,
           podgrupaID: subGroupValue,
         },
-        //
-        //
-        //
       })
       .then(function(response) {
+        console.log(response, "ddd");
         //setData(response.data);
         response.data.filter((device) => {
           if (parseInt(device.id) === parseInt(deviceId)) {
@@ -109,10 +114,6 @@ const DeviceFormEdit = () => {
             setDeviceCode(device.sifraUredjaja);
           }
         });
-
-        //console.log(response.data, "dddd");
-
-        //localStorage.setItem("items", JSON.stringify(response.data));
       });
   };
 
@@ -136,28 +137,15 @@ const DeviceFormEdit = () => {
     getGroups();
     getSubgroups();
     getData();
+    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
   }, []);
-
-  // data.forEach((device) => {
-  //   if (device.id == deviceId) {
-  //     device.korisnici.forEach((user) => {
-  //       console.log(user.ime);
-  //     });
-  //   }
-  // });
 
   const onSave = () => {
     axios
-      .post(`https://localhost:44336/api/logeri/Edit`, {
-        //ispraviti
-        //dummy
-        //podatke
-        //kada
-        //se uradi
-        //login
+      .post(`https://localhost:44336/api/logeri/EditLogeriKorisnici`, {
         Id: parseInt(deviceId),
         Naziv: name,
-        Idklijenta: 3,
+        Idklijenta: klijentID,
         Idposlovnice: null,
         Tmin: parseFloat(minTemp),
         Tmax: parseFloat(maxTemp),
@@ -165,10 +153,16 @@ const DeviceFormEdit = () => {
         Hmax: parseFloat(maxH),
         Email1: email1,
         Email2: email2,
-        Grupaid: parseInt(groupValue),
-        Podgrupaid: parseInt(subGroupValue),
-        Active: true, //?????????
+        Grupaid: parseInt(groupId),
+        Podgrupaid: parseInt(subgroupId),
+        Active: true,
         SifraUredjaja: deviceCode,
+        korisnici: [
+          {
+            Id: userID,
+            Checked: true,
+          },
+        ],
       })
       .then(function(response) {
         setStatus(response.status);
@@ -183,6 +177,14 @@ const DeviceFormEdit = () => {
 
   const handleUserClick = () => {
     setIsUserClicked(!isUserClicked);
+  };
+
+  const handleGroupId = (e) => {
+    setGroupId(e.target.value);
+  };
+
+  const handleSubgroupId = (e) => {
+    setSubgroupId(e.target.value);
   };
 
   return (
@@ -216,18 +218,13 @@ const DeviceFormEdit = () => {
             <div className="col-lg-6 col-md-6 col-10">
               <select
                 value={groupId}
-                onChange={handleGroupValue}
+                onChange={handleGroupId}
                 className="elements-input"
               >
-                <option hidden>Odaberi grupu</option>
                 {groups.map((group) => {
                   if (group.klijentId === klijentID) {
                     return (
-                      <option
-                        selected={group.id == groupId}
-                        key={group.id}
-                        value={group.id}
-                      >
+                      <option value={group.id} key={group.id}>
                         {group.naziv}
                       </option>
                     );
@@ -247,19 +244,16 @@ const DeviceFormEdit = () => {
             <div className="col-lg-6 col-md-6 col-10">
               <select
                 className="elements-input"
-                onChange={handleSubGroupValue}
+                onChange={handleSubgroupId}
                 value={subgroupId}
               >
-                <option hidden defaultValue="Odaberite podgrupu">
-                  Odaberite podgrupu
-                </option>
                 {subgroups.map((subGroup) => {
                   if (subGroup.klijentId === klijentID) {
                     return (
                       <option
-                        selected={subGroup.id == subgroupId}
-                        value={subGroup.id}
                         key={subGroup.id}
+                        value={subGroup.id}
+                        //defaultValue={}
                       >
                         {subGroup.naziv}
                       </option>
@@ -384,9 +378,11 @@ const DeviceFormEdit = () => {
                 return (
                   <>
                     <input
-                      checked={user.checked}
+                      defaultChecked={user.checked}
                       className="check"
+                      value={user.id}
                       type="checkbox"
+                      onChange={handleIsChecked}
                     />
                     <span className="users-style">{user.ime}</span>
                   </>

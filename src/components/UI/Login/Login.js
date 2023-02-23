@@ -19,6 +19,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
+  const [data, setData] = useState([]);
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -36,15 +37,30 @@ const Login = () => {
       });
       if (response.status === 200) {
         console.log(response);
+        localStorage.setItem("id", response.data.id);
+        localStorage.setItem("imePrezime", response.data.imePrezime);
+        localStorage.setItem("korisnickoIme", response.data.ime);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("role", response.data.ulogaID);
         localStorage.setItem("klijentID", response.data.firma);
+        const id = response.data.id;
+        const imePrezime = response.data.imePrezime;
+        const korisnickoIme = response.data.ime;
         const token = response.data.token;
         //console.log(token, "token");
         const role = response.data.ulogaID;
         const klijentID = response.data.firma;
-        console.log(klijentID, "idkli");
-        setAuth({ username, password, role, token, klijentID });
+        //console.log(klijentID, "idkli");
+        setAuth({
+          id,
+          imePrezime,
+          korisnickoIme,
+          username,
+          password,
+          role,
+          token,
+          klijentID,
+        });
         setUsername("");
         setPassword("");
         //navigate(from, { replace: true });
