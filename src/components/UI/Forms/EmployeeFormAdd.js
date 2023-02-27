@@ -53,7 +53,7 @@ const EmployeeFormAdd = (props) => {
         Firma: 3,
         Poslovnica: 0,
         UlogaID: 2,
-        Active: false,
+        Active: true,
       })
       .then(function(response) {
         console.log(response);
@@ -77,7 +77,7 @@ const EmployeeFormAdd = (props) => {
       <Dropdown />
       {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
-        <Naslov title={title} />
+        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <form>
           <div className="row elements-div-style">

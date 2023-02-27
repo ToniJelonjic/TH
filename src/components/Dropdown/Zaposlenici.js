@@ -31,7 +31,6 @@ const Zaposlenici = (props) => {
   const table_rows = [
     "Ime i prezime",
     "Korisničko ime",
-    "Klijent",
     "Uloga",
     "Status",
     "Akcije",
@@ -79,7 +78,7 @@ const Zaposlenici = (props) => {
       {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
         <>
-          <Naslov title={title} />
+          {/* <Naslov title={title} /> */}
           <Podnaslov subtitle={subtitle} />
           <TablicaInfo rows={table_rows} />
         </>

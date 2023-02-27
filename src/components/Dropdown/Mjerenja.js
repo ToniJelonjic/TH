@@ -77,13 +77,8 @@ const Mjerenja = () => {
       <Dropdown />
       {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
-        <Naslov title={title} />
+        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
-        {/* <div className="measure-div">
-          <Dates devices={data} />
-          <Groups />
-          <ButtonSearch />
-        </div> */}
         <MeasuresFilter params={params} />
         {/* <TablicaUređaj
           title={title}

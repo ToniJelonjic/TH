@@ -33,11 +33,10 @@ const DeviceFormEdit = () => {
   const [groupId, setGroupId] = useState();
   const [subgroupId, setSubgroupId] = useState();
   const [status, setStatus] = useState();
+  const [active, setActive] = useState();
   const [checked, setChecked] = useState();
   const [userID, setUserID] = useState();
   const [klijentID, setKlijentID] = useState();
-
-  //let klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
   const title = "Uređaji";
   const subtitle = "Uredi uređaj";
@@ -80,6 +79,14 @@ const DeviceFormEdit = () => {
     console.log(e.target.value);
   };
 
+  const handleGroupId = (e) => {
+    setGroupId(e.target.value);
+  };
+
+  const handleSubgroupId = (e) => {
+    setSubgroupId(e.target.value);
+  };
+
   const handleIsChecked = (e) => {
     setChecked(e.target.checked);
     setUserID(e.target.value);
@@ -101,8 +108,6 @@ const DeviceFormEdit = () => {
         },
       })
       .then(function(response) {
-        console.log(response, "ddd");
-        //setData(response.data);
         response.data.filter((device) => {
           if (parseInt(device.id) === parseInt(deviceId)) {
             setName(device.naziv.trim());
@@ -118,6 +123,7 @@ const DeviceFormEdit = () => {
             setMaxH(device.hmax);
             setUsers(device.korisnici);
             setDeviceCode(device.sifraUredjaja);
+            setActive(device.active);
           }
         });
       });
@@ -161,7 +167,7 @@ const DeviceFormEdit = () => {
         Email2: email2,
         Grupaid: parseInt(groupId),
         Podgrupaid: parseInt(subgroupId),
-        Active: true,
+        Active: active,
         SifraUredjaja: deviceCode,
         korisnici: [
           {
@@ -185,21 +191,13 @@ const DeviceFormEdit = () => {
     setIsUserClicked(!isUserClicked);
   };
 
-  const handleGroupId = (e) => {
-    setGroupId(e.target.value);
-  };
-
-  const handleSubgroupId = (e) => {
-    setSubgroupId(e.target.value);
-  };
-
   return (
     <div>
       <Header onClick={handleUserClick} />
       <Dropdown />
       {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
-        <Naslov title={title} />
+        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <form>
           <div className="row elements-div-style">
@@ -254,7 +252,7 @@ const DeviceFormEdit = () => {
                 value={subgroupId}
               >
                 {subgroups.map((subGroup) => {
-                  if (subGroup.klijentId === klijentID) {
+                  if (groupId === subGroup.grupaId) {
                     return (
                       <option
                         key={subGroup.id}

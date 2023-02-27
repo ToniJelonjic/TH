@@ -53,13 +53,15 @@ const MeasuresFilter = (props) => {
 
   const [data, setData] = useState([]);
   const [deviceValue, setDeviceValue] = useState("");
+
   const getData = async () => {
     const { data } = await axios.get(logeriLink);
     setData(data);
+    console.log(data, "Data");
   };
 
-  const [groupValue, setGroupValue] = useState("");
-  const [subGroupValue, setSubGroupValue] = useState("");
+  const [groupValue, setGroupValue] = useState(0);
+  const [subGroupValue, setSubGroupValue] = useState(0);
   const [subGroups, setSubGroups] = useState([]);
   const [groups, setGroups] = useState([]);
   const [logers, setLogers] = useState([]);
@@ -195,16 +197,33 @@ const MeasuresFilter = (props) => {
             type="date"
             className="date-input-style"
           />
-          <select className="select-style" onChange={handleDeviceValue}>
+          <select
+            required
+            className="select-style"
+            onChange={handleDeviceValue}
+          >
             <option hidden defaultValue="Odaberite uređaj">
               Odaberite uređaj
             </option>
             {data.map((device, index) => {
-              return (
-                <option value={device.id} key={index}>
-                  {device.naziv}
-                </option>
-              );
+              if (device.idklijenta === klijentID) {
+                if (groupValue === 0 || subGroupValue === 0) {
+                  return (
+                    <option value={device.id} key={index}>
+                      {device.naziv}
+                    </option>
+                  );
+                } else if (
+                  device.grupaid === groupValue ||
+                  device.podgrupaid === subGroupValue
+                ) {
+                  return (
+                    <option value={device.id} key={index}>
+                      {device.naziv}
+                    </option>
+                  );
+                }
+              }
             })}
           </select>
         </span>
@@ -255,12 +274,10 @@ const MeasuresFilter = (props) => {
           </button>
         </span>
       </div>
-
       {
         //prebaciti tablicu uredjaj
         //u ovu komponentu
       }
-
       <div className="table-style">
         <tr>
           {props.params.params.map((parameter) => {
@@ -272,7 +289,6 @@ const MeasuresFilter = (props) => {
           })}
         </tr>
       </div>
-
       <div className="paginate-div-style">
         <ReactPaginate
           breakLabel="..."
@@ -291,6 +307,7 @@ const MeasuresFilter = (props) => {
           activeLinkClassName="active-page"
         />
       </div>
+      FILTER UREDJAJA PO GRUPAMA I PODGRUPAMA
     </>
   );
 };

@@ -74,7 +74,7 @@ const SubgroupFormAdd = (props) => {
       <Dropdown />
       {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
-        <Naslov title={title} />
+        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <form>
           <div className="row elements-div-style">

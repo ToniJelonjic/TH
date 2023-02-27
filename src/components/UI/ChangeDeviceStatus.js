@@ -3,8 +3,8 @@ import axios from "../../api/axios";
 
 const changeStatusLink = "/logeri/ChangeStatus";
 
-const ChangeDeviceStatus = ({ data, setSelectedDeviceId }) => {
-  console.log(data);
+const ChangeDeviceStatus = ({ data, setSelectedDeviceId, setIsClicked }) => {
+  //console.log(data);
 
   const [newStatus, setNewStatus] = useState();
 
@@ -36,6 +36,7 @@ const ChangeDeviceStatus = ({ data, setSelectedDeviceId }) => {
       })
       .then(function(response) {
         console.log(response);
+        //setIsClicked(false);
         setSelectedDeviceId(null);
         window.location.reload(true);
       })

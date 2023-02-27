@@ -91,7 +91,7 @@ const Podgrupe = () => {
       <Dropdown />
       {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
-        <Naslov title={title} />
+        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <TablicaInfo rows={table_rows} />
       </Wrapper>

@@ -42,7 +42,7 @@ const Profile = (props) => {
       <Dropdown />
       {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
-        <Naslov title={title} />
+        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         {/* <FormElements title={title} /> */}
         <ProfileForm />

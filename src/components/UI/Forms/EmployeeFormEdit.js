@@ -19,6 +19,7 @@ const EmployeeFormEdit = () => {
   const [data, setData] = useState([]);
   const [klijentID, setKlijentID] = useState();
   const [role, setRole] = useState();
+  const [active, setActive] = useState();
 
   const navigate = useNavigate();
 
@@ -30,6 +31,7 @@ const EmployeeFormEdit = () => {
           if (parseInt(employee.id) === parseInt(employeeId)) {
             setName(employee.imePrezime.trimEnd());
             setUsername(employee.ime.trimEnd());
+            setActive(employee.active);
           }
         });
       })
@@ -79,7 +81,7 @@ const EmployeeFormEdit = () => {
         Firma: klijentID,
         Poslovnica: 0,
         UlogaID: 2,
-        Active: false,
+        Active: active,
       })
       .then(function(response) {
         console.log(response);
@@ -102,7 +104,7 @@ const EmployeeFormEdit = () => {
       <Dropdown />
       {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
-        <Naslov title={title} />
+        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <form>
           <div className="row elements-div-style">

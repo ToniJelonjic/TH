@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import "./TablicaInfo.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
@@ -13,9 +13,11 @@ const TablicaInfo = (props) => {
 
   let klijentID = JSON.parse(localStorage.getItem("klijentID"));
   let role = JSON.parse(localStorage.getItem("role"));
+  const employeeRef = useRef();
 
   const handleClick = (employeeId) => {
     console.log(employeeId);
+    setIsClicked(true);
     setEmployeeId((prevSelectedEmployeeId) => {
       if (prevSelectedEmployeeId === employeeId) {
         return null;
@@ -24,6 +26,26 @@ const TablicaInfo = (props) => {
       }
     });
   };
+
+  useEffect(() => {
+    let handler = () => {
+      setIsClicked(false);
+    };
+    document.addEventListener("mousedown", handler);
+  });
+
+  // useEffect(() => {
+  //   let handler = (e) => {
+  //     if (!employeeRef.current.contains(e.target)) {
+  //       setIsClicked(false);
+  //       console.log(employeeRef.current);
+  //     }
+  //   };
+  //   document.addEventListener("mousedown", handler);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handler);
+  //   };
+  // });
 
   const { title, subtitle, data, editFormInfo } = useContext(Context);
   return (
@@ -114,7 +136,6 @@ const TablicaInfo = (props) => {
                   <tr key={index} id={item.id} className="tr-style">
                     <td className="thead-style">{item.imePrezime}</td>
                     <td className="thead-style">{item.ime}</td>
-                    <td className="thead-style">{item.klijent}</td>
                     <td className="thead-style">{item.uloga}</td>
                     <td
                       className={`thead-style ${
@@ -130,6 +151,7 @@ const TablicaInfo = (props) => {
                         icon={faEllipsis}
                         value={item.id}
                         onClick={() => handleClick(item.id)}
+                        ref={employeeRef}
                       />
 
                       {employeeId === item.id && (

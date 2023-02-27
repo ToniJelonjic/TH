@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "../../../api/axios";
 import ReactPaginate from "react-paginate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,6 +17,8 @@ const DeviceFilter = (props) => {
   const [groups, setGroups] = useState([]);
 
   const [selectedDeviceId, setSelectedDeviceId] = useState(null);
+  //const deviceRef = useRef();
+  const [isClicked, setIsClicked] = useState(false);
 
   let klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
@@ -28,6 +30,7 @@ const DeviceFilter = (props) => {
 
   const handleGroupValue = (e) => {
     setGroupValue(e.target.value);
+    setSubGroupValue(0);
     console.log(e.target.value);
   };
 
@@ -47,6 +50,7 @@ const DeviceFilter = (props) => {
       })
       .then(function(response) {
         setCurrentCondition(response.data);
+        console.log(response.data);
         localStorage.setItem("items", JSON.stringify(response.data));
       });
   };
@@ -65,6 +69,7 @@ const DeviceFilter = (props) => {
 
   const handleClick = (deviceId) => {
     console.log(deviceId);
+    setIsClicked(true);
     setSelectedDeviceId((prevSelectedDeviceId) => {
       if (prevSelectedDeviceId === deviceId) {
         return null;
@@ -79,6 +84,20 @@ const DeviceFilter = (props) => {
     getSubGroups();
     getCurrentCondition();
   }, []);
+
+  // useEffect(() => {
+  //   let handler = (e) => {
+  //     if (!deviceRef.current.contains(e.target)) {
+  //       setIsClicked(false);
+  //       setSelectedDeviceId(null);
+  //       //console.log(deviceRef.current);
+  //     }
+  //   };
+  //   document.addEventListener("mousedown", handler);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handler);
+  //   };
+  // });
 
   useEffect(() => {
     let currentCondition = JSON.parse(localStorage.getItem("items"));
@@ -101,7 +120,7 @@ const DeviceFilter = (props) => {
         return (
           <tr key={item.id}>
             <td className="device-table-info">{item.naziv}</td>
-            <td className="device-table-info font">{item.klijent}</td>
+            {/* <td className="device-table-info font">{item.podgrupaid}</td> */}
             <td className="device-table-info font">{item.email1}</td>
             <td className="device-table-info font">{item.email2}</td>
             <td className="device-table-info font">{item.tmin}</td>
@@ -214,28 +233,26 @@ const DeviceFilter = (props) => {
               })}
             </tr>
             {items}
-            {/* {count >= 1 ? (isClicked ? filteredItems : filteredItems) : items} */}
-            {/* {groupValue === 0 || subGroupValue === 0 ? items : filteredItems} */}
           </tbody>
         </table>
-        <div className="paginate-div-style">
-          <ReactPaginate
-            breakLabel="..."
-            breakClassName="page-num"
-            nextLabel="Next"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={2}
-            marginPagesDisplayed={1}
-            pageCount={pageCount}
-            previousLabel="Previous"
-            renderOnZeroPageCount={null}
-            containerClassName="pagination"
-            pageLinkClassName="page-num"
-            previousLinkClassName="page-num"
-            nextLinkClassName="page-num"
-            activeLinkClassName="active-page"
-          />
-        </div>
+      </div>
+      <div className="paginate-div-style">
+        <ReactPaginate
+          breakLabel="..."
+          breakClassName="page-num"
+          nextLabel="Next"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={2}
+          marginPagesDisplayed={1}
+          pageCount={pageCount}
+          previousLabel="Previous"
+          renderOnZeroPageCount={null}
+          containerClassName="pagination"
+          pageLinkClassName="page-num"
+          previousLinkClassName="page-num"
+          nextLinkClassName="page-num"
+          activeLinkClassName="active-page"
+        />
       </div>
     </>
   );

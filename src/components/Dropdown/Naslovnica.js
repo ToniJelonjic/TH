@@ -90,7 +90,7 @@ const Naslovnica = () => {
       {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
 
       <Wrapper>
-        <Naslov title={title} />
+        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle[0]} />
         {/* <Warehouse /> */}
         <Podnaslov subtitle={subtitle[1]} />

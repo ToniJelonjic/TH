@@ -33,13 +33,13 @@ const Uređaji = (props) => {
     id: Math.random(),
     params: [
       "Naziv",
-      "Klijent",
+      //"Podgrupa",
       "Email 1",
       "Email 2",
-      "Minimalna temperatura",
-      "Maksimalna temperatura",
-      "Minimalna vlažnost",
-      "Maksimalna vlažnost",
+      "Min. temp.",
+      "Maks. temp.",
+      "Min. vlažnost",
+      "Maks. vlažnost",
       "Status",
       "Akcije",
     ],
@@ -69,7 +69,7 @@ const Uređaji = (props) => {
       <Dropdown isClicked={isBurgerClicked} />
       {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
-        <Naslov title={title} />
+        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <DeviceFilter params={params} />
       </Wrapper>
