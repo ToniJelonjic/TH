@@ -11,17 +11,16 @@ import { faComputer } from "@fortawesome/free-solid-svg-icons";
 import useAuth from "../../hooks/useAuth";
 
 const Dropdown = (props) => {
-  const { isClicked, handleBurgerClick } = props;
+  const { isClicked, handleBurgerClick, setIsBurgerClicked } = props;
+  //console.log(isClicked, "auth");
   const { auth } = useAuth();
-  //console.log(auth.role);
+  //console.log(isClicked, "clicked");
   let role = JSON.parse(localStorage.getItem("role"));
 
-  useEffect(() => {
-    //console.log(role);
-  }, []);
-
   return (
-    <div className={`${isClicked ? "dropdown-style" : "dropdown-style"}`}>
+    <div
+      className={`${isClicked ? "dropdown-style-mobile" : "dropdown-style"}`}
+    >
       {role === 1 ? (
         <nav>
           <NavLink

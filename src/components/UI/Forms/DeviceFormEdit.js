@@ -8,11 +8,13 @@ import Wrapper from "../Wrapper";
 import "./FormAdd.css";
 import UserCard from "../UserCard";
 import axios from "axios";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const DeviceFormEdit = () => {
   const location = useLocation();
   let deviceId = location.pathname.split("/")[3];
+
+  const navigate = useNavigate();
 
   //const [data, setData] = useState([]);
   const [name, setName] = useState("");
@@ -83,6 +85,10 @@ const DeviceFormEdit = () => {
     setUserID(e.target.value);
     console.log(e.target.value, "id");
     console.log(e.target.checked, "checked");
+  };
+
+  const navigateBack = () => {
+    navigate(-1);
   };
 
   const getData = async () => {
@@ -397,9 +403,9 @@ const DeviceFormEdit = () => {
             <button onClick={onSave} className="button-save-style">
               Spremi
             </button>
-            <Link to="/uređaji">
-              <button className="button-discard-style">Odbaci</button>
-            </Link>
+            <button onClick={navigateBack} className="button-discard-style">
+              Odbaci
+            </button>
           </div>
         </div>
         {status == 200 && (

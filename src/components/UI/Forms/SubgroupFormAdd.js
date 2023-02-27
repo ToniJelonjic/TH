@@ -7,12 +7,14 @@ import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
 import "./FormAdd.css";
 import UserCard from "../UserCard";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const SubgroupFormAdd = (props) => {
   const title = "Podrupe";
   const subtitle = "Nova podgrupa";
+
+  const navigate = useNavigate();
 
   let klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
@@ -60,6 +62,10 @@ const SubgroupFormAdd = (props) => {
 
   const handleUserClick = () => {
     setIsUserClicked(!isUserClicked);
+  };
+
+  const navigateBack = () => {
+    navigate(-1);
   };
 
   return (
@@ -120,9 +126,9 @@ const SubgroupFormAdd = (props) => {
             <button onClick={onSave} className="button-save-style">
               Spremi
             </button>
-            <Link to="/podgrupe">
-              <button className="button-discard-style">Odbaci</button>
-            </Link>
+            <button onClick={navigateBack} className="button-discard-style">
+              Odbaci
+            </button>
           </div>
         </div>
         {status === 200 && (

@@ -1,25 +1,60 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-//import ReactPaginate from "react-paginate";
+import axios from "../../../api/axios";
+import ReactPaginate from "react-paginate";
+import TablicaUređaj from "../Tablice/TablicaUređaj";
 
-const MeasuresFilter = () => {
-  let defaultDate = new Date();
-  defaultDate.setDate(defaultDate.getDate());
+const measuresFilterLink = "/mjerenja/GetAll";
+const logeriLink = "/logeri/GetAll";
+const groupsLink = "/grupe/GetAll";
+const subgroupsLink = "/podgrupe/GetAll";
 
-  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
+const MeasuresFilter = (props) => {
+  const [dateFrom, setDateFrom] = useState();
+  const [dateTo, setDateTo] = useState();
+  const [klijentID, setKlijentID] = useState();
 
-  const [date, setDate] = useState(defaultDate);
+  const getCurrentDateInput = () => {
+    const dateObj = new Date();
+    const month = ("0" + (dateObj.getMonth() + 1)).slice(-2);
+    const day = ("0" + dateObj.getDate()).slice(-2);
+    const year = dateObj.getFullYear();
+    const shortDate = `${year}-${month}-${day}`;
+    return shortDate;
+  };
 
-  const onSetDate = (event) => {
-    setDate(new Date(event.target.value));
+  const onSetDateFrom = (event) => {
+    const inputDate = event.target.value;
+    const dateParts = inputDate.split("-");
+    const dateObj = new Date(`${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`);
+    console.log(dateObj, "obj");
+    const newDate = dateObj.toLocaleDateString("en-US", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
+    });
+    console.log(newDate, "new");
+    setDateFrom(newDate);
+    console.log(newDate);
+  };
+
+  const onSetDateTo = (event) => {
+    const inputDate = event.target.value;
+    console.log(event.target.value);
+    const dateParts = inputDate.split("-");
+    const dateObj = new Date(`${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`);
+    const newDate = dateObj.toLocaleDateString("en-US", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
+    });
+    setDateTo(newDate);
+    console.log(newDate);
   };
 
   const [data, setData] = useState([]);
   const [deviceValue, setDeviceValue] = useState("");
   const getData = async () => {
-    const { data } = await axios.get(
-      "https://localhost:44336/api/logeri/GetAll"
-    );
+    const { data } = await axios.get(logeriLink);
     setData(data);
   };
 
@@ -27,6 +62,7 @@ const MeasuresFilter = () => {
   const [subGroupValue, setSubGroupValue] = useState("");
   const [subGroups, setSubGroups] = useState([]);
   const [groups, setGroups] = useState([]);
+  const [logers, setLogers] = useState([]);
 
   const handleGroupValue = (e) => {
     setGroupValue(e.target.value);
@@ -40,28 +76,107 @@ const MeasuresFilter = () => {
 
   const handleDeviceValue = (e) => {
     setDeviceValue(e.target.value);
+    console.log(deviceValue);
   };
 
   const getGroups = async () => {
-    const res = await axios
-      .get("https://localhost:44336/api/grupe/GetAll")
-      .then(function(response) {
-        setGroups(response.data);
-      });
+    const res = await axios.get(groupsLink).then(function(response) {
+      setGroups(response.data);
+    });
   };
 
   const getSubGroups = async () => {
-    const res = await axios
-      .get("https://localhost:44336/api/podgrupe/GetAll")
+    const res = await axios.get(subgroupsLink).then(function(response) {
+      setSubGroups(response.data);
+    });
+  };
+
+  const getFilteredResults = async () => {
+    await axios
+      .get(measuresFilterLink, {
+        params: {
+          datumOd: dateFrom,
+          datumDo: dateTo,
+          logerID: deviceValue,
+          grupaID: groupValue,
+          podgrupaID: subGroupValue,
+        },
+      })
       .then(function(response) {
-        setSubGroups(response.data);
+        console.log(response);
+        setLogers(response.data);
+        setCurrentCondition(response.data);
       });
   };
+
+  const [currentItems, setCurrentItems] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 10;
+  const [currentCondition, setCurrentCondition] = useState([]);
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(currentCondition.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(currentCondition.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, currentCondition]);
+
+  const handlePageClick = (event) => {
+    let currentCondition = JSON.parse(localStorage.getItem("items"));
+    //let currentCondition = localStorage.getItem("items");
+    const newOffset = (event.selected * itemsPerPage) % currentCondition.length;
+    setItemOffset(newOffset);
+  };
+
+  // const items = currentItems
+  // .sort((a, b) => a.id - b.id)
+  // .map((item) => {
+  //   if (item.idklijenta === klijentID) {
+  //     return (
+  //       <tr key={item.id}>
+  //         <td className="device-table-info">{item.naziv}</td>
+  //         <td className="device-table-info font">{item.klijent}</td>
+  //         <td className="device-table-info font">{item.email1}</td>
+  //         <td className="device-table-info font">{item.email2}</td>
+  //         <td className="device-table-info font">{item.tmin}</td>
+  //         <td className="device-table-info font">{item.tmax}</td>
+  //         <td className="device-table-info font">{item.hmin}</td>
+  //         <td className="device-table-info font">{item.hmax}</td>
+
+  //         <td
+  //           className={`device-table-info font ${
+  //             item.active ? "active-user" : "non-active-user"
+  //           }`}
+  //         >
+  //           {item.active ? "Aktivan" : "Neaktivan"}
+  //         </td>
+  //         <td className="thead-style">
+  //           <Link to={``}></Link>
+  //           <div>
+  //             <FontAwesomeIcon
+  //               title="Promijeni status"
+  //               className="actions-icon"
+  //               icon={faEllipsis}
+  //             />
+  //             <Link to={`/uređaji/uredi/${item.id}`}>
+  //               <FontAwesomeIcon
+  //                 title="Uredi"
+  //                 className="actions-icon"
+  //                 icon={faEdit}
+  //               />
+  //             </Link>
+  //           </div>
+  //         </td>
+  //       </tr>
+  //     );
+  //   }
+  // });
 
   useEffect(() => {
     getGroups();
     getSubGroups();
     getData();
+    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
   }, []);
 
   return (
@@ -69,24 +184,24 @@ const MeasuresFilter = () => {
       <div className="measure-div">
         <span className="dates-style">
           <input
-            value={date.toLocaleDateString("en-CA")}
-            onChange={onSetDate}
+            defaultValue={getCurrentDateInput()}
+            onChange={onSetDateFrom}
             type="date"
             className="date-input-style"
           />
           <input
-            value={date.toLocaleDateString("en-CA")}
-            onChange={onSetDate}
+            defaultValue={getCurrentDateInput()}
+            onChange={onSetDateTo}
             type="date"
             className="date-input-style"
           />
-          <select className="select-style">
+          <select className="select-style" onChange={handleDeviceValue}>
             <option hidden defaultValue="Odaberite uređaj">
               Odaberite uređaj
             </option>
-            {data.map((device) => {
+            {data.map((device, index) => {
               return (
-                <option value={device.id} key={device}>
+                <option value={device.id} key={index}>
                   {device.naziv}
                 </option>
               );
@@ -102,10 +217,10 @@ const MeasuresFilter = () => {
             <option hidden defaultValue="Odaberite grupu">
               Odaberite grupu
             </option>
-            {groups.map((group) => {
+            {groups.map((group, index) => {
               if (group.klijentId === klijentID) {
                 return (
-                  <option value={group.id} key={group.id}>
+                  <option value={group.id} key={index}>
                     {group.naziv}
                   </option>
                 );
@@ -120,13 +235,13 @@ const MeasuresFilter = () => {
             <option hidden defaultValue="Odaberite podgrupu">
               Odaberite podgrupu
             </option>
-            {subGroups.map((subGroup) => {
+            {subGroups.map((subGroup, index) => {
               if (
                 subGroup.klijentId === klijentID &&
                 groupValue === subGroup.grupaId.toString()
               ) {
                 return (
-                  <option value={subGroup.id} key={subGroup.id}>
+                  <option value={subGroup.id} key={index}>
                     {subGroup.naziv}
                   </option>
                 );
@@ -135,7 +250,7 @@ const MeasuresFilter = () => {
           </select>
         </span>
         <span className="span-button-style">
-          <button /*onClick={getData}*/ className="button-style">
+          <button onClick={getFilteredResults} className="button-style">
             Pretraži
           </button>
         </span>
@@ -145,6 +260,37 @@ const MeasuresFilter = () => {
         //prebaciti tablicu uredjaj
         //u ovu komponentu
       }
+
+      <div className="table-style">
+        <tr>
+          {props.params.params.map((parameter) => {
+            return (
+              <td className="device-table-info" key={parameter}>
+                {parameter}
+              </td>
+            );
+          })}
+        </tr>
+      </div>
+
+      <div className="paginate-div-style">
+        <ReactPaginate
+          breakLabel="..."
+          breakClassName="page-num"
+          nextLabel="Next"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={2}
+          marginPagesDisplayed={1}
+          pageCount={pageCount}
+          previousLabel="Previous"
+          renderOnZeroPageCount={null}
+          containerClassName="pagination"
+          pageLinkClassName="page-num"
+          previousLinkClassName="page-num"
+          nextLinkClassName="page-num"
+          activeLinkClassName="active-page"
+        />
+      </div>
     </>
   );
 };

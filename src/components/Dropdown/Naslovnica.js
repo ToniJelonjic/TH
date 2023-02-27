@@ -82,7 +82,11 @@ const Naslovnica = () => {
       }}
     >
       <Header onClick={handleUserClick} onBurger={handleBurgerClick} />
-      <Dropdown isClicked={isBurgerClicked} handleClick={handleBurgerClick} />
+      <Dropdown
+        isClicked={isBurgerClicked}
+        handleClick={handleBurgerClick}
+        setIsBurgerClicked={setIsBurgerClicked}
+      />
       {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
 
       <Wrapper>

@@ -4,17 +4,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Context from "../../../store/Context";
-import ChangeStatus from "../ChangeStatus";
+import ChangeEmployeeStatus from "../ChangeEmployeeStatus";
 
 const TablicaInfo = (props) => {
   const [isClicked, setIsClicked] = useState(false);
   const [statusId, setStatusId] = useState();
+  const [employeeId, setEmployeeId] = useState(null);
 
   let klijentID = JSON.parse(localStorage.getItem("klijentID"));
   let role = JSON.parse(localStorage.getItem("role"));
 
-  const handleClick = (e) => {
-    setIsClicked(!isClicked);
+  const handleClick = (employeeId) => {
+    console.log(employeeId);
+    setEmployeeId((prevSelectedEmployeeId) => {
+      if (prevSelectedEmployeeId === employeeId) {
+        return null;
+      } else {
+        return employeeId;
+      }
+    });
   };
 
   const { title, subtitle, data, editFormInfo } = useContext(Context);
@@ -100,20 +108,20 @@ const TablicaInfo = (props) => {
               })}
             </tr>
 
-            {data.map((item) => {
-              if (item.ulogaID === role && item.firma === klijentID) {
+            {data.map((item, index) => {
+              if (item.ulogaID === 2 && item.firma === klijentID) {
                 return (
-                  <tr key={item.id} id={item.id} className="tr-style">
+                  <tr key={index} id={item.id} className="tr-style">
                     <td className="thead-style">{item.imePrezime}</td>
                     <td className="thead-style">{item.ime}</td>
                     <td className="thead-style">{item.klijent}</td>
                     <td className="thead-style">{item.uloga}</td>
                     <td
                       className={`thead-style ${
-                        item.status ? "active-user" : "non-active-user"
+                        item.active ? "active-user" : "non-active-user"
                       }`}
                     >
-                      {item.status ? "Aktivan" : "Neaktivan"}
+                      {item.active ? "Aktivan" : "Neaktivan"}
                     </td>
                     <td className="thead-style">
                       <FontAwesomeIcon
@@ -121,12 +129,15 @@ const TablicaInfo = (props) => {
                         className="actions-icon"
                         icon={faEllipsis}
                         value={item.id}
+                        onClick={() => handleClick(item.id)}
                       />
-                      <ChangeStatus
-                        data={item}
-                        isClicked={isClicked}
-                        id={item.id}
-                      />
+
+                      {employeeId === item.id && (
+                        <ChangeEmployeeStatus
+                          setEmployeeId={setEmployeeId}
+                          data={item}
+                        />
+                      )}
 
                       <Link to={`/zaposlenici/uredi/${item.id}`}>
                         <FontAwesomeIcon

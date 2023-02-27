@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Header.css";
 import user from "../../images/user.jpg";
 import Hamburger from "../UI/Hamburger";
 
-const Header = (props) => {
-  const { onClick, onBurger } = props;
-
+const Header = ({ onClick, onBurger }) => {
   return (
     <div className="header-style">
       <Hamburger onBurger={onBurger} />

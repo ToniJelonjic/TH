@@ -29,17 +29,11 @@ const ActivityFilter = (props) => {
   const getCurrentCondition = async () => {
     await axios
       .get("https://localhost:44336/api/logeri/ProvjeraMjerenja", {
-        //ispraviti
-        //
-        //
         params: {
-          klijentID: 3,
+          klijentID: klijentID,
           grupaID: parseInt(groupValue),
           podgrupaID: parseInt(subGroupValue),
         },
-        //
-        //
-        //
       })
       .then(function(response) {
         setCurrentCondition(response.data);

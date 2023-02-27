@@ -8,13 +8,15 @@ import Wrapper from "../Wrapper";
 import "./FormAdd.css";
 import UserCard from "../UserCard";
 import axios from "axios";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const GroupFormEdit = () => {
   const location = useLocation();
   let groupId = location.pathname.split("/")[3];
   const [name, setName] = useState("");
   const [status, setStatus] = useState();
+
+  const navigate = useNavigate();
 
   const getData = async () => {
     await axios
@@ -40,6 +42,10 @@ const GroupFormEdit = () => {
 
   const handleName = (e) => {
     setName(e.target.value);
+  };
+
+  const navigateBack = () => {
+    navigate(-1);
   };
 
   const onSave = () => {
@@ -95,9 +101,9 @@ const GroupFormEdit = () => {
             <button onClick={onSave} className="button-save-style">
               Spremi
             </button>
-            <Link to="/grupe">
-              <button className="button-discard-style">Odbaci</button>
-            </Link>
+            <button onClick={navigateBack} className="button-discard-style">
+              Odbaci
+            </button>
           </div>
         </div>
         {status == 200 && (

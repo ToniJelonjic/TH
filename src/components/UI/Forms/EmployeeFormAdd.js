@@ -8,11 +8,13 @@ import Wrapper from "../Wrapper";
 import "./FormAdd.css";
 import UserCard from "../UserCard";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const EmployeeFormAdd = (props) => {
   const title = "Zaposlenici";
   const subtitle = "Novi zaposlenik";
+
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
@@ -29,6 +31,10 @@ const EmployeeFormAdd = (props) => {
 
   const handlePassword = (e) => {
     setPassword(e.target.value);
+  };
+
+  const navigateBack = () => {
+    navigate(-1);
   };
 
   const onSave = () => {
@@ -126,9 +132,9 @@ const EmployeeFormAdd = (props) => {
             <button onClick={onSave} className="button-save-style">
               Spremi
             </button>
-            <Link to="/zaposlenici">
-              <button className="button-discard-style">Odbaci</button>
-            </Link>
+            <button onClick={navigateBack} className="button-discard-style">
+              Odbaci
+            </button>
           </div>
         </div>
         {status == 200 && (

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import axios from "../../../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const profileEditUrl = "/korisnici/Edit";
 
@@ -15,6 +16,8 @@ const ProfileForm = () => {
   const [role, setRole] = useState();
   const [klijentID, setKlijentID] = useState();
   const [status, setStatus] = useState();
+
+  const navigate = useNavigate();
 
   console.log(korisnickoIme, "korime");
 
@@ -32,6 +35,10 @@ const ProfileForm = () => {
 
   const handleUserClick = () => {
     setIsUserClicked(!isUserClicked);
+  };
+
+  const navigateBack = () => {
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -119,7 +126,9 @@ const ProfileForm = () => {
           <button type="submit" onClick={onSave} className="button-save-style">
             Spremi
           </button>
-          <button className="button-discard-style">Odbaci</button>
+          <button onClick={navigateBack} className="button-discard-style">
+            Odbaci
+          </button>
         </div>
       </div>
       {status == 200 && (

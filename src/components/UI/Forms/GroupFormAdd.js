@@ -8,11 +8,13 @@ import Wrapper from "../Wrapper";
 import "./FormAdd.css";
 import UserCard from "../UserCard";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const GroupFormAdd = () => {
   const title = "Grupe";
   const subtitle = "Nova grupa";
+
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [status, setStatus] = useState();
@@ -40,6 +42,10 @@ const GroupFormAdd = () => {
 
   const handleUserClick = () => {
     setIsUserClicked(!isUserClicked);
+  };
+
+  const navigateBack = () => {
+    navigate(-1);
   };
 
   return (
@@ -72,9 +78,9 @@ const GroupFormAdd = () => {
             <button onClick={onSave} className="button-save-style">
               Spremi
             </button>
-            <Link to="/grupe">
-              <button className="button-discard-style">Odbaci</button>
-            </Link>
+            <button onClick={navigateBack} className="button-discard-style">
+              Odbaci
+            </button>
           </div>
         </div>
         {status == 200 && (

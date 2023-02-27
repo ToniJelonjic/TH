@@ -8,11 +8,13 @@ import Wrapper from "../Wrapper";
 import "./FormAdd.css";
 import UserCard from "../UserCard";
 import axios from "axios";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const SubgroupFormEdit = () => {
   const location = useLocation();
   let subgroupId = location.pathname.split("/")[3];
+
+  const navigate = useNavigate();
 
   let klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
@@ -64,6 +66,10 @@ const SubgroupFormEdit = () => {
 
   const handleGroupId = (e) => {
     setGroupId(e.target.value);
+  };
+
+  const navigateBack = () => {
+    navigate(-1);
   };
 
   const onSave = () => {
@@ -149,9 +155,9 @@ const SubgroupFormEdit = () => {
             <button onClick={onSave} className="button-save-style">
               Spremi
             </button>
-            <Link to="/podgrupe">
-              <button className="button-discard-style">Odbaci</button>
-            </Link>
+            <button onClick={navigateBack} className="button-discard-style">
+              Odbaci
+            </button>
           </div>
         </div>
         {status == 200 && (

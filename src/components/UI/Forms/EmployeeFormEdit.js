@@ -7,16 +7,24 @@ import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
 import "./FormAdd.css";
 import UserCard from "../UserCard";
-import axios from "axios";
-import { Link, useLocation } from "react-router-dom";
+import axios from "../../../api/axios";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
+const employeeEditLink = "korisnici/Edit";
+const employeeGetAllLink = "korisnici/GetAll";
 
 const EmployeeFormEdit = () => {
   const location = useLocation();
   let employeeId = location.pathname.split("/")[3];
   const [data, setData] = useState([]);
+  const [klijentID, setKlijentID] = useState();
+  const [role, setRole] = useState();
+
+  const navigate = useNavigate();
+
   const getData = async () => {
     await axios
-      .get("https://localhost:44336/api/korisnici/GetAll")
+      .get(employeeGetAllLink)
       .then((response) => {
         response.data.filter((employee) => {
           if (parseInt(employee.id) === parseInt(employeeId)) {
@@ -32,6 +40,8 @@ const EmployeeFormEdit = () => {
 
   useEffect(() => {
     getData();
+    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
+    setRole(JSON.parse(localStorage.getItem("role")));
   }, []);
 
   const title = "Zaposlenici";
@@ -54,21 +64,19 @@ const EmployeeFormEdit = () => {
     setPassword(e.target.value);
   };
 
+  const navigateBack = () => {
+    navigate(-1);
+  };
+
   const onSave = () => {
     axios
-      .post(`https://localhost:44336/api/korisnici/Edit`, {
-        //ispraviti
-        //dummy
-        //podatke
-        //kada
-        //se uradi
-        //login
+      .post(employeeEditLink, {
         Id: employeeId,
         Ime: username,
         Lozinka: password,
         Status: true,
         imePrezime: name,
-        Firma: 3,
+        Firma: klijentID,
         Poslovnica: 0,
         UlogaID: 2,
         Active: false,
@@ -108,7 +116,6 @@ const EmployeeFormEdit = () => {
                 placeholder="Ime i prezime"
                 onChange={handleName}
                 value={name}
-                /* defaultValue={props.title === "Profil" ? "Admin" : null} */
               ></input>
               <div className="placeholder-div-style">Unesite ime i prezime</div>
             </div>
@@ -151,9 +158,9 @@ const EmployeeFormEdit = () => {
             <button onClick={onSave} className="button-save-style">
               Spremi
             </button>
-            <Link to="/zaposlenici">
-              <button className="button-discard-style">Odbaci</button>
-            </Link>
+            <button onClick={navigateBack} className="button-discard-style">
+              Odbaci
+            </button>
           </div>
         </div>
         {status == 200 && (

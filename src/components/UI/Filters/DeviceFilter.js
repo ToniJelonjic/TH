@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../../../api/axios";
 import ReactPaginate from "react-paginate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import ChangeDeviceStatus from "../ChangeDeviceStatus";
+
+const logeriGetAllLink = "/logeri/GetAll";
+const groupsGetAllLink = "/grupe/GetAll";
+const subgroupsGetAllLink = "/podgrupe/GetAll";
 
 const DeviceFilter = (props) => {
   const [groupValue, setGroupValue] = useState(0);
   const [subGroupValue, setSubGroupValue] = useState(0);
   const [subGroups, setSubGroups] = useState([]);
   const [groups, setGroups] = useState([]);
+
+  const [selectedDeviceId, setSelectedDeviceId] = useState(null);
 
   let klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
@@ -31,41 +38,40 @@ const DeviceFilter = (props) => {
 
   const getCurrentCondition = async () => {
     await axios
-      .get("https://localhost:44336/api/logeri/GetAll", {
-        //ispraviti
-        //
-        //
+      .get(logeriGetAllLink, {
         params: {
           klijentID: klijentID,
           grupaID: parseInt(groupValue),
           podgrupaID: parseInt(subGroupValue),
         },
-        //
-        //
-        //
       })
       .then(function(response) {
         setCurrentCondition(response.data);
-        //console.log(response.data, "dddd");
         localStorage.setItem("items", JSON.stringify(response.data));
       });
   };
 
   const getGroups = async () => {
-    await axios
-      .get("https://localhost:44336/api/grupe/GetAll")
-      .then(function(response) {
-        setGroups(response.data);
-      });
+    await axios.get(groupsGetAllLink).then(function(response) {
+      setGroups(response.data);
+    });
   };
 
   const getSubGroups = async () => {
-    await axios
-      .get("https://localhost:44336/api/podgrupe/GetAll")
-      .then(function(response) {
-        setSubGroups(response.data);
-        //console.log(response.data, "fewmnflewnjgnwrjgnjkenjk");
-      });
+    await axios.get(subgroupsGetAllLink).then(function(response) {
+      setSubGroups(response.data);
+    });
+  };
+
+  const handleClick = (deviceId) => {
+    console.log(deviceId);
+    setSelectedDeviceId((prevSelectedDeviceId) => {
+      if (prevSelectedDeviceId === deviceId) {
+        return null;
+      } else {
+        return deviceId;
+      }
+    });
   };
 
   useEffect(() => {
@@ -117,7 +123,16 @@ const DeviceFilter = (props) => {
                   title="Promijeni status"
                   className="actions-icon"
                   icon={faEllipsis}
+                  onClick={() => handleClick(item.id)}
                 />
+
+                {selectedDeviceId === item.id && (
+                  <ChangeDeviceStatus
+                    setSelectedDeviceId={setSelectedDeviceId}
+                    data={item}
+                  />
+                )}
+
                 <Link to={`/uređaji/uredi/${item.id}`}>
                   <FontAwesomeIcon
                     title="Uredi"

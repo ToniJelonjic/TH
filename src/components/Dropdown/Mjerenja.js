@@ -84,14 +84,14 @@ const Mjerenja = () => {
           <Groups />
           <ButtonSearch />
         </div> */}
-        <MeasuresFilter />
-        <TablicaUređaj
+        <MeasuresFilter params={params} />
+        {/* <TablicaUređaj
           title={title}
           groupValue={groupValue}
           subGroupValue={subGroupValue}
           params={params}
           data={data}
-        />
+        /> */}
       </Wrapper>
       <Footer />
     </Context.Provider>

@@ -45,6 +45,20 @@ table {
     transition: 0.3s ease;
 }
 
+.status-change {
+    position: absolute;
+    border: 1px solid #dddee3;
+    background-color: #e4e5ea;
+    padding: 7px;
+    right: 110px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.status-change:hover {
+    background-color: #dadde7;
+}
+
 @media screen and (max-width: 900px) {
     .groups-table-style {
         padding: 50px 0px 20px 0px;
@@ -59,12 +73,9 @@ table {
     .thead-style {
         width: 100px;
     }
+
+    .status-change {
+        right: 0;
+    }
 }
 
-.status-change {
-    position: absolute;
-    border: 1px solid grey;
-    padding: 3px;
-    left: 100;
-    cursor: pointer;
-}
