@@ -2,43 +2,30 @@ import React, { useState, useEffect } from "react";
 import Dropdown from "../../Dropdown/Dropdown";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-import Naslov from "../Naslovi/Naslov";
+//import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
-import "./FormAdd.css";
+import "./Forms.css";
 import UserCard from "../UserCard";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import axios from "../../../api/axios";
+import { useNavigate } from "react-router-dom";
+
+const grupeInsertLink = "/grupe/Insert";
 
 const GroupFormAdd = () => {
-  const title = "Grupe";
+  //const title = "Grupe";
   const subtitle = "Nova grupa";
 
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [status, setStatus] = useState();
+  const [klijentID, setKlijentID] = useState();
+  const [isUserClicked, setIsUserClicked] = useState(false);
 
   const handleName = (e) => {
     setName(e.target.value);
   };
-
-  const onSave = () => {
-    axios
-      .post(`https://localhost:44336/api/grupe/Insert`, {
-        KlijentID: 3,
-        Naziv: name,
-      })
-      .then(function(response) {
-        setStatus(response.status);
-        console.log(response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  };
-
-  const [isUserClicked, setIsUserClicked] = useState(false);
 
   const handleUserClick = () => {
     setIsUserClicked(!isUserClicked);
@@ -47,6 +34,26 @@ const GroupFormAdd = () => {
   const navigateBack = () => {
     navigate(-1);
   };
+
+  const onSave = () => {
+    axios
+      .post(grupeInsertLink, {
+        KlijentID: klijentID,
+        Naziv: name,
+      })
+      .then(function(response) {
+        setStatus(response.status);
+        setName("");
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
+  }, []);
 
   return (
     <div>
@@ -66,6 +73,7 @@ const GroupFormAdd = () => {
                 className="elements-input"
                 type="text"
                 placeholder="Naziv"
+                value={name}
                 onChange={handleName}
               ></input>
               <div className="placeholder-div-style">Unesite naziv grupe</div>
@@ -83,7 +91,7 @@ const GroupFormAdd = () => {
             </button>
           </div>
         </div>
-        {status == 200 && (
+        {status === 200 && (
           <div className="success-div">Uspješno ste dodali novu grupu.</div>
         )}
       </Wrapper>

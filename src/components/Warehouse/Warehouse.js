@@ -7,10 +7,12 @@ import badH from "../../images/badH.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from "react-paginate";
-import axios from "axios";
+import axios from "../../api/axios";
+
+const logeriTrenutnoStanjeLink = "/logeri/TrenutnoStanje";
 
 const Warehouse = () => {
-  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
+  const [klijentID, setKlijentID] = useState();
 
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -18,21 +20,19 @@ const Warehouse = () => {
   const itemsPerPage = 12;
   const [currentCondition, setCurrentCondition] = useState([]);
   const getCurrentCondition = async () => {
-    const res = await axios
-      .get("https://localhost:44336/api/logeri/TrenutnoStanje", {
-        //ispraviti
-        //
-        //
-        data: { klijentID: 3 },
-        //
-        //
-        //
+    await axios
+      .get(logeriTrenutnoStanjeLink, {
+        data: { klijentID: klijentID },
       })
       .then(function(response) {
         setCurrentCondition(response.data);
         //console.log(response.data, "ddd");
       });
   };
+
+  useEffect(() => {
+    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
+  }, []);
 
   useEffect(() => {
     getCurrentCondition();

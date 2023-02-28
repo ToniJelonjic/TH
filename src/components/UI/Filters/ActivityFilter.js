@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import "./ActivityFilter.css";
+import axios from "../../../api/axios";
 import ReactPaginate from "react-paginate";
 
+const ProvjeraMjerenjaLink = "/logeri/ProvjeraMjerenja";
+const getGrupeLink = "/grupe/GetAll";
+const getPodgrupeLink = "/podgrupe/GetAll";
+
 const ActivityFilter = (props) => {
+  const [klijentID, setKlijentID] = useState();
   const [groupValue, setGroupValue] = useState(0);
   const [subGroupValue, setSubGroupValue] = useState(0);
   const [subGroups, setSubGroups] = useState([]);
   const [groups, setGroups] = useState([]);
-
-  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -28,7 +32,7 @@ const ActivityFilter = (props) => {
 
   const getCurrentCondition = async () => {
     await axios
-      .get("https://localhost:44336/api/logeri/ProvjeraMjerenja", {
+      .get(ProvjeraMjerenjaLink, {
         params: {
           klijentID: klijentID,
           grupaID: parseInt(groupValue),
@@ -42,16 +46,12 @@ const ActivityFilter = (props) => {
   };
 
   const getGroups = async () => {
-    const { data } = await axios.get(
-      "https://localhost:44336/api/grupe/GetAll"
-    );
+    const { data } = await axios.get(getGrupeLink);
     setGroups(data);
   };
 
   const getSubGroups = async () => {
-    const { data } = await axios.get(
-      "https://localhost:44336/api/podgrupe/GetAll"
-    );
+    const { data } = await axios.get(getPodgrupeLink);
     setSubGroups(data);
   };
 
@@ -59,6 +59,7 @@ const ActivityFilter = (props) => {
     getGroups();
     getSubGroups();
     getCurrentCondition();
+    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
   }, []);
 
   useEffect(() => {

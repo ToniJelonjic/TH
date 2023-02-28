@@ -4,15 +4,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Context from "../../../store/Context";
-import ChangeEmployeeStatus from "../ChangeEmployeeStatus";
+import ChangeEmployeeStatus from "../StatusChange/ChangeEmployeeStatus";
 
 const TablicaInfo = (props) => {
+  const { title, data } = useContext(Context);
+
   const [isClicked, setIsClicked] = useState(false);
   const [statusId, setStatusId] = useState();
   const [employeeId, setEmployeeId] = useState(null);
+  const [klijentID, setKlijentID] = useState();
+  const [role, setRole] = useState();
 
-  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
-  let role = JSON.parse(localStorage.getItem("role"));
   const employeeRef = useRef();
 
   const handleClick = (employeeId) => {
@@ -28,10 +30,8 @@ const TablicaInfo = (props) => {
   };
 
   useEffect(() => {
-    let handler = () => {
-      setIsClicked(false);
-    };
-    document.addEventListener("mousedown", handler);
+    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
+    setRole(JSON.parse(localStorage.getItem("role")));
   });
 
   // useEffect(() => {
@@ -47,7 +47,6 @@ const TablicaInfo = (props) => {
   //   };
   // });
 
-  const { title, subtitle, data, editFormInfo } = useContext(Context);
   return (
     <div className="info-table-style">
       {title === "Grupe" ? (

@@ -2,63 +2,36 @@ import React, { useState, useEffect } from "react";
 import Dropdown from "../../Dropdown/Dropdown";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-import Naslov from "../Naslovi/Naslov";
+//import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
-import "./FormAdd.css";
+import "./Forms.css";
 import UserCard from "../UserCard";
-import axios from "axios";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "../../../api/axios";
+import { useLocation, useNavigate } from "react-router-dom";
+
+const grupeGetAllLink = "/grupe/GetAll";
+const podgrupeGetAllLink = "/podgrupe/GetAll";
+const podgrupeEditLink = "/podgrupe/Edit";
 
 const SubgroupFormEdit = () => {
-  const location = useLocation();
+  //const title = "Podrupe";
+  const subtitle = "Uredi podgrupu";
   let subgroupId = location.pathname.split("/")[3];
 
+  const location = useLocation();
   const navigate = useNavigate();
 
-  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
-
   const [groups, setGroups] = useState([]);
-  const getGroups = async () => {
-    await axios
-      .get("https://localhost:44336/api/grupe/GetAll")
-      .then((response) => {
-        setGroups(response.data);
-      })
-      .catch((err) => {
-        console.log("error");
-      });
-  };
-
-  useEffect(() => {
-    getGroups();
-    getData();
-  }, []);
-
-  //const [data, setData] = useState([]);
-  const getData = async () => {
-    await axios
-      .get("https://localhost:44336/api/podgrupe/GetAll")
-      .then((response) => {
-        response.data.filter((subgroup) => {
-          if (parseInt(subgroup.id) === parseInt(subgroupId)) {
-            setName(subgroup.naziv);
-            setGroupId(subgroup.grupaId);
-            //console.log(subgroup.naziv);
-          }
-        });
-      })
-      .catch((err) => {
-        console.log("error");
-      });
-  };
-
-  const title = "Podrupe";
-  const subtitle = "Uredi podgrupu";
-
   const [name, setName] = useState("");
   const [groupId, setGroupId] = useState();
   const [status, setStatus] = useState();
+  const [klijentID, setKlijentID] = useState();
+  const [isUserClicked, setIsUserClicked] = useState(false);
+
+  const handleUserClick = () => {
+    setIsUserClicked(!isUserClicked);
+  };
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -72,11 +45,39 @@ const SubgroupFormEdit = () => {
     navigate(-1);
   };
 
+  const getGroups = async () => {
+    await axios
+      .get(grupeGetAllLink)
+      .then((response) => {
+        setGroups(response.data);
+      })
+      .catch((err) => {
+        console.log("error");
+      });
+  };
+
+  const getData = async () => {
+    await axios
+      .get(podgrupeGetAllLink)
+      .then((response) => {
+        response.data.filter((subgroup) => {
+          if (parseInt(subgroup.id) === parseInt(subgroupId)) {
+            setName(subgroup.naziv);
+            setGroupId(subgroup.grupaId);
+            //console.log(subgroup.naziv);
+          }
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const onSave = () => {
     axios
-      .post(`https://localhost:44336/api/podgrupe/Edit`, {
+      .post(podgrupeEditLink, {
         Id: subgroupId,
-        KlijentId: 3,
+        KlijentId: klijentID,
         Naziv: name,
         GrupaId: groupId,
       })
@@ -89,11 +90,11 @@ const SubgroupFormEdit = () => {
       });
   };
 
-  const [isUserClicked, setIsUserClicked] = useState(false);
-
-  const handleUserClick = () => {
-    setIsUserClicked(!isUserClicked);
-  };
+  useEffect(() => {
+    getGroups();
+    getData();
+    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
+  }, []);
 
   return (
     <div>

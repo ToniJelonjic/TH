@@ -2,25 +2,45 @@ import React, { useState, useEffect } from "react";
 import Dropdown from "../../Dropdown/Dropdown";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-import Naslov from "../Naslovi/Naslov";
+//import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
-import "./FormAdd.css";
+import "./Forms.css";
 import UserCard from "../UserCard";
-import axios from "axios";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "../../../api/axios";
+import { useLocation, useNavigate } from "react-router-dom";
+
+const grupeGetAllLink = "/grupe/GetAll";
+const grupeEditLink = "/grupe/Edit";
 
 const GroupFormEdit = () => {
+  //const title = "Grupe";
+  const subtitle = "Uredi grupu";
+
   const location = useLocation();
+  const navigate = useNavigate();
+
   let groupId = location.pathname.split("/")[3];
   const [name, setName] = useState("");
   const [status, setStatus] = useState();
+  const [isUserClicked, setIsUserClicked] = useState(false);
+  const [klijentID, setKlijentID] = useState();
 
-  const navigate = useNavigate();
+  const handleUserClick = () => {
+    setIsUserClicked(!isUserClicked);
+  };
+
+  const handleName = (e) => {
+    setName(e.target.value);
+  };
+
+  const navigateBack = () => {
+    navigate(-1);
+  };
 
   const getData = async () => {
     await axios
-      .get("https://localhost:44336/api/grupe/GetAll")
+      .get(grupeGetAllLink)
       .then((data) => {
         data.data.filter((group) => {
           if (parseInt(group.id) === parseInt(groupId)) {
@@ -33,26 +53,11 @@ const GroupFormEdit = () => {
       });
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const title = "Grupe";
-  const subtitle = "Uredi grupu";
-
-  const handleName = (e) => {
-    setName(e.target.value);
-  };
-
-  const navigateBack = () => {
-    navigate(-1);
-  };
-
   const onSave = () => {
     axios
-      .post(`https://localhost:44336/api/grupe/Edit`, {
+      .post(grupeEditLink, {
         Id: groupId,
-        KlijentID: 3,
+        KlijentID: klijentID,
         Naziv: name,
       })
       .then(function(response) {
@@ -64,11 +69,10 @@ const GroupFormEdit = () => {
       });
   };
 
-  const [isUserClicked, setIsUserClicked] = useState(false);
-
-  const handleUserClick = () => {
-    setIsUserClicked(!isUserClicked);
-  };
+  useEffect(() => {
+    getData();
+    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
+  }, []);
 
   return (
     <div>

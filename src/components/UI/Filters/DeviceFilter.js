@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
+import "./DeviceFilter.css";
 import axios from "../../../api/axios";
 import ReactPaginate from "react-paginate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import ChangeDeviceStatus from "../ChangeDeviceStatus";
+import ChangeDeviceStatus from "../StatusChange/ChangeDeviceStatus";
 
 const logeriGetAllLink = "/logeri/GetAll";
 const groupsGetAllLink = "/grupe/GetAll";
 const subgroupsGetAllLink = "/podgrupe/GetAll";
 
 const DeviceFilter = (props) => {
+  const [klijentID, setKlijentID] = useState();
   const [groupValue, setGroupValue] = useState(0);
   const [subGroupValue, setSubGroupValue] = useState(0);
   const [subGroups, setSubGroups] = useState([]);
@@ -19,8 +21,6 @@ const DeviceFilter = (props) => {
   const [selectedDeviceId, setSelectedDeviceId] = useState(null);
   //const deviceRef = useRef();
   const [isClicked, setIsClicked] = useState(false);
-
-  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -83,6 +83,7 @@ const DeviceFilter = (props) => {
     getGroups();
     getSubGroups();
     getCurrentCondition();
+    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
   }, []);
 
   // useEffect(() => {

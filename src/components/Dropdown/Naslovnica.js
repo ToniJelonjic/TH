@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Naslovnica.css";
 import Header from "../Header/Header";
 import Dropdown from "./Dropdown";
 import Footer from "../Footer/Footer";
-import Uređaj from "../UI/Uređaj";
-import Naslov from "../UI/Naslovi/Naslov";
+//import Uređaj from "../UI/Uređaj";
+//import Naslov from "../UI/Naslovi/Naslov";
 import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
-import Groups from "../UI/Groups";
-import Button from "../UI/Buttons/ButtonSearch";
 import UserCard from "../UI/UserCard";
-import Warehouse from "../Warehouse/Warehouse";
+//import Warehouse from "../Warehouse/Warehouse";
 import Context from "../../store/Context";
-import axios from "axios";
-import ActivityFilter from "../UI/Filters/ActivityFilter";
+//import ActivityFilter from "../UI/Filters/ActivityFilter";
 
 const Naslovnica = () => {
   const title = "Naslovnica";
@@ -22,6 +19,7 @@ const Naslovnica = () => {
     "Pregled mjerenja van opsega",
     "Pregled aktivnosti uređaja",
   ];
+
   const params1 = {
     id: Math.random(),
     params: [
@@ -35,6 +33,7 @@ const Naslovnica = () => {
       "Maksimalna vlažnost",
     ],
   };
+
   const params2 = {
     id: Math.random(),
     params: [
@@ -47,20 +46,7 @@ const Naslovnica = () => {
     ],
   };
 
-  const [groupValue, setGroupValue] = useState(0);
-  const [subGroupValue, setSubGroupValue] = useState(0);
-  const [outOfRange, setOutOfRange] = useState();
-  const [deviceActivity, setDeviceActivity] = useState();
-
-  const handleGroupValue = (e) => {
-    setGroupValue(e.target.value);
-    //console.log(groupValue);
-  };
-
-  const handleSubGroupValue = (e) => {
-    setSubGroupValue(e.target.value);
-    //console.log(subGroupValue);
-  };
+  const userRef = useRef();
 
   const [isUserClicked, setIsUserClicked] = useState(false);
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
@@ -74,6 +60,14 @@ const Naslovnica = () => {
     console.log(isBurgerClicked);
   };
 
+  useEffect(() => {
+    // document.addEventListener("mousedown", (e) => {
+    //   if (userRef.current.includes(e.target)) {
+    //     setIsUserClicked(false);
+    //   }
+    // });
+  }, []);
+
   return (
     <Context.Provider
       value={{
@@ -81,13 +75,19 @@ const Naslovnica = () => {
         subtitle,
       }}
     >
-      <Header onClick={handleUserClick} onBurger={handleBurgerClick} />
+      <Header
+        ref={userRef}
+        onClick={handleUserClick}
+        onBurger={handleBurgerClick}
+      />
       <Dropdown
         isClicked={isBurgerClicked}
         handleClick={handleBurgerClick}
         setIsBurgerClicked={setIsBurgerClicked}
       />
-      {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
+      {isUserClicked ? (
+        <UserCard onClick={handleUserClick} ref={userRef} />
+      ) : null}
 
       <Wrapper>
         {/* <Naslov title={title} /> */}
@@ -96,7 +96,6 @@ const Naslovnica = () => {
         <Podnaslov subtitle={subtitle[1]} />
         {/* <Uređaj params={params1} /> */}
         <Podnaslov subtitle={subtitle[2]} />
-
         {/* <ActivityFilter subtitle={subtitle[2]} params={params2} /> */}
       </Wrapper>
       <Footer />

@@ -1,11 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Missing = () => {
+  const navigate = useNavigate();
+
+  const navigateBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div style={{ padding: "100px" }}>
       <h1>Oops!</h1>
       <p>Page Not Found</p>
+      <button onClick={navigateBack}>Nazad</button>
     </div>
   );
 };

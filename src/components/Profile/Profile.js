@@ -1,40 +1,22 @@
 import React, { useState } from "react";
+import "./Profile.css";
 import Header from "../Header/Header";
 import Dropdown from "../Dropdown/Dropdown";
 import UserCard from "../UI/UserCard";
 import Wrapper from "../UI/Wrapper";
-import Naslov from "../UI/Naslovi/Naslov";
+//import Naslov from "../UI/Naslovi/Naslov";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
-import FormElements from "../UI/Forms/FormElements";
-import ButtonSave from "../UI/Buttons/ButtonSave";
-import axios from "axios";
 import ProfileForm from "../UI/Forms/ProfileForm";
 
-const Profile = (props) => {
-  const title = "Profil";
+const Profile = () => {
+  // const title = "Profil";
   const subtitle = "Profil";
 
-  //let imePrezime = JSON.parse(localStorage.getItem("imePrezime"));
-  //let korisnickoIme = JSON.parse(localStorage.getItem("korisnickoIme"));
   const [isUserClicked, setIsUserClicked] = useState(false);
 
   const handleUserClick = () => {
     setIsUserClicked(!isUserClicked);
   };
-
-  // const onSave = () => {
-  //   axios
-  //     .post(`https://localhost:44336/api/korisnici/Edit`, {
-  //       KlijentID: 2,
-  //       Naziv: name,
-  //     })
-  //     .then(function(response) {
-  //       console.log(response);
-  //     })
-  //     .catch(function(error) {
-  //       console.log(error);
-  //     });
-  // };
 
   return (
     <>
@@ -44,9 +26,7 @@ const Profile = (props) => {
       <Wrapper>
         {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
-        {/* <FormElements title={title} /> */}
         <ProfileForm />
-        {/* <ButtonSave /> */}
       </Wrapper>
     </>
   );

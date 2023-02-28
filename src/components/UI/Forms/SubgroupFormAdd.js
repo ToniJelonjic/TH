@@ -2,25 +2,36 @@ import React, { useState, useEffect } from "react";
 import Dropdown from "../../Dropdown/Dropdown";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-import Naslov from "../Naslovi/Naslov";
+//import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
-import "./FormAdd.css";
+import "./Forms.css";
 import UserCard from "../UserCard";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import axios from "../../../api/axios";
+
+const grupeGetAllLink = "/grupe/GetAll";
+const podgrupeInsertLink = "podgrupe/Insert";
 
 const SubgroupFormAdd = (props) => {
-  const title = "Podrupe";
+  //const title = "Podrupe";
   const subtitle = "Nova podgrupa";
 
   const navigate = useNavigate();
 
-  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
-
   const [name, setName] = useState("");
   const [groupId, setGroupId] = useState();
   const [status, setStatus] = useState();
+  const [klijentID, setKlijentID] = useState();
+  const [isUserClicked, setIsUserClicked] = useState(false);
+
+  const handleUserClick = () => {
+    setIsUserClicked(!isUserClicked);
+  };
+
+  const navigateBack = () => {
+    navigate(-1);
+  };
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -32,16 +43,14 @@ const SubgroupFormAdd = (props) => {
 
   const [groups, setGroups] = useState([]);
   const getGroups = async () => {
-    const { data } = await axios.get(
-      "https://localhost:44336/api/grupe/GetAll"
-    );
+    const { data } = await axios.get(grupeGetAllLink);
     setGroups(data);
   };
 
   const onSave = () => {
     axios
-      .post(`https://localhost:44336/api/podgrupe/Insert`, {
-        KlijentId: 3,
+      .post(podgrupeInsertLink, {
+        KlijentId: klijentID,
         Naziv: name,
         GrupaId: groupId,
       })
@@ -56,17 +65,8 @@ const SubgroupFormAdd = (props) => {
 
   useEffect(() => {
     getGroups();
+    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
   }, []);
-
-  const [isUserClicked, setIsUserClicked] = useState(false);
-
-  const handleUserClick = () => {
-    setIsUserClicked(!isUserClicked);
-  };
-
-  const navigateBack = () => {
-    navigate(-1);
-  };
 
   return (
     <div>

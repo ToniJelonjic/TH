@@ -6,6 +6,7 @@ import logo from "../../../images/logo-1.png";
 import axios from "../../../api/axios";
 
 const loginUrl = "/korisnici/Login";
+const loggedIn = "http://localhost:3000/naslovnica";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
@@ -64,7 +65,7 @@ const Login = () => {
         setUsername("");
         setPassword("");
         //navigate(from, { replace: true });
-        navigate("http://localhost:3000/naslovnica");
+        navigate(loggedIn);
       } else if (response.status === 204) {
         console.log("Fuck");
         setErrMsg("Neispravno korisničko ime ili lozinka");

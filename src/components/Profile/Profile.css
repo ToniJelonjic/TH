@@ -1,0 +1,142 @@
+.elements-div-style {
+    background-color: #fff;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px dotted #ebedf2;
+  }
+  
+  .element-label-style {
+    text-align: right;
+    margin-right: 15px;
+    padding-top: 9px;
+    font-size: 15px;
+  }
+  
+  .placeholder-div-style {
+    color: #7b7e8a;
+    font-size: 13px;
+    margin-left: 5px;
+  }
+  
+  .row {
+    --bs-gutter-x: 0 !important;
+  }
+  
+  .elements-input {
+    margin-bottom: 5px;
+    margin-left: 5px;
+    border: 1px solid #afb4c7;
+    border-radius: 5px;
+    padding-left: 10px;
+    width: 70%;
+    height: 40px;
+    font-size: 15px;
+    background-color: white;
+    color: #575962;
+  }
+  
+  .elements-input::placeholder {
+    color: #afb4c7;
+  }
+  
+  .default-value {
+    color: #afb4c7;
+  }
+  
+  .subgroup-label-style {
+    padding-top: 8px !important;
+  }
+  
+  .users-style {
+    margin-right: 40px;
+    margin-left: 10px;
+  }
+
+  .button-save-style {
+    cursor: pointer;
+    color: #fff;
+    font-family: "Poppins";
+    background-color: #716aca;
+    border-color: #716aca;
+    height: 40px;
+    width: 80px;
+    font-size: 13px;
+    font-weight: 400;
+    margin-right: 15px;
+  }
+  
+  .button-save-style:hover {
+    background-color: #564ec0;
+  }
+  
+  .button-discard-style {
+    cursor: pointer;
+    color: #212529;
+    font-family: "Poppins";
+    height: 40px;
+    width: 80px;
+    background: #fff;
+    border-color: #ebedf2;
+    font-size: 13px;
+    font-weight: 400;
+  }
+  
+  .button-discard-style:hover {
+    border-color: #ebedf2;
+    background-color: #f4f5f8;
+  }
+  
+  .save-discard-div {
+    background-color: #f7f8fa;
+    padding: 30px;
+  }
+
+  @media screen and (max-width: 700px) {
+
+    .elements-input {
+      width: 100%;
+      margin-top: 5px !important;
+      margin-left: 25px;
+    }
+  
+    .check {
+      width: 20px !important;
+      margin-left: 30px;
+    }
+  
+    .users-style {
+      margin-right: 0px;
+      margin-left: 0px;
+    }
+  
+    .elements-div-style {
+      display: block;
+      width: 100% !important;
+      padding-top: 10px;
+    }
+  
+    .element-label-style {
+      text-align: left !important;
+      margin-left: 30px !important;
+      width: 100% !important;
+    }
+  
+    input {
+      width: 100% !important;
+      padding: 0.5rem 1.5rem !important;
+    }
+  
+    .placeholder-div-style {
+      margin-left: 30px;
+    }
+  
+  }
+  
+  @media screen and (max-width: 1000px) {
+  
+    .elements-input {
+      width: 100%;
+    }
+  
+  }
+  

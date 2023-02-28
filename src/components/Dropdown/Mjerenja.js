@@ -1,46 +1,28 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "./Mjerenja.css";
 import Header from "../Header/Header";
 import Dropdown from "./Dropdown";
 import Footer from "../Footer/Footer";
-import Naslov from "../UI/Naslovi/Naslov";
+//import Naslov from "../UI/Naslovi/Naslov";
 import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
-import TablicaUređaj from "../UI/Tablice/TablicaUređaj";
-import Groups from "../UI/Groups";
-import ButtonSearch from "../UI/Buttons/ButtonSearch";
-import Dates from "../UI/Dates";
+//import TablicaUređaj from "../UI/Tablice/TablicaUređaj";
 import UserCard from "../UI/UserCard";
 import Context from "../../store/Context";
 import MeasuresFilter from "../UI/Filters/MeasuresFilter";
 
 const Mjerenja = () => {
-  const [data, setData] = useState([]);
-  const getData = async () => {
-    const { data } = await axios.get(
-      "https://localhost:44336/api/logeri/GetAll"
-    );
-    setData(data);
+  const [isUserClicked, setIsUserClicked] = useState(false);
+
+  const handleUserClick = () => {
+    setIsUserClicked(!isUserClicked);
   };
 
   useEffect(() => {
-    getData();
-    //console.log(data[0])
+    // document.addEventListener("mousedown", () => {
+    //   setIsUserClicked(false);
+    // });
   }, []);
-
-  const [groupValue, setGroupValue] = useState("");
-  const [subGroupValue, setSubGroupValue] = useState("");
-
-  const handleGroupValue = (e) => {
-    setGroupValue(e.target.value);
-    //console.log(groupValue);
-  };
-
-  const handleSubGroupValue = (e) => {
-    setSubGroupValue(e.target.value);
-    //console.log(subGroupValue);
-  };
 
   const title = "Mjerenja";
   const subtitle = "Mjerenja";
@@ -59,16 +41,9 @@ const Mjerenja = () => {
     ],
   };
 
-  const [isUserClicked, setIsUserClicked] = useState(false);
-
-  const handleUserClick = () => {
-    setIsUserClicked(!isUserClicked);
-  };
-
   return (
     <Context.Provider
       value={{
-        data,
         title,
         subtitle,
       }}

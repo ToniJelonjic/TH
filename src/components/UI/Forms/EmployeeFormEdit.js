@@ -2,53 +2,28 @@ import React, { useState, useEffect } from "react";
 import Dropdown from "../../Dropdown/Dropdown";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-import Naslov from "../Naslovi/Naslov";
+//import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
-import "./FormAdd.css";
+import "./Forms.css";
 import UserCard from "../UserCard";
 import axios from "../../../api/axios";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const employeeEditLink = "korisnici/Edit";
 const employeeGetAllLink = "korisnici/GetAll";
 
 const EmployeeFormEdit = () => {
   const location = useLocation();
-  let employeeId = location.pathname.split("/")[3];
-  const [data, setData] = useState([]);
-  const [klijentID, setKlijentID] = useState();
-  const [role, setRole] = useState();
-  const [active, setActive] = useState();
-
   const navigate = useNavigate();
 
-  const getData = async () => {
-    await axios
-      .get(employeeGetAllLink)
-      .then((response) => {
-        response.data.filter((employee) => {
-          if (parseInt(employee.id) === parseInt(employeeId)) {
-            setName(employee.imePrezime.trimEnd());
-            setUsername(employee.ime.trimEnd());
-            setActive(employee.active);
-          }
-        });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    getData();
-    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
-    setRole(JSON.parse(localStorage.getItem("role")));
-  }, []);
-
-  const title = "Zaposlenici";
+  //const title = "Zaposlenici";
   const subtitle = "Uredi zaposlenika";
 
+  let employeeId = location.pathname.split("/")[3];
+  const [klijentID, setKlijentID] = useState();
+  const [active, setActive] = useState();
+  const [isUserClicked, setIsUserClicked] = useState(false);
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -66,8 +41,25 @@ const EmployeeFormEdit = () => {
     setPassword(e.target.value);
   };
 
-  const navigateBack = () => {
-    navigate(-1);
+  const handleUserClick = () => {
+    setIsUserClicked(!isUserClicked);
+  };
+
+  const getData = async () => {
+    await axios
+      .get(employeeGetAllLink)
+      .then((response) => {
+        response.data.filter((employee) => {
+          if (parseInt(employee.id) === parseInt(employeeId)) {
+            setName(employee.imePrezime.trimEnd());
+            setUsername(employee.ime.trimEnd());
+            setActive(employee.active);
+          }
+        });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
 
   const onSave = () => {
@@ -92,10 +84,13 @@ const EmployeeFormEdit = () => {
       });
   };
 
-  const [isUserClicked, setIsUserClicked] = useState(false);
+  useEffect(() => {
+    getData();
+    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
+  }, []);
 
-  const handleUserClick = () => {
-    setIsUserClicked(!isUserClicked);
+  const navigateBack = () => {
+    navigate(-1);
   };
 
   return (

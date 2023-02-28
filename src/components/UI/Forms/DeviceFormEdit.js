@@ -2,13 +2,18 @@ import React, { useState, useEffect } from "react";
 import Dropdown from "../../Dropdown/Dropdown";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-import Naslov from "../Naslovi/Naslov";
+//import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
-import "./FormAdd.css";
+import "./Forms.css";
 import UserCard from "../UserCard";
-import axios from "axios";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "../../../api/axios";
+import { useLocation, useNavigate } from "react-router-dom";
+
+const logeriGetAllLink = "/logeri/GetAll";
+const grupeGetAllLink = "/grupe/GetAll";
+const podgrupeGetAllLink = "/podgrupe/GetAll";
+const editLogeriKorisniciLink = "/logeri/EditLogeriKorisnici";
 
 const DeviceFormEdit = () => {
   const location = useLocation();
@@ -38,7 +43,7 @@ const DeviceFormEdit = () => {
   const [userID, setUserID] = useState();
   const [klijentID, setKlijentID] = useState();
 
-  const title = "Uređaji";
+  //const title = "Uređaji";
   const subtitle = "Uredi uređaj";
 
   const handleName = (e) => {
@@ -69,16 +74,6 @@ const DeviceFormEdit = () => {
     setMaxH(e.target.value);
   };
 
-  const handleGroupValue = (e) => {
-    setGroupValue(e.target.value);
-    console.log(e.target.value);
-  };
-
-  const handleSubGroupValue = (e) => {
-    setSubGroupValue(e.target.value);
-    console.log(e.target.value);
-  };
-
   const handleGroupId = (e) => {
     setGroupId(e.target.value);
   };
@@ -100,7 +95,7 @@ const DeviceFormEdit = () => {
 
   const getData = async () => {
     await axios
-      .get("https://localhost:44336/api/logeri/GetAll", {
+      .get(logeriGetAllLink, {
         params: {
           klijentID: klijentID,
           grupaID: groupValue,
@@ -130,19 +125,15 @@ const DeviceFormEdit = () => {
   };
 
   const getGroups = async () => {
-    await axios
-      .get("https://localhost:44336/api/grupe/GetAll")
-      .then(function(response) {
-        setGroups(response.data);
-      });
+    await axios.get(grupeGetAllLink).then(function(response) {
+      setGroups(response.data);
+    });
   };
 
   const getSubgroups = async () => {
-    await axios
-      .get("https://localhost:44336/api/podgrupe/GetAll")
-      .then(function(response) {
-        setSubgroups(response.data);
-      });
+    await axios.get(podgrupeGetAllLink).then(function(response) {
+      setSubgroups(response.data);
+    });
   };
 
   useEffect(() => {
@@ -154,7 +145,7 @@ const DeviceFormEdit = () => {
 
   const onSave = () => {
     axios
-      .post(`https://localhost:44336/api/logeri/EditLogeriKorisnici`, {
+      .post(editLogeriKorisniciLink, {
         Id: parseInt(deviceId),
         Naziv: name,
         Idklijenta: klijentID,

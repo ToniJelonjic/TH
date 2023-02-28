@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./MeasuresFilter.css";
 import axios from "../../../api/axios";
 import ReactPaginate from "react-paginate";
 import TablicaUređaj from "../Tablice/TablicaUređaj";

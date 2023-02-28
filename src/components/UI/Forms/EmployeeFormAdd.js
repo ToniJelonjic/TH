@@ -2,24 +2,36 @@ import React, { useState, useEffect } from "react";
 import Dropdown from "../../Dropdown/Dropdown";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-import Naslov from "../Naslovi/Naslov";
+//import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
-import "./FormAdd.css";
+import "./Forms.css";
 import UserCard from "../UserCard";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import axios from "../../../api/axios";
+import { useNavigate } from "react-router-dom";
+
+const korisniciInsertLink = "/korisnici/Insert";
 
 const EmployeeFormAdd = (props) => {
-  const title = "Zaposlenici";
+  //const title = "Zaposlenici";
   const subtitle = "Novi zaposlenik";
 
   const navigate = useNavigate();
 
+  const [klijentID, setKlijentID] = useState();
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState();
+  const [isUserClicked, setIsUserClicked] = useState(false);
+
+  useEffect(() => {
+    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
+  }, []);
+
+  const handleUserClick = () => {
+    setIsUserClicked(!isUserClicked);
+  };
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -39,18 +51,12 @@ const EmployeeFormAdd = (props) => {
 
   const onSave = () => {
     axios
-      .post(`https://localhost:44336/api/korisnici/Insert`, {
-        //ispraviti
-        //dummy
-        //podatke
-        //kada
-        //se uradi
-        //login
+      .post(korisniciInsertLink, {
         Ime: username,
         Lozinka: password,
         Status: true,
         imePrezime: name,
-        Firma: 3,
+        Firma: klijentID,
         Poslovnica: 0,
         UlogaID: 2,
         Active: true,
@@ -63,12 +69,6 @@ const EmployeeFormAdd = (props) => {
       .catch(function(error) {
         console.log(error);
       });
-  };
-
-  const [isUserClicked, setIsUserClicked] = useState(false);
-
-  const handleUserClick = () => {
-    setIsUserClicked(!isUserClicked);
   };
 
   return (

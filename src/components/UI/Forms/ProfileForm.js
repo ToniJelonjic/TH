@@ -6,9 +6,6 @@ import { useNavigate } from "react-router-dom";
 const profileEditUrl = "/korisnici/Edit";
 
 const ProfileForm = () => {
-  //let imePrezime = JSON.parse(localStorage.getItem("imePrezime"));
-  //let korisnickoIme = JSON.parse(localStorage.getItem("korisnickoIme"));
-  const [isUserClicked, setIsUserClicked] = useState(false);
   const [imePrezime, setImePrezime] = useState();
   const [korisnickoIme, setKorisnickoIme] = useState();
   const [password, setPassword] = useState("");
@@ -33,10 +30,6 @@ const ProfileForm = () => {
     setPassword(e.target.value);
   };
 
-  const handleUserClick = () => {
-    setIsUserClicked(!isUserClicked);
-  };
-
   const navigateBack = () => {
     navigate(-1);
   };
@@ -52,7 +45,7 @@ const ProfileForm = () => {
 
   const onSave = async (e) => {
     e.preventDefault();
-    const response = await axios
+    await axios
       .post(profileEditUrl, {
         Id: id,
         imePrezime: imePrezime,

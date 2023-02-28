@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../../api/axios";
 import "./Uređaj.css";
 import ReactPaginate from "react-paginate";
+
+const mjerenjaCriticalLink = "/mjerenja/GetAllCritical";
 
 const Uređaj = (props) => {
   //console.log(props, "props");
@@ -9,27 +11,28 @@ const Uređaj = (props) => {
   //drugacije
   //kroz
   //props
+
+  const [klijentID, setKlijentID] = useState();
+
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 10;
   const [currentCondition, setCurrentCondition] = useState([]);
   const getCurrentCondition = async () => {
-    const res = await axios
-      .get("https://localhost:44336/api/Mjerenja/GetAllCritical", {
-        //ispraviti
-        //
-        //
-        data: { klijentID: 3 },
-        //
-        //
-        //
+    await axios
+      .get(mjerenjaCriticalLink, {
+        data: { klijentID: klijentID },
       })
       .then(function(response) {
         //console.log(response.data, "response out of range");
         setCurrentCondition(response.data);
       });
   };
+
+  useEffect(() => {
+    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
+  }, []);
 
   useEffect(() => {
     getCurrentCondition();

@@ -1,0 +1,60 @@
+.select-style {
+    height: 40px;
+    width: 15%;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding-left: 10px;
+  }
+  
+  .select-style:focus {
+    border-color: #716aca;
+  }
+  
+  .groups-select-style {
+    background-color: white;
+    width: 80%;
+    margin-left: 10px;
+    padding: 20px;
+  }
+  
+  @media screen and (max-width: 900px) {
+    .select-style {
+      width: 50%;
+      margin-bottom: 10px;
+    }
+  }
+  
+  @media screen and (max-width: 700px) {
+      .select-style {
+        width: 90%;
+        margin-bottom: 10px;
+      }
+    }
+
+    .button-style {
+        cursor: pointer;
+        color: #fff;
+        font-family: 'Poppins';
+        background-color: #716aca;
+        border-color: #716aca;
+        height: 40px;
+        width: 80px;
+        margin-left: 10px;
+    }
+    
+    .span-button-style {
+        font-size: 15px;
+        background-color: white;
+        width: 80%;
+    }
+    
+    .button-style:hover {
+        background-color: #564ec0;
+    }
+    
+    @media screen and (max-width:900px) {
+        .button-style {
+            width: 50%;
+            margin-top: 15px;
+        }
+    }

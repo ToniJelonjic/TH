@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React /*{ useContext, useState }*/ from "react";
 import "./Hamburger.css";
-import AuthContext from "../../store/Context";
+//import AuthContext from "../../store/Context";
 
 const Hamburger = (props) => {
   const { onBurger } = props;

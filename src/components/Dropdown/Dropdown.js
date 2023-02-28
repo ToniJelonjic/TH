@@ -12,10 +12,12 @@ import useAuth from "../../hooks/useAuth";
 
 const Dropdown = (props) => {
   const { isClicked, handleBurgerClick, setIsBurgerClicked } = props;
-  //console.log(isClicked, "auth");
+  const [role, setRole] = useState();
   const { auth } = useAuth();
-  //console.log(isClicked, "clicked");
-  let role = JSON.parse(localStorage.getItem("role"));
+
+  useEffect(() => {
+    setRole(JSON.parse(localStorage.getItem("role")));
+  }, []);
 
   return (
     <div

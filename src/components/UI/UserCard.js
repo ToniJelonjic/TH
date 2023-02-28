@@ -4,7 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthProvider";
 
-const UserCard = () => {
+const logoutLink = "/prijava";
+
+const UserCard = ({ ref }) => {
   const { setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -17,11 +19,11 @@ const UserCard = () => {
     localStorage.removeItem("klijentID");
     localStorage.removeItem("imePrezime");
     localStorage.removeItem("korisnickoIme");
-    navigate("/prijava");
+    navigate(logoutLink);
   };
 
   return (
-    <div className={`row user-card-style`}>
+    <div ref={ref} className={`row user-card-style`}>
       <div className="col-6 profile-style-div">
         <Link className="link-profile-style" to={`/profil`}>
           <button /*onClick={onClick}*/ className="profile-button-style">

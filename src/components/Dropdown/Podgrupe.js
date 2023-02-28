@@ -2,73 +2,40 @@ import React, { useState, useEffect } from "react";
 import Header from "../Header/Header";
 import Dropdown from "./Dropdown";
 import Footer from "../Footer/Footer";
-import Naslov from "../UI/Naslovi/Naslov";
+//import Naslov from "../UI/Naslovi/Naslov";
 import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
 import TablicaInfo from "../UI/Tablice/TablicaInfo";
 import UserCard from "../UI/UserCard";
-import axios from "axios";
+import axios from "../../api/axios";
 import Context from "../../store/Context";
-import FormAdd from "../UI/Forms/FormAdd";
+
+const podgrupeGetAllLink = "/podgrupe/GetAll";
 
 const Podgrupe = () => {
-  const [isAddClicked, setIsAddClicked] = useState(false);
-  const [name, setName] = useState("");
-  const [group, setGroup] = useState("");
+  const [isUserClicked, setIsUserClicked] = useState(false);
   const [data, setData] = useState([]);
+
+  const handleUserClick = () => {
+    setIsUserClicked(!isUserClicked);
+  };
+
   const getData = async () => {
-    const { data } = await axios.get(
-      "https://localhost:44336/api/podgrupe/GetAll"
-    );
+    const { data } = await axios.get(podgrupeGetAllLink);
     setData(data);
   };
 
   useEffect(() => {
     getData();
-    //console.log(data[0])
+    // document.addEventListener("mousedown", () => {
+    //   setIsUserClicked(false);
+    // });
   }, []);
 
   const title = "Podgrupe";
   const subtitle = "Podgrupe";
   const table_rows = ["Naziv", "Grupa", "Akcije"];
   const addButton = "+ Dodaj podgrupu";
-  const formInfo = {
-    title: "Podgrupe",
-    subtitle: "Nova podgrupa",
-  };
-  const editFormInfo = {
-    title: "Podgrupe",
-    subtitle: "Uredi podgrupu",
-  };
-
-  const handleName = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleGroup = (e) => {
-    setGroup(e.target.value);
-  };
-
-  const onSave = () => {
-    axios
-      .post(`https://localhost:44336/api/podgrupe/Insert`, {
-        KlijentId: 3,
-        Naziv: name,
-        grupaId: group,
-      })
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  };
-
-  const [isUserClicked, setIsUserClicked] = useState(false);
-
-  const handleUserClick = () => {
-    setIsUserClicked(!isUserClicked);
-  };
 
   return (
     <Context.Provider
@@ -76,15 +43,7 @@ const Podgrupe = () => {
         data,
         title,
         subtitle,
-        formInfo,
-        editFormInfo,
         addButton,
-        setIsAddClicked,
-        onSave,
-        name,
-        handleName,
-        group,
-        handleGroup,
       }}
     >
       <Header onClick={handleUserClick} />
