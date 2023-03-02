@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "../../../api/axios";
 
 const changeStatusLink = "/korisnici/ChangeStatus";
 
 const ChangeStatus = ({ data, setEmployeeId }) => {
-  console.log(data, "data");
+  //console.log(data, "data");
 
   const [newStatus, setNewStatus] = useState();
+  const employeeRef = useRef();
 
   useEffect(() => {
     if (data.active === false) {
@@ -14,6 +15,16 @@ const ChangeStatus = ({ data, setEmployeeId }) => {
     } else if (data.active === true) {
       setNewStatus(false);
     }
+    // let handler = (e) => {
+    //   if (!employeeRef.current.contains(e.target)) {
+    //     setEmployeeId(null);
+    //     //console.log(employeeRef.current);
+    //   }
+    // };
+    // document.addEventListener("mousedown", handler);
+    // return () => {
+    //   document.removeEventListener("mousedown", handler);
+    // };
   }, []);
 
   const onChangeStatus = () => {

@@ -3,8 +3,7 @@ import ButtonAdd from "../Buttons/ButtonAdd";
 import ButtonExport from "../Buttons/ButtonExport";
 import "./Podnaslov.css";
 
-const Podnaslov = (props) => {
-  const { subtitle } = props;
+const Podnaslov = ({ subtitle }) => {
   return (
     <div className="subtitle">
       {subtitle}
@@ -13,9 +12,8 @@ const Podnaslov = (props) => {
         subtitle === "Podgrupe" ||
         subtitle === "Zaposlenici" ? (
           <ButtonAdd />
-        ) : (
-          subtitle === "Mjerenja" && <ButtonExport />
-        )}
+        ) : // subtitle === "Mjerenja" && <ButtonExport />
+        null}
       </div>
     </div>
   );

@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "../../../api/axios";
 
 const changeStatusLink = "/logeri/ChangeStatus";
 
-const ChangeDeviceStatus = ({ data, setSelectedDeviceId, setIsClicked }) => {
+const ChangeDeviceStatus = ({ data, setSelectedDeviceId }) => {
   //console.log(data);
 
   const [newStatus, setNewStatus] = useState();
+  const deviceRef = useRef();
 
   useEffect(() => {
     if (data.active === false) {
@@ -14,6 +15,16 @@ const ChangeDeviceStatus = ({ data, setSelectedDeviceId, setIsClicked }) => {
     } else if (data.active === true) {
       setNewStatus(false);
     }
+    let handler = (e) => {
+      if (!deviceRef.current.contains(e.target)) {
+        setSelectedDeviceId(null);
+        console.log(deviceRef.current);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
   }, []);
 
   const onChangeStatus = () => {
@@ -47,7 +58,7 @@ const ChangeDeviceStatus = ({ data, setSelectedDeviceId, setIsClicked }) => {
 
   return (
     <>
-      <div onClick={onChangeStatus} className="status-change">
+      <div ref={deviceRef} onClick={onChangeStatus} className="status-change">
         Promijeni status
       </div>
     </>

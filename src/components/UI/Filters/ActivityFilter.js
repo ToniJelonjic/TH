@@ -22,6 +22,7 @@ const ActivityFilter = (props) => {
 
   const handleGroupValue = (e) => {
     setGroupValue(e.target.value);
+    setSubGroupValue(0);
     console.log(e.target.value);
   };
 
@@ -41,7 +42,7 @@ const ActivityFilter = (props) => {
       })
       .then(function(response) {
         setCurrentCondition(response.data);
-        localStorage.setItem("items", JSON.stringify(response.data));
+        //localStorage.setItem("items", JSON.stringify(response.data));
       });
   };
 
@@ -63,7 +64,7 @@ const ActivityFilter = (props) => {
   }, []);
 
   useEffect(() => {
-    let currentCondition = JSON.parse(localStorage.getItem("items"));
+    //let currentCondition = JSON.parse(localStorage.getItem("items"));
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(currentCondition.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(currentCondition.length / itemsPerPage));

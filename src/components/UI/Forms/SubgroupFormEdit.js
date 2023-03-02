@@ -17,10 +17,11 @@ const podgrupeEditLink = "/podgrupe/Edit";
 const SubgroupFormEdit = () => {
   //const title = "Podrupe";
   const subtitle = "Uredi podgrupu";
-  let subgroupId = location.pathname.split("/")[3];
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  let subgroupId = location.pathname.split("/")[3];
 
   const [groups, setGroups] = useState([]);
   const [name, setName] = useState("");

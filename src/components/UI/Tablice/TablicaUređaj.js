@@ -6,9 +6,8 @@ import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from "react-paginate";
 
 const TablicaUređaj = (props) => {
-  let klijentID = JSON.parse(localStorage.getItem("klijentID"));
-
   const { data } = props;
+  const [klijentID, setKlijentID] = useState();
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
@@ -24,6 +23,10 @@ const TablicaUređaj = (props) => {
     const newOffset = (event.selected * itemsPerPage) % data.length;
     setItemOffset(newOffset);
   };
+
+  useEffect(() => {
+    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
+  });
 
   return (
     <div className="table-style">
@@ -41,13 +44,7 @@ const TablicaUređaj = (props) => {
                 })}
               </tr>
               {currentItems.map((item) => {
-                //ispraviti kasnije
-                //
-                //
                 if (item.idklijenta === klijentID) {
-                  //
-                  //
-                  //
                   return (
                     <tr key={data.id}>
                       <td className="device-table-info">{item.naziv}</td>

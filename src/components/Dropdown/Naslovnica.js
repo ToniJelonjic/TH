@@ -3,14 +3,14 @@ import "./Naslovnica.css";
 import Header from "../Header/Header";
 import Dropdown from "./Dropdown";
 import Footer from "../Footer/Footer";
-//import Uređaj from "../UI/Uređaj";
+import Uređaj from "../UI/Uređaj";
 //import Naslov from "../UI/Naslovi/Naslov";
 import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
 import UserCard from "../UI/UserCard";
-//import Warehouse from "../Warehouse/Warehouse";
+import Warehouse from "../Warehouse/Warehouse";
 import Context from "../../store/Context";
-//import ActivityFilter from "../UI/Filters/ActivityFilter";
+import ActivityFilter from "../UI/Filters/ActivityFilter";
 
 const Naslovnica = () => {
   const title = "Naslovnica";
@@ -75,11 +75,7 @@ const Naslovnica = () => {
         subtitle,
       }}
     >
-      <Header
-        ref={userRef}
-        onClick={handleUserClick}
-        onBurger={handleBurgerClick}
-      />
+      <Header onClick={handleUserClick} onBurger={handleBurgerClick} />
       <Dropdown
         isClicked={isBurgerClicked}
         handleClick={handleBurgerClick}

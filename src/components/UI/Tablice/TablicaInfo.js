@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./TablicaInfo.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
@@ -9,17 +9,10 @@ import ChangeEmployeeStatus from "../StatusChange/ChangeEmployeeStatus";
 const TablicaInfo = (props) => {
   const { title, data } = useContext(Context);
 
-  const [isClicked, setIsClicked] = useState(false);
-  const [statusId, setStatusId] = useState();
   const [employeeId, setEmployeeId] = useState(null);
   const [klijentID, setKlijentID] = useState();
-  const [role, setRole] = useState();
-
-  const employeeRef = useRef();
 
   const handleClick = (employeeId) => {
-    console.log(employeeId);
-    setIsClicked(true);
     setEmployeeId((prevSelectedEmployeeId) => {
       if (prevSelectedEmployeeId === employeeId) {
         return null;
@@ -31,21 +24,7 @@ const TablicaInfo = (props) => {
 
   useEffect(() => {
     setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
-    setRole(JSON.parse(localStorage.getItem("role")));
   });
-
-  // useEffect(() => {
-  //   let handler = (e) => {
-  //     if (!employeeRef.current.contains(e.target)) {
-  //       setIsClicked(false);
-  //       console.log(employeeRef.current);
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", handler);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handler);
-  //   };
-  // });
 
   return (
     <div className="info-table-style">
@@ -150,7 +129,6 @@ const TablicaInfo = (props) => {
                         icon={faEllipsis}
                         value={item.id}
                         onClick={() => handleClick(item.id)}
-                        ref={employeeRef}
                       />
 
                       {employeeId === item.id && (

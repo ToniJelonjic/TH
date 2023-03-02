@@ -41,6 +41,7 @@ table {
 
 .content-style {
     word-break: normal;
+    width: auto;
 }
 
 .pagination {

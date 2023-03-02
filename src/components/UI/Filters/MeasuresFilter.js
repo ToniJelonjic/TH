@@ -2,17 +2,65 @@ import React, { useState, useEffect } from "react";
 import "./MeasuresFilter.css";
 import axios from "../../../api/axios";
 import ReactPaginate from "react-paginate";
-import TablicaUređaj from "../Tablice/TablicaUređaj";
+import Podnaslov from "../Naslovi/Podnaslov";
+import { CSVLink } from "react-csv";
+import ButtonExport from "../Buttons/ButtonExport";
+import Papa from "papaparse";
 
 const measuresFilterLink = "/mjerenja/GetAll";
 const logeriLink = "/logeri/GetAll";
 const groupsLink = "/grupe/GetAll";
 const subgroupsLink = "/podgrupe/GetAll";
 
-const MeasuresFilter = (props) => {
+const MeasuresFilter = ({ params }) => {
   const [dateFrom, setDateFrom] = useState();
   const [dateTo, setDateTo] = useState();
   const [klijentID, setKlijentID] = useState();
+  //const [headers, setHeaders] = useState([])
+  const [subtitle, setSubtitle] = useState("Mjerenja");
+
+  const headers = [
+    {
+      label: "ID",
+      key: "ID",
+    },
+    {
+      label: "Loger ID",
+      key: "Loger ID",
+    },
+    {
+      label: "Vrijeme",
+      key: "Vrijeme",
+    },
+    {
+      label: "Uređaj",
+      key: "Loger",
+    },
+    {
+      label: "Temperatura",
+      key: "Temperatura",
+    },
+    {
+      label: "Vlažnost",
+      key: "Vlažnost",
+    },
+    {
+      label: "Minimalna temperatura",
+      key: "Minimalna temperatura",
+    },
+    {
+      label: "Maksimalna temperatura",
+      key: "Maksimalna temperatura",
+    },
+    {
+      label: "Minimalna vlažnost",
+      key: "Minimalna vlažnost",
+    },
+    {
+      label: "Maksimalna vlažnost",
+      key: "Maksimalna vlažnost",
+    },
+  ];
 
   const getCurrentDateInput = () => {
     const dateObj = new Date();
@@ -27,20 +75,16 @@ const MeasuresFilter = (props) => {
     const inputDate = event.target.value;
     const dateParts = inputDate.split("-");
     const dateObj = new Date(`${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`);
-    console.log(dateObj, "obj");
     const newDate = dateObj.toLocaleDateString("en-US", {
       month: "2-digit",
       day: "2-digit",
       year: "numeric",
     });
-    console.log(newDate, "new");
     setDateFrom(newDate);
-    console.log(newDate);
   };
 
   const onSetDateTo = (event) => {
     const inputDate = event.target.value;
-    console.log(event.target.value);
     const dateParts = inputDate.split("-");
     const dateObj = new Date(`${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`);
     const newDate = dateObj.toLocaleDateString("en-US", {
@@ -49,7 +93,6 @@ const MeasuresFilter = (props) => {
       year: "numeric",
     });
     setDateTo(newDate);
-    console.log(newDate);
   };
 
   const [data, setData] = useState([]);
@@ -58,38 +101,34 @@ const MeasuresFilter = (props) => {
   const getData = async () => {
     const { data } = await axios.get(logeriLink);
     setData(data);
-    console.log(data, "Data");
   };
 
   const [groupValue, setGroupValue] = useState(0);
   const [subGroupValue, setSubGroupValue] = useState(0);
   const [subGroups, setSubGroups] = useState([]);
   const [groups, setGroups] = useState([]);
-  const [logers, setLogers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleGroupValue = (e) => {
     setGroupValue(e.target.value);
-    //console.log(groupValue);
   };
 
   const handleSubGroupValue = (e) => {
     setSubGroupValue(e.target.value);
-    //console.log(subGroupValue);
   };
 
   const handleDeviceValue = (e) => {
     setDeviceValue(e.target.value);
-    console.log(deviceValue);
   };
 
   const getGroups = async () => {
-    const res = await axios.get(groupsLink).then(function(response) {
+    await axios.get(groupsLink).then(function(response) {
       setGroups(response.data);
     });
   };
 
   const getSubGroups = async () => {
-    const res = await axios.get(subgroupsLink).then(function(response) {
+    await axios.get(subgroupsLink).then(function(response) {
       setSubGroups(response.data);
     });
   };
@@ -106,9 +145,22 @@ const MeasuresFilter = (props) => {
         },
       })
       .then(function(response) {
-        console.log(response);
-        setLogers(response.data);
+        console.log(response.data, "datatatat");
         setCurrentCondition(response.data);
+        setLoading(true);
+        const formattedData = response.data.map((item) => ({
+          ID: item.int,
+          "Loger ID": item.idlogera,
+          Vrijeme: item.vrijeme,
+          Loger: item.loger,
+          Temperatura: parseFloat(item.t),
+          Vlažnost: parseFloat(item.h),
+          "Minimalna temperatura": item.tmin,
+          "Maksimalna temperatura": item.tmax,
+          "Minimalna vlažnost": item.hmin,
+          "Maksimalna vlažnost": item.hmax,
+        }));
+        setFormattedData(formattedData);
       });
   };
 
@@ -117,6 +169,7 @@ const MeasuresFilter = (props) => {
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 10;
   const [currentCondition, setCurrentCondition] = useState([]);
+  const [formattedData, setFormattedData] = useState([]);
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -125,65 +178,47 @@ const MeasuresFilter = (props) => {
   }, [itemOffset, itemsPerPage, currentCondition]);
 
   const handlePageClick = (event) => {
-    let currentCondition = JSON.parse(localStorage.getItem("items"));
-    //let currentCondition = localStorage.getItem("items");
     const newOffset = (event.selected * itemsPerPage) % currentCondition.length;
     setItemOffset(newOffset);
   };
-
-  // const items = currentItems
-  // .sort((a, b) => a.id - b.id)
-  // .map((item) => {
-  //   if (item.idklijenta === klijentID) {
-  //     return (
-  //       <tr key={item.id}>
-  //         <td className="device-table-info">{item.naziv}</td>
-  //         <td className="device-table-info font">{item.klijent}</td>
-  //         <td className="device-table-info font">{item.email1}</td>
-  //         <td className="device-table-info font">{item.email2}</td>
-  //         <td className="device-table-info font">{item.tmin}</td>
-  //         <td className="device-table-info font">{item.tmax}</td>
-  //         <td className="device-table-info font">{item.hmin}</td>
-  //         <td className="device-table-info font">{item.hmax}</td>
-
-  //         <td
-  //           className={`device-table-info font ${
-  //             item.active ? "active-user" : "non-active-user"
-  //           }`}
-  //         >
-  //           {item.active ? "Aktivan" : "Neaktivan"}
-  //         </td>
-  //         <td className="thead-style">
-  //           <Link to={``}></Link>
-  //           <div>
-  //             <FontAwesomeIcon
-  //               title="Promijeni status"
-  //               className="actions-icon"
-  //               icon={faEllipsis}
-  //             />
-  //             <Link to={`/uređaji/uredi/${item.id}`}>
-  //               <FontAwesomeIcon
-  //                 title="Uredi"
-  //                 className="actions-icon"
-  //                 icon={faEdit}
-  //               />
-  //             </Link>
-  //           </div>
-  //         </td>
-  //       </tr>
-  //     );
-  //   }
-  // });
 
   useEffect(() => {
     getGroups();
     getSubGroups();
     getData();
     setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
+    const inputDate = new Date().toDateString();
+    const dateParts = inputDate.split("-");
+    const dateObj = new Date(`${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`);
+    const newDate = dateObj.toLocaleDateString("en-US", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
+    });
+    setDateFrom(newDate);
+    setDateTo(newDate);
   }, []);
 
   return (
     <>
+      <div className="subtitle">
+        {subtitle}
+        <div className="add-button-position">
+          {currentCondition.length > 0 && (
+            <CSVLink
+              headers={headers}
+              filename="Mjerenja"
+              target="_blank"
+              data={formattedData}
+              encoding="utf-8"
+              separator=";"
+              decimalSeparator="."
+            >
+              <ButtonExport />
+            </CSVLink>
+          )}
+        </div>
+      </div>
       <div className="measure-div">
         <span className="dates-style">
           <input
@@ -199,41 +234,33 @@ const MeasuresFilter = (props) => {
             className="date-input-style"
           />
           <select
-            required
+            required="required"
             className="select-style"
             onChange={handleDeviceValue}
           >
             <option hidden defaultValue="Odaberite uređaj">
               Odaberite uređaj
             </option>
-            {data.map((device, index) => {
-              if (device.idklijenta === klijentID) {
-                if (groupValue === 0 || subGroupValue === 0) {
-                  return (
-                    <option value={device.id} key={index}>
-                      {device.naziv}
-                    </option>
-                  );
-                } else if (
-                  device.grupaid === groupValue ||
-                  device.podgrupaid === subGroupValue
-                ) {
-                  return (
-                    <option value={device.id} key={index}>
-                      {device.naziv}
-                    </option>
-                  );
+            {data
+              .sort((a, b) => a.id - b.id)
+              .map((device, index) => {
+                if (device.idklijenta === klijentID) {
+                  if (
+                    groupValue === 0 ||
+                    parseInt(device.grupaid) === parseInt(groupValue)
+                  ) {
+                    return (
+                      <option value={device.id} key={index}>
+                        {device.naziv}
+                      </option>
+                    );
+                  }
                 }
-              }
-            })}
+              })}
           </select>
         </span>
         <span>
-          <select
-            className="select-style"
-            onChange={handleGroupValue}
-            value={groupValue}
-          >
+          <select className="select-style" onChange={handleGroupValue}>
             <option hidden defaultValue="Odaberite grupu">
               Odaberite grupu
             </option>
@@ -247,11 +274,7 @@ const MeasuresFilter = (props) => {
               }
             })}
           </select>
-          <select
-            className="select-style"
-            onChange={handleSubGroupValue}
-            value={subGroupValue}
-          >
+          <select className="select-style" onChange={handleSubGroupValue}>
             <option hidden defaultValue="Odaberite podgrupu">
               Odaberite podgrupu
             </option>
@@ -275,20 +298,45 @@ const MeasuresFilter = (props) => {
           </button>
         </span>
       </div>
-      {
-        //prebaciti tablicu uredjaj
-        //u ovu komponentu
-      }
       <div className="table-style">
-        <tr>
-          {props.params.params.map((parameter) => {
-            return (
-              <td className="device-table-info" key={parameter}>
-                {parameter}
-              </td>
-            );
-          })}
-        </tr>
+        <table className="content-style">
+          <tbody>
+            <tr>
+              {params.map((parameter, index) => {
+                return (
+                  <td className="device-table-info" key={index}>
+                    {parameter}
+                  </td>
+                );
+              })}
+            </tr>
+            {loading ? (
+              currentItems.length === 0 ? (
+                <tr className="no-data">nema podataka</tr>
+              ) : (
+                currentItems.map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      <td className="device-table-info">
+                        {item.vrijeme.slice(0, 11).replace("T", " ")}
+                        {item.vrijeme.slice(11, 19)}
+                      </td>
+                      <td className="device-table-info font">{item.loger}</td>
+                      <td className="device-table-info font">{item.t}</td>
+                      <td className="device-table-info font">{item.h}</td>
+                      <td className="device-table-info font">{item.tmin}</td>
+                      <td className="device-table-info font">{item.tmax}</td>
+                      <td className="device-table-info font">{item.hmin}</td>
+                      <td className="device-table-info font">{item.hmax}</td>
+                    </tr>
+                  );
+                })
+              )
+            ) : (
+              ""
+            )}
+          </tbody>
+        </table>
       </div>
       <div className="paginate-div-style">
         <ReactPaginate
@@ -308,7 +356,6 @@ const MeasuresFilter = (props) => {
           activeLinkClassName="active-page"
         />
       </div>
-      FILTER UREDJAJA PO GRUPAMA I PODGRUPAMA
     </>
   );
 };

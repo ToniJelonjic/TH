@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
 import "./index.css";
-//import App from "./App";
+import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "typeface-roboto";
 import "@fontsource/poppins";
@@ -34,7 +34,7 @@ root.render(
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          <Route path="/*" element={<Navigate to="/naslovnica" />} exact />
+          <Route path="/" element={<App />} exact />
           {/* <RedirectFunction exact from='/' to='/naslovnica' />  */}
           <Route path="/naslovnica" element={<Homepage />} />
           <Route path="/uređaji" element={<Uređaji />} />

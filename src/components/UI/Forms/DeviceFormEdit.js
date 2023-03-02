@@ -33,6 +33,7 @@ const DeviceFormEdit = () => {
   const [maxH, setMaxH] = useState("");
   const [deviceCode, setDeviceCode] = useState("");
   const [users, setUsers] = useState([]);
+  const [checkedUsers, setCheckedUsers] = useState([]);
   const [groupValue, setGroupValue] = useState(0);
   const [subGroupValue, setSubGroupValue] = useState(0);
   const [groupId, setGroupId] = useState();
@@ -103,23 +104,30 @@ const DeviceFormEdit = () => {
         },
       })
       .then(function(response) {
-        response.data.filter((device) => {
+        response.data.map((device) => {
           if (parseInt(device.id) === parseInt(deviceId)) {
             setName(device.naziv.trim());
             setGroupId(device.grupaid);
             setSubgroupId(device.podgrupaid);
             console.log(device.grupaid, "grupa");
             console.log(device.podgrupaid, "podgrupa");
+            console.log(device.korisnici, "usrs");
             setEmail1(device.email1.trim());
             setEmail2(device.email2.trim());
             setMinTemp(device.tmin);
             setMaxTemp(device.tmax);
             setMinH(device.hmin);
             setMaxH(device.hmax);
-            setUsers(device.korisnici);
             setDeviceCode(device.sifraUredjaja);
             setActive(device.active);
+            setUsers(device.korisnici);
           }
+          // device.korisnici.map((user, index) => {
+          //   if (parseInt(user.id) === parseInt(deviceId) && user.checked) {
+          //     console.log(user, "kokokokoko");
+          //     setCheckedUsers(user);
+          //   }
+          // });
         });
       });
   };
@@ -164,8 +172,10 @@ const DeviceFormEdit = () => {
           {
             Id: userID,
             Checked: true,
+            Ime: "",
           },
         ],
+        //korisnici: [...checkedUsers, { Id: userID, Checked: true, Ime: "" }],
       })
       .then(function(response) {
         setStatus(response.status);

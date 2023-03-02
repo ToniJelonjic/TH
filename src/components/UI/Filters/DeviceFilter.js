@@ -11,7 +11,7 @@ const logeriGetAllLink = "/logeri/GetAll";
 const groupsGetAllLink = "/grupe/GetAll";
 const subgroupsGetAllLink = "/podgrupe/GetAll";
 
-const DeviceFilter = (props) => {
+const DeviceFilter = ({ params }) => {
   const [klijentID, setKlijentID] = useState();
   const [groupValue, setGroupValue] = useState(0);
   const [subGroupValue, setSubGroupValue] = useState(0);
@@ -51,7 +51,7 @@ const DeviceFilter = (props) => {
       .then(function(response) {
         setCurrentCondition(response.data);
         console.log(response.data);
-        localStorage.setItem("items", JSON.stringify(response.data));
+        //localStorage.setItem("items", JSON.stringify(response.data));
       });
   };
 
@@ -101,14 +101,14 @@ const DeviceFilter = (props) => {
   // });
 
   useEffect(() => {
-    let currentCondition = JSON.parse(localStorage.getItem("items"));
+    //let currentCondition = JSON.parse(localStorage.getItem("items"));
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(currentCondition.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(currentCondition.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, currentCondition]);
 
   const handlePageClick = (event) => {
-    let currentCondition = JSON.parse(localStorage.getItem("items"));
+    //let currentCondition = JSON.parse(localStorage.getItem("items"));
     //let currentCondition = localStorage.getItem("items");
     const newOffset = (event.selected * itemsPerPage) % currentCondition.length;
     setItemOffset(newOffset);
@@ -137,7 +137,6 @@ const DeviceFilter = (props) => {
               {item.active ? "Aktivan" : "Neaktivan"}
             </td>
             <td className="thead-style">
-              <Link to={``}></Link>
               <div>
                 <FontAwesomeIcon
                   title="Promijeni status"
@@ -225,7 +224,7 @@ const DeviceFilter = (props) => {
         <table className="content-style">
           <tbody>
             <tr>
-              {props.params.params.map((parameter) => {
+              {params.params.map((parameter) => {
                 return (
                   <td className="device-table-info" key={parameter}>
                     {parameter}

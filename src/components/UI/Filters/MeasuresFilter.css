@@ -1,3 +1,18 @@
+.table-style {
+  background-color: white;
+  text-align: center;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 16px 10px 17px;
+  overflow: auto;
+}
+
+table {
+  border-spacing: 0px;
+  table-layout: fixed;
+  width: max-content;
+}
+
 .date-input-style {
     height: 40px;
     width: 15%;
@@ -9,6 +24,82 @@
   .dates-style {
     display: inline;
   }
+
+  .device-table-info {
+    justify-content: center;
+    background-color: white;
+    align-items: center;
+    border: 1px solid #f4f5f8;
+    height: 60px;
+    font-size: 13px;
+    font-family: 'Poppins';
+    font-weight: 600;
+    color: #575962;
+    padding: 0 15px 0 15px;
+
+}
+
+.thead-style {
+  border: 2px solid #f4f5f8;
+  padding: 10px;
+  text-align: l;
+  color: #575962;
+  font-weight: 500;
+  font-size: 14px;
+  background-color: white;
+}
+
+.content-style {
+  word-break: normal;
+  width: auto;
+}
+
+.font {
+  font-weight: 100;
+}
+
+.active-user {
+  color: #00c5dc!important;
+}
+
+.non-active-user {
+  color: #f4516c!important;
+}
+
+.pagination {
+  justify-content: right;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 15px;
+  gap: 5px;
+}
+
+.pagination .page-num {
+  color: #575962;
+  text-decoration: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-weight: 600;
+  background-color: #eff1f5;
+}
+
+.pagination .page-num:hover {
+  background-color: #716aca;
+  color: #fff;
+}
+
+.pagination .active-page {
+  background-color: #716aca;
+  color: #fff;
+}
+
+.paginate-div-style {
+  display: flex;
+  justify-content: right;
+  background-color: white;
+}
   
   @media screen and (max-width: 900px) {
     .dates-style {
@@ -21,6 +112,20 @@
       height: 40px;
       margin-bottom: 10px;
     }
+
+    .device-table-info{
+      padding-left: 5px;
+      padding-right: 5px;
+  }
+
+  .thead-style {
+    width: 100px;
+}
+
+.paginate-div-style {
+  justify-content: left;
+}
+
   }
   
   @media screen and (max-width: 700px) {
@@ -34,5 +139,13 @@
         height: 40px;
         margin-bottom: 10px;
       }
+    }
+
+    @media screen and (max-width: 1100px) {
+      .device-table-info{
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 100px;
+    }
     }
   

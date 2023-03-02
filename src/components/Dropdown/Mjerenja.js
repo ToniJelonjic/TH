@@ -27,19 +27,16 @@ const Mjerenja = () => {
   const title = "Mjerenja";
   const subtitle = "Mjerenja";
 
-  const params = {
-    id: Math.random(),
-    params: [
-      "Vrijeme",
-      "Uređaj",
-      "Temperatura",
-      "Vlažnost",
-      "Minimalna temperatura",
-      "Maksimalna temperatura",
-      "Minimalna vlažnost",
-      "Maksimalna vlažnost",
-    ],
-  };
+  const params = [
+    "Vrijeme",
+    "Uređaj",
+    "Temperatura",
+    "Vlažnost",
+    "Minimalna temperatura",
+    "Maksimalna temperatura",
+    "Minimalna vlažnost",
+    "Maksimalna vlažnost",
+  ];
 
   return (
     <Context.Provider
@@ -53,7 +50,7 @@ const Mjerenja = () => {
       {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
         {/* <Naslov title={title} /> */}
-        <Podnaslov subtitle={subtitle} />
+        {/* <Podnaslov subtitle={subtitle} /> */}
         <MeasuresFilter params={params} />
         {/* <TablicaUređaj
           title={title}

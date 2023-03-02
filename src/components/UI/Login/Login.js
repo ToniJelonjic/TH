@@ -6,7 +6,7 @@ import logo from "../../../images/logo-1.png";
 import axios from "../../../api/axios";
 
 const loginUrl = "/korisnici/Login";
-const loggedIn = "http://localhost:3000/naslovnica";
+const loggedInLink = "/naslovnica";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
@@ -44,6 +44,8 @@ const Login = () => {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("role", response.data.ulogaID);
         localStorage.setItem("klijentID", response.data.firma);
+        localStorage.setItem("loggedIn", true);
+        const loggedIn = true;
         const id = response.data.id;
         const imePrezime = response.data.imePrezime;
         const korisnickoIme = response.data.ime;
@@ -61,11 +63,12 @@ const Login = () => {
           role,
           token,
           klijentID,
+          loggedIn,
         });
         setUsername("");
         setPassword("");
         //navigate(from, { replace: true });
-        navigate(loggedIn);
+        navigate(loggedInLink);
       } else if (response.status === 204) {
         console.log("Fuck");
         setErrMsg("Neispravno korisničko ime ili lozinka");
@@ -87,6 +90,10 @@ const Login = () => {
 
   useEffect(() => {
     userRef.current.focus();
+    let isLoggedIn = JSON.parse(localStorage.getItem("loggedIn"));
+    if (isLoggedIn && isLoggedIn !== null) {
+      navigate("/");
+    }
   }, []);
 
   useEffect(() => {
