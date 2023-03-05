@@ -3,14 +3,22 @@ import "./MeasuresFilter.css";
 import axios from "../../../api/axios";
 import ReactPaginate from "react-paginate";
 import Podnaslov from "../Naslovi/Podnaslov";
-import { CSVLink } from "react-csv";
+//import { CSVLink } from "react-csv";
+//import ButtonExport from "../Buttons/ButtonExport";
+import * as XLSX from "xlsx";
+import * as FileSaver from "file-saver";
+import * as Excel from "exceljs/dist/exceljs.min.js";
+import ReactExport from "react-data-export";
 import ButtonExport from "../Buttons/ButtonExport";
-import Papa from "papaparse";
 
 const measuresFilterLink = "/mjerenja/GetAll";
 const logeriLink = "/logeri/GetAll";
 const groupsLink = "/grupe/GetAll";
 const subgroupsLink = "/podgrupe/GetAll";
+
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 const MeasuresFilter = ({ params }) => {
   const [dateFrom, setDateFrom] = useState();
@@ -19,48 +27,122 @@ const MeasuresFilter = ({ params }) => {
   //const [headers, setHeaders] = useState([])
   const [subtitle, setSubtitle] = useState("Mjerenja");
 
-  const headers = [
-    {
-      label: "ID",
-      key: "ID",
-    },
-    {
-      label: "Loger ID",
-      key: "Loger ID",
-    },
-    {
-      label: "Vrijeme",
-      key: "Vrijeme",
-    },
-    {
-      label: "Uređaj",
-      key: "Loger",
-    },
-    {
-      label: "Temperatura",
-      key: "Temperatura",
-    },
-    {
-      label: "Vlažnost",
-      key: "Vlažnost",
-    },
-    {
-      label: "Minimalna temperatura",
-      key: "Minimalna temperatura",
-    },
-    {
-      label: "Maksimalna temperatura",
-      key: "Maksimalna temperatura",
-    },
-    {
-      label: "Minimalna vlažnost",
-      key: "Minimalna vlažnost",
-    },
-    {
-      label: "Maksimalna vlažnost",
-      key: "Maksimalna vlažnost",
-    },
-  ];
+  // const DataSet = [
+  //   {
+  //     columns: [
+  //       {
+  //         title: "int",
+  //         style: { font: { sz: "18", bold: true } },
+  //         width: { wpx: 125 },
+  //       }, // width in pixels
+  //       {
+  //         title: "idlogera",
+  //         style: { font: { sz: "18", bold: true } },
+  //         width: { wch: 30 },
+  //       }, // width in characters
+  //       {
+  //         title: "loger",
+  //         style: { font: { sz: "18", bold: true } },
+  //         width: { wpx: 100 },
+  //       }, // width in pixels
+  //       {
+  //         title: "vrijeme",
+  //         style: { font: { sz: "18", bold: true } },
+  //         width: { wpx: 100 },
+  //       }, // width in pixels
+  //       {
+  //         title: "t",
+  //         style: { font: { sz: "18", bold: true } },
+  //         width: { wpx: 125 },
+  //       }, // width in pixels
+  //       {
+  //         title: "tmin",
+  //         style: { font: { sz: "18", bold: true } },
+  //         width: { wpx: 100 },
+  //       }, // width in pixels
+  //       {
+  //         title: "tmax",
+  //         style: { font: { sz: "18", bold: true } },
+  //         width: { wpx: 125 },
+  //       }, // width in pixels
+  //       {
+  //         title: "h",
+  //         style: { font: { sz: "18", bold: true } },
+  //         width: { wch: 30 },
+  //       }, // width in characters
+  //       {
+  //         title: "hmin",
+  //         style: { font: { sz: "18", bold: true } },
+  //         width: { wpx: 125 },
+  //       }, // width in pixels
+  //       {
+  //         title: "hmax",
+  //         style: { font: { sz: "18", bold: true } },
+  //         width: { wpx: 125 },
+  //       }, // width in pixels
+  //     ],
+  //     data: currentCondition.map((data) => [
+  //       { value: data.int, style: { font: { sz: "14" } } },
+  //       { value: data.idlogera, style: { font: { sz: "14" } } },
+  //       {
+  //         value: data.loger,
+  //         style: {
+  //           font: { color: { rgb: "ffffff" } },
+  //           fill: { patternType: "solid", fgColor: { rgb: "3461eb" } },
+  //         },
+  //       },
+  //       {
+  //         value: data.vrijeme,
+  //         style: {
+  //           font: { color: { rgb: "ffffff" } },
+  //           fill: { patternType: "solid", fgColor: { rgb: "eb1207" } },
+  //         },
+  //       },
+  //       {
+  //         value: data.t,
+  //         style: {
+  //           font: { color: { rgb: "ffffff" } },
+  //           fill: { patternType: "solid", fgColor: { rgb: "4bd909" } },
+  //         },
+  //       },
+  //       {
+  //         value: data.tmin,
+  //         style: {
+  //           font: { color: { rgb: "ffffff" } },
+  //           fill: { patternType: "solid", fgColor: { rgb: "ebc907" } },
+  //         },
+  //       },
+  //       {
+  //         value: data.tmax,
+  //         style: {
+  //           font: { color: { rgb: "ffffff" } },
+  //           fill: { patternType: "solid", fgColor: { rgb: "35bdb4" } },
+  //         },
+  //       },
+  //       {
+  //         value: data.h,
+  //         style: {
+  //           font: { color: { rgb: "ffffff" } },
+  //           fill: { patternType: "solid", fgColor: { rgb: "ed14f5" } },
+  //         },
+  //       },
+  //       {
+  //         value: data.hmin,
+  //         style: {
+  //           font: { color: { rgb: "ffffff" } },
+  //           fill: { patternType: "solid", fgColor: { rgb: "ed14f5" } },
+  //         },
+  //       },
+  //       {
+  //         value: data.hmax,
+  //         style: {
+  //           font: { color: { rgb: "ffffff" } },
+  //           fill: { patternType: "solid", fgColor: { rgb: "000000" } },
+  //         },
+  //       },
+  //     ]),
+  //   },
+  // ];
 
   const getCurrentDateInput = () => {
     const dateObj = new Date();
@@ -122,13 +204,13 @@ const MeasuresFilter = ({ params }) => {
   };
 
   const getGroups = async () => {
-    await axios.get(groupsLink).then(function(response) {
+    await axios.get(groupsLink).then(function (response) {
       setGroups(response.data);
     });
   };
 
   const getSubGroups = async () => {
-    await axios.get(subgroupsLink).then(function(response) {
+    await axios.get(subgroupsLink).then(function (response) {
       setSubGroups(response.data);
     });
   };
@@ -144,7 +226,7 @@ const MeasuresFilter = ({ params }) => {
           podgrupaID: subGroupValue,
         },
       })
-      .then(function(response) {
+      .then(function (response) {
         console.log(response.data, "datatatat");
         setCurrentCondition(response.data);
         setLoading(true);
@@ -199,23 +281,108 @@ const MeasuresFilter = ({ params }) => {
     setDateTo(newDate);
   }, []);
 
+  const [exporting, setExporting] = useState(true);
+
   return (
     <>
       <div className="subtitle">
         {subtitle}
         <div className="add-button-position">
           {currentCondition.length > 0 && (
-            <CSVLink
-              headers={headers}
-              filename="Mjerenja"
-              target="_blank"
-              data={formattedData}
-              encoding="utf-8"
-              separator=";"
-              decimalSeparator="."
-            >
-              <ButtonExport />
-            </CSVLink>
+            <ExcelFile filename="Mjerenja" element={<ButtonExport />}>
+              <ExcelSheet data={currentCondition} name="Mjerenja report">
+                <ExcelColumn
+                  label="ID"
+                  value="int"
+                  headerStyle={{
+                    font: { color: { rgb: "ffffff" } },
+                    fill: { patternType: "solid", fgColor: { rgb: "3461eb" } },
+                    width: { wpx: 125 },
+                  }}
+                />
+                <ExcelColumn
+                  label="Loger ID"
+                  value="idlogera"
+                  headerStyle={{
+                    font: { color: { rgb: "ffffff" } },
+                    fill: { patternType: "solid", fgColor: { rgb: "3461eb" } },
+                    width: { wpx: 125 },
+                  }}
+                />
+                <ExcelColumn
+                  label="Uređaj"
+                  value="loger"
+                  headerStyle={{
+                    font: { color: { rgb: "ffffff" } },
+                    fill: { patternType: "solid", fgColor: { rgb: "3461eb" } },
+                    width: { wpx: 125 },
+                  }}
+                />
+                <ExcelColumn
+                  label="Vrijeme"
+                  value="vrijeme"
+                  headerStyle={{
+                    font: { color: { rgb: "ffffff" } },
+                    fill: { patternType: "solid", fgColor: { rgb: "3461eb" } },
+                    width: { wpx: 125 },
+                  }}
+                />
+                <ExcelColumn
+                  label="Temperatura"
+                  value="t"
+                  headerStyle={{
+                    font: { color: { rgb: "ffffff" } },
+                    fill: { patternType: "solid", fgColor: { rgb: "3461eb" } },
+                    width: { wpx: 125 },
+                  }}
+                />
+                <ExcelColumn
+                  label="Minimalna temperatura"
+                  value="tmin"
+                  headerStyle={{
+                    font: { color: { rgb: "ffffff" } },
+                    fill: { patternType: "solid", fgColor: { rgb: "3461eb" } },
+                    width: { wpx: 125 },
+                  }}
+                />
+                <ExcelColumn
+                  label="Maksimalna temperatura"
+                  value="tmax"
+                  headerStyle={{
+                    font: { color: { rgb: "ffffff" } },
+                    fill: { patternType: "solid", fgColor: { rgb: "3461eb" } },
+                    width: { wpx: 125 },
+                  }}
+                />
+                <ExcelColumn
+                  label="Vlažnost"
+                  value="h"
+                  headerStyle={{
+                    font: { color: { rgb: "ffffff" } },
+                    fill: { patternType: "solid", fgColor: { rgb: "3461eb" } },
+                    width: { wpx: 125 },
+                  }}
+                />
+                <ExcelColumn
+                  label="Minimalna vlažnost"
+                  value="hmin"
+                  headerStyle={{
+                    font: { color: { rgb: "ffffff" } },
+                    fill: { patternType: "solid", fgColor: { rgb: "3461eb" } },
+                    width: { wpx: 125 },
+                  }}
+                />
+                <ExcelColumn
+                  label="Maksimalna vlažnost"
+                  value="hmax"
+                  headerStyle={{
+                    font: { color: { rgb: "ffffff" } },
+                    fill: { patternType: "solid", fgColor: { rgb: "3461eb" } },
+                    width: { wpx: 125 },
+                  }}
+                />
+              </ExcelSheet>
+            </ExcelFile>
           )}
         </div>
       </div>
