@@ -33,26 +33,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          <Route path="/" element={<App />} exact />
-          {/* <RedirectFunction exact from='/' to='/naslovnica' />  */}
-          <Route path="/naslovnica" element={<Homepage />} />
-          <Route path="/uređaji" element={<Uređaji />} />
-          <Route path="/mjerenja" element={<Mjerenja />} />
-          <Route path="/grupe" element={<Grupe />} />
-          <Route path="/podgrupe" element={<Podgrupe />} />
-          <Route path="/zaposlenici" element={<Zaposlenici />} />
-          <Route path="/grupe/dodaj" element={<GroupFormAdd />} />
-          <Route path="/podgrupe/dodaj" element={<SubgroupFormAdd />} />
-          <Route path="/zaposlenici/dodaj" element={<EmployeeFormAdd />} />
-          <Route path="/grupe/uredi/:id" element={<GroupFormEdit />} />
-          <Route path="/podgrupe/uredi/:id" element={<SubgroupFormEdit />} />
-          <Route path="/zaposlenici/uredi/:id" element={<EmployeeFormEdit />} />
-          <Route path="/uređaji/uredi/:id" element={<DeviceFormEdit />} />
-          <Route path="/profil" element={<Profile />} />
-          <Route path="/prijava" element={<Login />} />
-          <Route path="*" element={<Missing />} />
-        </Routes>
+        <App />
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

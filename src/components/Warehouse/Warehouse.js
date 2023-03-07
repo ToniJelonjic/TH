@@ -8,11 +8,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from "react-paginate";
 import axios from "../../api/axios";
+import ReactExport from "react-data-export";
 
 const logeriTrenutnoStanjeLink = "/logeri/TrenutnoStanje";
+const measuresFilterLink = "/mjerenja/GetAll";
+
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 const Warehouse = () => {
   const [klijentID, setKlijentID] = useState();
+  const [todaysDate, setTodaysDate] = useState();
+  const [groupValue, setGroupValue] = useState(0);
+  const [subGroupValue, setSubGroupValue] = useState(0);
+  const [deviceValue, setDeviceValue] = useState();
+  const [dataExport, setDataExport] = useState();
 
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -24,15 +35,45 @@ const Warehouse = () => {
       .get(logeriTrenutnoStanjeLink, {
         data: { klijentID: klijentID },
       })
-      .then(function(response) {
+      .then(function (response) {
         setCurrentCondition(response.data);
         //console.log(response.data, "ddd");
       });
   };
 
+  const exportData = async () => {
+    await axios
+      .get(measuresFilterLink, {
+        params: {
+          datumOd: todaysDate,
+          datumDo: todaysDate,
+          logerID: deviceValue,
+          grupaID: groupValue,
+          podgrupaID: subGroupValue,
+        },
+      })
+      .then(function (response) {
+        console.log(response.data, "datatatat");
+        setDataExport(response.data);
+      });
+  };
+
   useEffect(() => {
     setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
+    const inputDate = new Date().toDateString();
+    const dateParts = inputDate.split("-");
+    const dateObj = new Date(`${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`);
+    const newDate = dateObj.toLocaleDateString("en-US", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
+    });
+    setTodaysDate(newDate);
   }, []);
+
+  const handleId = (e) => {
+    setDeviceValue(e.target.value);
+  };
 
   useEffect(() => {
     getCurrentCondition();
@@ -61,11 +102,141 @@ const Warehouse = () => {
                     {device.naziv}
                   </h4>
                   <div className="col-lg-2 col-md-2 col-2 download-style">
-                    <FontAwesomeIcon
-                      title="Export u Excel"
-                      className="download-icon-style"
-                      icon={faDownload}
-                    />
+                    <ExcelFile
+                      filename="Mjerenja"
+                      element={
+                        <FontAwesomeIcon
+                          title="Export u Excel"
+                          className="download-icon-style"
+                          icon={faDownload}
+                          value={device.id}
+                          onClick={handleId}
+                        />
+                      }
+                    >
+                      <ExcelSheet data={dataExport} name="Mjerenja report">
+                        <ExcelColumn
+                          label="ID"
+                          value="int"
+                          headerStyle={{
+                            font: { color: { rgb: "ffffff" } },
+                            fill: {
+                              patternType: "solid",
+                              fgColor: { rgb: "3461eb" },
+                            },
+                            width: { wpx: 125 },
+                          }}
+                        />
+                        <ExcelColumn
+                          label="Loger ID"
+                          value="idlogera"
+                          headerStyle={{
+                            font: { color: { rgb: "ffffff" } },
+                            fill: {
+                              patternType: "solid",
+                              fgColor: { rgb: "3461eb" },
+                            },
+                            width: { wpx: 125 },
+                          }}
+                        />
+                        <ExcelColumn
+                          label="Uređaj"
+                          value="loger"
+                          headerStyle={{
+                            font: { color: { rgb: "ffffff" } },
+                            fill: {
+                              patternType: "solid",
+                              fgColor: { rgb: "3461eb" },
+                            },
+                            width: { wpx: 125 },
+                          }}
+                        />
+                        <ExcelColumn
+                          label="Vrijeme"
+                          value="vrijeme"
+                          headerStyle={{
+                            font: { color: { rgb: "ffffff" } },
+                            fill: {
+                              patternType: "solid",
+                              fgColor: { rgb: "3461eb" },
+                            },
+                            width: { wpx: 125 },
+                          }}
+                        />
+                        <ExcelColumn
+                          label="Temperatura"
+                          value="t"
+                          headerStyle={{
+                            font: { color: { rgb: "ffffff" } },
+                            fill: {
+                              patternType: "solid",
+                              fgColor: { rgb: "3461eb" },
+                            },
+                            width: { wpx: 125 },
+                          }}
+                        />
+                        <ExcelColumn
+                          label="Minimalna temperatura"
+                          value="tmin"
+                          headerStyle={{
+                            font: { color: { rgb: "ffffff" } },
+                            fill: {
+                              patternType: "solid",
+                              fgColor: { rgb: "3461eb" },
+                            },
+                            width: { wpx: 125 },
+                          }}
+                        />
+                        <ExcelColumn
+                          label="Maksimalna temperatura"
+                          value="tmax"
+                          headerStyle={{
+                            font: { color: { rgb: "ffffff" } },
+                            fill: {
+                              patternType: "solid",
+                              fgColor: { rgb: "3461eb" },
+                            },
+                            width: { wpx: 125 },
+                          }}
+                        />
+                        <ExcelColumn
+                          label="Vlažnost"
+                          value="h"
+                          headerStyle={{
+                            font: { color: { rgb: "ffffff" } },
+                            fill: {
+                              patternType: "solid",
+                              fgColor: { rgb: "3461eb" },
+                            },
+                            width: { wpx: 125 },
+                          }}
+                        />
+                        <ExcelColumn
+                          label="Minimalna vlažnost"
+                          value="hmin"
+                          headerStyle={{
+                            font: { color: { rgb: "ffffff" } },
+                            fill: {
+                              patternType: "solid",
+                              fgColor: { rgb: "3461eb" },
+                            },
+                            width: { wpx: 125 },
+                          }}
+                        />
+                        <ExcelColumn
+                          label="Maksimalna vlažnost"
+                          value="hmax"
+                          headerStyle={{
+                            font: { color: { rgb: "ffffff" } },
+                            fill: {
+                              patternType: "solid",
+                              fgColor: { rgb: "3461eb" },
+                            },
+                            width: { wpx: 125 },
+                          }}
+                        />
+                      </ExcelSheet>
+                    </ExcelFile>
                   </div>
                 </div>
                 <span className="device-date">

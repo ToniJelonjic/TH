@@ -89,11 +89,15 @@ const Login = () => {
   };
 
   useEffect(() => {
-    userRef.current.focus();
-    let isLoggedIn = JSON.parse(localStorage.getItem("loggedIn"));
-    if (isLoggedIn && isLoggedIn !== null) {
-      navigate("/");
+    const loggedIn = JSON.parse(localStorage.getItem("loggedIn"));
+    if (loggedIn) {
+      // If the user is already logged in, redirect to the homepage
+      navigate("/naslovnica");
     }
+  }, [navigate]);
+
+  useEffect(() => {
+    userRef.current.focus();
   }, []);
 
   useEffect(() => {

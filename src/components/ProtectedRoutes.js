@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import React from "react";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-const ProtectedRoutes = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [role, setRole] = useState();
+const ProtectedRoutes = ({ allowedRoles, loggedIn, role }) => {
+  const location = useLocation();
 
-  useEffect(() => {
-    setLoggedIn(JSON.parse(localStorage.getItem("loggedIn")));
-    setRole(JSON.parse(localStorage.getItem("role")));
-  }, []);
+  if (!loggedIn) {
+    return <Navigate to="/prijava" />;
+  }
 
-  return loggedIn ? <Outlet /> : <Navigate to="/prijava" />;
+  if (loggedIn && !allowedRoles.includes(role)) {
+    return <Navigate to={location.pathname} replace />;
+  }
+
+  return <Outlet />;
 };
 
 export default ProtectedRoutes;

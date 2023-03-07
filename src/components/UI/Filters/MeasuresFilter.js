@@ -2,12 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./MeasuresFilter.css";
 import axios from "../../../api/axios";
 import ReactPaginate from "react-paginate";
-import Podnaslov from "../Naslovi/Podnaslov";
-//import { CSVLink } from "react-csv";
-//import ButtonExport from "../Buttons/ButtonExport";
-import * as XLSX from "xlsx";
-import * as FileSaver from "file-saver";
-import * as Excel from "exceljs/dist/exceljs.min.js";
 import ReactExport from "react-data-export";
 import ButtonExport from "../Buttons/ButtonExport";
 
@@ -24,125 +18,7 @@ const MeasuresFilter = ({ params }) => {
   const [dateFrom, setDateFrom] = useState();
   const [dateTo, setDateTo] = useState();
   const [klijentID, setKlijentID] = useState();
-  //const [headers, setHeaders] = useState([])
   const [subtitle, setSubtitle] = useState("Mjerenja");
-
-  // const DataSet = [
-  //   {
-  //     columns: [
-  //       {
-  //         title: "int",
-  //         style: { font: { sz: "18", bold: true } },
-  //         width: { wpx: 125 },
-  //       }, // width in pixels
-  //       {
-  //         title: "idlogera",
-  //         style: { font: { sz: "18", bold: true } },
-  //         width: { wch: 30 },
-  //       }, // width in characters
-  //       {
-  //         title: "loger",
-  //         style: { font: { sz: "18", bold: true } },
-  //         width: { wpx: 100 },
-  //       }, // width in pixels
-  //       {
-  //         title: "vrijeme",
-  //         style: { font: { sz: "18", bold: true } },
-  //         width: { wpx: 100 },
-  //       }, // width in pixels
-  //       {
-  //         title: "t",
-  //         style: { font: { sz: "18", bold: true } },
-  //         width: { wpx: 125 },
-  //       }, // width in pixels
-  //       {
-  //         title: "tmin",
-  //         style: { font: { sz: "18", bold: true } },
-  //         width: { wpx: 100 },
-  //       }, // width in pixels
-  //       {
-  //         title: "tmax",
-  //         style: { font: { sz: "18", bold: true } },
-  //         width: { wpx: 125 },
-  //       }, // width in pixels
-  //       {
-  //         title: "h",
-  //         style: { font: { sz: "18", bold: true } },
-  //         width: { wch: 30 },
-  //       }, // width in characters
-  //       {
-  //         title: "hmin",
-  //         style: { font: { sz: "18", bold: true } },
-  //         width: { wpx: 125 },
-  //       }, // width in pixels
-  //       {
-  //         title: "hmax",
-  //         style: { font: { sz: "18", bold: true } },
-  //         width: { wpx: 125 },
-  //       }, // width in pixels
-  //     ],
-  //     data: currentCondition.map((data) => [
-  //       { value: data.int, style: { font: { sz: "14" } } },
-  //       { value: data.idlogera, style: { font: { sz: "14" } } },
-  //       {
-  //         value: data.loger,
-  //         style: {
-  //           font: { color: { rgb: "ffffff" } },
-  //           fill: { patternType: "solid", fgColor: { rgb: "3461eb" } },
-  //         },
-  //       },
-  //       {
-  //         value: data.vrijeme,
-  //         style: {
-  //           font: { color: { rgb: "ffffff" } },
-  //           fill: { patternType: "solid", fgColor: { rgb: "eb1207" } },
-  //         },
-  //       },
-  //       {
-  //         value: data.t,
-  //         style: {
-  //           font: { color: { rgb: "ffffff" } },
-  //           fill: { patternType: "solid", fgColor: { rgb: "4bd909" } },
-  //         },
-  //       },
-  //       {
-  //         value: data.tmin,
-  //         style: {
-  //           font: { color: { rgb: "ffffff" } },
-  //           fill: { patternType: "solid", fgColor: { rgb: "ebc907" } },
-  //         },
-  //       },
-  //       {
-  //         value: data.tmax,
-  //         style: {
-  //           font: { color: { rgb: "ffffff" } },
-  //           fill: { patternType: "solid", fgColor: { rgb: "35bdb4" } },
-  //         },
-  //       },
-  //       {
-  //         value: data.h,
-  //         style: {
-  //           font: { color: { rgb: "ffffff" } },
-  //           fill: { patternType: "solid", fgColor: { rgb: "ed14f5" } },
-  //         },
-  //       },
-  //       {
-  //         value: data.hmin,
-  //         style: {
-  //           font: { color: { rgb: "ffffff" } },
-  //           fill: { patternType: "solid", fgColor: { rgb: "ed14f5" } },
-  //         },
-  //       },
-  //       {
-  //         value: data.hmax,
-  //         style: {
-  //           font: { color: { rgb: "ffffff" } },
-  //           fill: { patternType: "solid", fgColor: { rgb: "000000" } },
-  //         },
-  //       },
-  //     ]),
-  //   },
-  // ];
 
   const getCurrentDateInput = () => {
     const dateObj = new Date();
@@ -230,19 +106,6 @@ const MeasuresFilter = ({ params }) => {
         console.log(response.data, "datatatat");
         setCurrentCondition(response.data);
         setLoading(true);
-        const formattedData = response.data.map((item) => ({
-          ID: item.int,
-          "Loger ID": item.idlogera,
-          Vrijeme: item.vrijeme,
-          Loger: item.loger,
-          Temperatura: parseFloat(item.t),
-          Vlažnost: parseFloat(item.h),
-          "Minimalna temperatura": item.tmin,
-          "Maksimalna temperatura": item.tmax,
-          "Minimalna vlažnost": item.hmin,
-          "Maksimalna vlažnost": item.hmax,
-        }));
-        setFormattedData(formattedData);
       });
   };
 
@@ -251,7 +114,6 @@ const MeasuresFilter = ({ params }) => {
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 10;
   const [currentCondition, setCurrentCondition] = useState([]);
-  const [formattedData, setFormattedData] = useState([]);
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -280,8 +142,6 @@ const MeasuresFilter = ({ params }) => {
     setDateFrom(newDate);
     setDateTo(newDate);
   }, []);
-
-  const [exporting, setExporting] = useState(true);
 
   return (
     <>

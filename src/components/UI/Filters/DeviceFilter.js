@@ -10,6 +10,7 @@ import ChangeDeviceStatus from "../StatusChange/ChangeDeviceStatus";
 const logeriGetAllLink = "/logeri/GetAll";
 const groupsGetAllLink = "/grupe/GetAll";
 const subgroupsGetAllLink = "/podgrupe/GetAll";
+const changeStatusLink = "/logeri/ChangeStatus";
 
 const DeviceFilter = ({ params }) => {
   const [klijentID, setKlijentID] = useState();
@@ -19,6 +20,7 @@ const DeviceFilter = ({ params }) => {
   const [groups, setGroups] = useState([]);
 
   const [selectedDeviceId, setSelectedDeviceId] = useState(null);
+  const [item, setItem] = useState();
   //const deviceRef = useRef();
   const [isClicked, setIsClicked] = useState(false);
 
@@ -27,6 +29,51 @@ const DeviceFilter = ({ params }) => {
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 10;
   const [currentCondition, setCurrentCondition] = useState([]);
+
+  const [newStatus, setNewStatus] = useState();
+  const deviceRef = useRef();
+
+  // useEffect(() => {
+  //   let handler = (e) => {
+  //     if (!deviceRef.current.contains(e.target)) {
+  //       setSelectedDeviceId(null);
+  //       console.log(deviceRef.current);
+  //     }
+  //   };
+  //   document.addEventListener("mousedown", handler);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handler);
+  //   };
+  // }, []);
+
+  const onChangeStatus = () => {
+    axios
+      .post(changeStatusLink, {
+        Id: item.id,
+        Active: newStatus,
+        Naziv: item.naziv,
+        Idklijenta: item.idklijenta,
+        Idposlovnice: item.idposlovnice,
+        Tmin: item.tmin,
+        Tmax: item.tmax,
+        Hmin: item.hmin,
+        Hmax: item.hmax,
+        Email1: item.email1,
+        Email2: item.email2,
+        Grupaid: item.grupaid,
+        Podgrupaid: item.podgrupaid,
+        SifraUredjaja: item.sifraUredjaja,
+      })
+      .then(function (response) {
+        console.log(response);
+        //setIsClicked(false);
+        setSelectedDeviceId(null);
+        window.location.reload(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   const handleGroupValue = (e) => {
     setGroupValue(e.target.value);
@@ -48,7 +95,7 @@ const DeviceFilter = ({ params }) => {
           podgrupaID: parseInt(subGroupValue),
         },
       })
-      .then(function(response) {
+      .then(function (response) {
         setCurrentCondition(response.data);
         console.log(response.data);
         //localStorage.setItem("items", JSON.stringify(response.data));
@@ -56,20 +103,26 @@ const DeviceFilter = ({ params }) => {
   };
 
   const getGroups = async () => {
-    await axios.get(groupsGetAllLink).then(function(response) {
+    await axios.get(groupsGetAllLink).then(function (response) {
       setGroups(response.data);
     });
   };
 
   const getSubGroups = async () => {
-    await axios.get(subgroupsGetAllLink).then(function(response) {
+    await axios.get(subgroupsGetAllLink).then(function (response) {
       setSubGroups(response.data);
     });
   };
 
-  const handleClick = (deviceId) => {
+  const handleClick = (deviceId, device) => {
     console.log(deviceId);
     setIsClicked(true);
+    setItem(device);
+    if (device.active === false) {
+      setNewStatus(true);
+    } else if (device.active === true) {
+      setNewStatus(false);
+    }
     setSelectedDeviceId((prevSelectedDeviceId) => {
       if (prevSelectedDeviceId === deviceId) {
         return null;
@@ -142,15 +195,26 @@ const DeviceFilter = ({ params }) => {
                   title="Promijeni status"
                   className="actions-icon"
                   icon={faEllipsis}
-                  onClick={() => handleClick(item.id)}
+                  onClick={() => handleClick(item.id, item)}
                 />
-
                 {selectedDeviceId === item.id && (
+                  <>
+                    <div
+                      ref={deviceRef}
+                      onClick={onChangeStatus}
+                      className="status-change"
+                    >
+                      Promijeni status
+                    </div>
+                  </>
+                )}
+
+                {/* {selectedDeviceId === item.id && (
                   <ChangeDeviceStatus
                     setSelectedDeviceId={setSelectedDeviceId}
                     data={item}
                   />
-                )}
+                )} */}
 
                 <Link to={`/uređaji/uredi/${item.id}`}>
                   <FontAwesomeIcon

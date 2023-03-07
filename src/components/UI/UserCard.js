@@ -6,7 +6,7 @@ import AuthContext from "../../context/AuthProvider";
 
 const logoutLink = "/prijava";
 
-const UserCard = ({ ref }) => {
+const UserCard = () => {
   const { setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ const UserCard = ({ ref }) => {
   };
 
   return (
-    <div ref={ref} className={`row user-card-style`}>
+    <div className={`row user-card-style`}>
       <div className="col-6 profile-style-div">
         <Link className="link-profile-style" to={`/profil`}>
           <button /*onClick={onClick}*/ className="profile-button-style">

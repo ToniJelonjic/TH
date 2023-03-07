@@ -2,8 +2,8 @@
   background-color: rgb(244, 244, 244);
   width: 250px;
   height: 70px;
-  position: absolute;
-  top: 70px;
+  position: fixed;
+  top: 11vh;
   right: 0px;
   z-index: 100;
   display: flex;
