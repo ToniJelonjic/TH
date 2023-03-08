@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import "./TablicaInfo.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
@@ -9,22 +9,43 @@ import ChangeEmployeeStatus from "../StatusChange/ChangeEmployeeStatus";
 const TablicaInfo = (props) => {
   const { title, data } = useContext(Context);
 
-  const [employeeId, setEmployeeId] = useState(null);
-  const [klijentID, setKlijentID] = useState();
+  const klijentID = JSON.parse(localStorage.getItem("klijentID"));
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState(0);
+
+  const handleEmployeeId = () => {
+    setSelectedEmployeeId(0);
+  };
 
   const handleClick = (employeeId) => {
-    setEmployeeId((prevSelectedEmployeeId) => {
-      if (prevSelectedEmployeeId === employeeId) {
-        return null;
-      } else {
-        return employeeId;
-      }
-    });
+    console.log("Employee ID:", employeeId);
+    setSelectedEmployeeId((prevState) =>
+      prevState === employeeId ? 0 : employeeId
+    );
+  };
+
+  const employeeRef = useRef(null);
+
+  const outside = (event, ref) => {
+    if (
+      ref.current &&
+      !ref.current.contains(event.target) &&
+      selectedEmployeeId !== null
+    ) {
+      setSelectedEmployeeId(0);
+    }
   };
 
   useEffect(() => {
-    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
-  });
+    const handleClickOutside = (event) => {
+      outside(event, employeeRef);
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [employeeRef]);
 
   return (
     <div className="info-table-style">
@@ -128,15 +149,19 @@ const TablicaInfo = (props) => {
                         className="actions-icon"
                         icon={faEllipsis}
                         value={item.id}
-                        onClick={() => handleClick(item.id)}
+                        ref={employeeRef}
+                        onClick={() => {
+                          handleClick(parseInt(item.id));
+                        }}
                       />
 
-                      {employeeId === item.id && (
+                      {parseInt(selectedEmployeeId) === parseInt(item.id) ? (
                         <ChangeEmployeeStatus
-                          setEmployeeId={setEmployeeId}
+                          employeeId={selectedEmployeeId}
+                          handleEmployeeId={handleEmployeeId}
                           data={item}
                         />
-                      )}
+                      ) : null}
 
                       <Link to={`/zaposlenici/uredi/${item.id}`}>
                         <FontAwesomeIcon

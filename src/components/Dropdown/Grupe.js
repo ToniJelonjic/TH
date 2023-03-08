@@ -13,7 +13,6 @@ import Context from "../../store/Context";
 const getGroupsLink = "/grupe/GetAll";
 
 const Grupe = () => {
-  const [isUserClicked, setIsUserClicked] = useState(false);
   const [data, setData] = useState([]);
 
   const getData = async () => {
@@ -21,9 +20,26 @@ const Grupe = () => {
     setData(data);
   };
 
+  const [isUserClicked, setIsUserClicked] = useState(false);
+  const [isBurgerClicked, setIsBurgerClicked] = useState(false);
+
   const handleUserClick = () => {
     setIsUserClicked(!isUserClicked);
   };
+
+  const handleBurgerClick = () => {
+    setIsBurgerClicked(!isBurgerClicked);
+    console.log(isBurgerClicked);
+  };
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth <= 1000) {
+        setIsBurgerClicked(false);
+      }
+    }
+    window.addEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     getData();
@@ -46,8 +62,11 @@ const Grupe = () => {
         addButton,
       }}
     >
-      <Header onClick={handleUserClick} />
-      <Dropdown />
+      <Header onUserClick={handleUserClick} onBurgerClick={handleBurgerClick} />
+      <Dropdown
+        isClicked={isBurgerClicked}
+        handleBurgerClick={handleBurgerClick}
+      />
       {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
         {/* <Naslov title={title} /> */}

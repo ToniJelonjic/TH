@@ -13,17 +13,33 @@ import Context from "../../store/Context";
 const podgrupeGetAllLink = "/podgrupe/GetAll";
 
 const Podgrupe = () => {
-  const [isUserClicked, setIsUserClicked] = useState(false);
   const [data, setData] = useState([]);
-
-  const handleUserClick = () => {
-    setIsUserClicked(!isUserClicked);
-  };
 
   const getData = async () => {
     const { data } = await axios.get(podgrupeGetAllLink);
     setData(data);
   };
+
+  const [isUserClicked, setIsUserClicked] = useState(false);
+  const [isBurgerClicked, setIsBurgerClicked] = useState(false);
+
+  const handleUserClick = () => {
+    setIsUserClicked(!isUserClicked);
+  };
+
+  const handleBurgerClick = () => {
+    setIsBurgerClicked(!isBurgerClicked);
+    console.log(isBurgerClicked);
+  };
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth <= 1000) {
+        setIsBurgerClicked(false);
+      }
+    }
+    window.addEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     getData();
@@ -46,8 +62,11 @@ const Podgrupe = () => {
         addButton,
       }}
     >
-      <Header onClick={handleUserClick} />
-      <Dropdown />
+      <Header onUserClick={handleUserClick} onBurgerClick={handleBurgerClick} />
+      <Dropdown
+        isClicked={isBurgerClicked}
+        handleBurgerClick={handleBurgerClick}
+      />
       {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
         {/* <Naslov title={title} /> */}

@@ -20,6 +20,8 @@ const Naslovnica = () => {
     "Pregled aktivnosti uređaja",
   ];
 
+  const role = JSON.parse(localStorage.getItem("role"));
+
   const params1 = {
     id: Math.random(),
     params: [
@@ -61,6 +63,14 @@ const Naslovnica = () => {
   };
 
   useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth <= 1000) {
+        setIsBurgerClicked(false);
+      }
+    }
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
     // document.addEventListener("mousedown", (e) => {
     //   if (userRef.current.includes(e.target)) {
     //     setIsUserClicked(false);
@@ -75,11 +85,10 @@ const Naslovnica = () => {
         subtitle,
       }}
     >
-      <Header onClick={handleUserClick} onBurger={handleBurgerClick} />
+      <Header onUserClick={handleUserClick} onBurgerClick={handleBurgerClick} />
       <Dropdown
         isClicked={isBurgerClicked}
-        handleClick={handleBurgerClick}
-        setIsBurgerClicked={setIsBurgerClicked}
+        handleBurgerClick={handleBurgerClick}
       />
       {isUserClicked ? (
         <UserCard onClick={handleUserClick} ref={userRef} />
@@ -87,12 +96,27 @@ const Naslovnica = () => {
 
       <Wrapper>
         {/* <Naslov title={title} /> */}
-        <Podnaslov subtitle={subtitle[0]} />
-        {/* <Warehouse /> */}
-        <Podnaslov subtitle={subtitle[1]} />
-        {/* <Uređaj params={params1} /> */}
-        <Podnaslov subtitle={subtitle[2]} />
-        {/* <ActivityFilter subtitle={subtitle[2]} params={params2} /> */}
+
+        {/* {role === 1 || role === 2 ? (
+          <>
+            <Podnaslov subtitle={subtitle[0]} />
+            <Warehouse />
+          </>
+        ) : null}
+
+        {role === 1 && (
+          <>
+            <Podnaslov subtitle={subtitle[1]} />
+            <Uređaj params={params1} />
+          </>
+        )} */}
+
+        {role === 1 || role === 3 ? (
+          <>
+            <Podnaslov subtitle={subtitle[2]} />
+            <ActivityFilter subtitle={subtitle[2]} params={params2} />
+          </>
+        ) : null}
       </Wrapper>
       <Footer />
     </Context.Provider>

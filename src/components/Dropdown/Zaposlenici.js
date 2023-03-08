@@ -13,19 +13,32 @@ import Context from "../../store/Context";
 const korisniciGetAllLink = "/korisnici/GetAll";
 
 const Zaposlenici = () => {
-  const [isUserClicked, setIsUserClicked] = useState(false);
   const [data, setData] = useState([]);
   const getData = async () => {
     const { data } = await axios.get(korisniciGetAllLink);
     setData(data);
   };
 
+  const [isUserClicked, setIsUserClicked] = useState(false);
+  const [isBurgerClicked, setIsBurgerClicked] = useState(false);
+
   const handleUserClick = () => {
     setIsUserClicked(!isUserClicked);
   };
 
+  const handleBurgerClick = () => {
+    setIsBurgerClicked(!isBurgerClicked);
+    console.log(isBurgerClicked);
+  };
+
   useEffect(() => {
     getData();
+    function handleResize() {
+      if (window.innerWidth <= 1000) {
+        setIsBurgerClicked(false);
+      }
+    }
+    window.addEventListener("resize", handleResize);
   }, []);
 
   const title = "Zaposlenici";
@@ -48,8 +61,11 @@ const Zaposlenici = () => {
         addButton,
       }}
     >
-      <Header onClick={handleUserClick} />
-      <Dropdown />
+      <Header onUserClick={handleUserClick} onBurgerClick={handleBurgerClick} />
+      <Dropdown
+        isClicked={isBurgerClicked}
+        handleBurgerClick={handleBurgerClick}
+      />
       {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
         <>

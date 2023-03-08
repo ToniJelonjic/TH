@@ -13,10 +13,25 @@ import MeasuresFilter from "../UI/Filters/MeasuresFilter";
 
 const Mjerenja = () => {
   const [isUserClicked, setIsUserClicked] = useState(false);
+  const [isBurgerClicked, setIsBurgerClicked] = useState(false);
 
   const handleUserClick = () => {
     setIsUserClicked(!isUserClicked);
   };
+
+  const handleBurgerClick = () => {
+    setIsBurgerClicked(!isBurgerClicked);
+    console.log(isBurgerClicked);
+  };
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth <= 1000) {
+        setIsBurgerClicked(false);
+      }
+    }
+    window.addEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     // document.addEventListener("mousedown", () => {
@@ -45,8 +60,11 @@ const Mjerenja = () => {
         subtitle,
       }}
     >
-      <Header onClick={handleUserClick} />
-      <Dropdown />
+      <Header onUserClick={handleUserClick} onBurgerClick={handleBurgerClick} />
+      <Dropdown
+        isClicked={isBurgerClicked}
+        handleBurgerClick={handleBurgerClick}
+      />
       {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
         {/* <Naslov title={title} /> */}

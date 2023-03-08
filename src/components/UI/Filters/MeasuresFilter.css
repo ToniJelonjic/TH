@@ -39,11 +39,6 @@ table {
 
 }
 
-th {
-  background-color: blue;
-  color: white;
-}
-
 .thead-style {
   border: 2px solid #f4f5f8;
   padding: 10px;
