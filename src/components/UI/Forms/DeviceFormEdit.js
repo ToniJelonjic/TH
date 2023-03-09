@@ -33,15 +33,12 @@ const DeviceFormEdit = () => {
   const [maxH, setMaxH] = useState("");
   const [deviceCode, setDeviceCode] = useState("");
   const [users, setUsers] = useState([]);
-  const [checkedUsers, setCheckedUsers] = useState([]);
   const [groupValue, setGroupValue] = useState(0);
   const [subGroupValue, setSubGroupValue] = useState(0);
   const [groupId, setGroupId] = useState();
   const [subgroupId, setSubgroupId] = useState();
   const [status, setStatus] = useState();
   const [active, setActive] = useState();
-  const [checked, setChecked] = useState();
-  const [userID, setUserID] = useState();
   const [klijentID, setKlijentID] = useState();
 
   //const title = "Uređaji";
@@ -83,13 +80,6 @@ const DeviceFormEdit = () => {
     setSubgroupId(e.target.value);
   };
 
-  const handleIsChecked = (e) => {
-    setChecked(e.target.checked);
-    setUserID(e.target.value);
-    console.log(e.target.value, "id");
-    console.log(e.target.checked, "checked");
-  };
-
   const navigateBack = () => {
     navigate(-1);
   };
@@ -103,15 +93,12 @@ const DeviceFormEdit = () => {
           podgrupaID: subGroupValue,
         },
       })
-      .then(function(response) {
+      .then(function (response) {
         response.data.map((device) => {
           if (parseInt(device.id) === parseInt(deviceId)) {
             setName(device.naziv.trim());
             setGroupId(device.grupaid);
             setSubgroupId(device.podgrupaid);
-            console.log(device.grupaid, "grupa");
-            console.log(device.podgrupaid, "podgrupa");
-            console.log(device.korisnici, "usrs");
             setEmail1(device.email1.trim());
             setEmail2(device.email2.trim());
             setMinTemp(device.tmin);
@@ -122,24 +109,26 @@ const DeviceFormEdit = () => {
             setActive(device.active);
             setUsers(device.korisnici);
           }
-          // device.korisnici.map((user, index) => {
-          //   if (parseInt(user.id) === parseInt(deviceId) && user.checked) {
-          //     console.log(user, "kokokokoko");
-          //     setCheckedUsers(user);
-          //   }
-          // });
         });
       });
   };
 
+  const handleIsChecked = (event, user) => {
+    const checked = event.target.checked;
+    const updatedUsers = users.map((u) =>
+      u.id === user.id ? { ...u, checked } : u
+    );
+    setUsers(updatedUsers);
+  };
+
   const getGroups = async () => {
-    await axios.get(grupeGetAllLink).then(function(response) {
+    await axios.get(grupeGetAllLink).then(function (response) {
       setGroups(response.data);
     });
   };
 
   const getSubgroups = async () => {
-    await axios.get(podgrupeGetAllLink).then(function(response) {
+    await axios.get(podgrupeGetAllLink).then(function (response) {
       setSubgroups(response.data);
     });
   };
@@ -168,20 +157,13 @@ const DeviceFormEdit = () => {
         Podgrupaid: parseInt(subgroupId),
         Active: active,
         SifraUredjaja: deviceCode,
-        korisnici: [
-          {
-            Id: userID,
-            Checked: true,
-            Ime: "",
-          },
-        ],
-        //korisnici: [...checkedUsers, { Id: userID, Checked: true, Ime: "" }],
+        korisnici: users,
       })
-      .then(function(response) {
+      .then(function (response) {
         setStatus(response.status);
         console.log(response);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -381,16 +363,15 @@ const DeviceFormEdit = () => {
             <div className="col-lg-6 col-md-6 col-10 mt-2">
               {users.map((user) => {
                 return (
-                  <>
+                  <div className="check-users-style" key={user.id}>
                     <input
-                      defaultChecked={user.checked}
-                      className="check"
+                      checked={user.checked}
                       value={user.id}
                       type="checkbox"
-                      onChange={handleIsChecked}
+                      onChange={(event) => handleIsChecked(event, user)}
                     />
-                    <span className="users-style">{user.ime}</span>
-                  </>
+                    <span className="users-style-padding">{user.ime}</span>
+                  </div>
                 );
               })}
             </div>

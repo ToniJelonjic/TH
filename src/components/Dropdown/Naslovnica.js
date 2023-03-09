@@ -85,19 +85,21 @@ const Naslovnica = () => {
         subtitle,
       }}
     >
-      <Header onUserClick={handleUserClick} onBurgerClick={handleBurgerClick} />
+      <Header
+        onUserClick={handleUserClick}
+        onBurgerClick={handleBurgerClick}
+        setIsUserClicked={setIsUserClicked}
+      />
       <Dropdown
         isClicked={isBurgerClicked}
         handleBurgerClick={handleBurgerClick}
       />
-      {isUserClicked ? (
-        <UserCard onClick={handleUserClick} ref={userRef} />
-      ) : null}
+      {isUserClicked ? <UserCard setIsUserClicked={setIsUserClicked} /> : null}
 
       <Wrapper>
         {/* <Naslov title={title} /> */}
 
-        {/* {role === 1 || role === 2 ? (
+        {role === 1 || role === 2 ? (
           <>
             <Podnaslov subtitle={subtitle[0]} />
             <Warehouse />
@@ -109,7 +111,7 @@ const Naslovnica = () => {
             <Podnaslov subtitle={subtitle[1]} />
             <Uređaj params={params1} />
           </>
-        )} */}
+        )}
 
         {role === 1 || role === 3 ? (
           <>

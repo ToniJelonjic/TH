@@ -10,7 +10,6 @@ import ChangeDeviceStatus from "../StatusChange/ChangeDeviceStatus";
 const logeriGetAllLink = "/logeri/GetAll";
 const groupsGetAllLink = "/grupe/GetAll";
 const subgroupsGetAllLink = "/podgrupe/GetAll";
-const changeStatusLink = "/logeri/ChangeStatus";
 
 const DeviceFilter = ({ params }) => {
   const [klijentID, setKlijentID] = useState();
@@ -21,59 +20,12 @@ const DeviceFilter = ({ params }) => {
 
   const [selectedDeviceId, setSelectedDeviceId] = useState(null);
   const [item, setItem] = useState();
-  //const deviceRef = useRef();
-  const [isClicked, setIsClicked] = useState(false);
 
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 10;
   const [currentCondition, setCurrentCondition] = useState([]);
-
-  const [newStatus, setNewStatus] = useState();
-  const deviceRef = useRef();
-
-  // useEffect(() => {
-  //   let handler = (e) => {
-  //     if (!deviceRef.current.contains(e.target)) {
-  //       setSelectedDeviceId(null);
-  //       console.log(deviceRef.current);
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", handler);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handler);
-  //   };
-  // }, []);
-
-  const onChangeStatus = () => {
-    axios
-      .post(changeStatusLink, {
-        Id: item.id,
-        Active: newStatus,
-        Naziv: item.naziv,
-        Idklijenta: item.idklijenta,
-        Idposlovnice: item.idposlovnice,
-        Tmin: item.tmin,
-        Tmax: item.tmax,
-        Hmin: item.hmin,
-        Hmax: item.hmax,
-        Email1: item.email1,
-        Email2: item.email2,
-        Grupaid: item.grupaid,
-        Podgrupaid: item.podgrupaid,
-        SifraUredjaja: item.sifraUredjaja,
-      })
-      .then(function (response) {
-        console.log(response);
-        //setIsClicked(false);
-        setSelectedDeviceId(null);
-        window.location.reload(true);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
 
   const handleGroupValue = (e) => {
     setGroupValue(e.target.value);
@@ -98,7 +50,6 @@ const DeviceFilter = ({ params }) => {
       .then(function (response) {
         setCurrentCondition(response.data);
         console.log(response.data);
-        //localStorage.setItem("items", JSON.stringify(response.data));
       });
   };
 
@@ -114,22 +65,12 @@ const DeviceFilter = ({ params }) => {
     });
   };
 
-  const handleClick = (deviceId, device) => {
-    console.log(deviceId);
-    setIsClicked(true);
-    setItem(device);
-    if (device.active === false) {
-      setNewStatus(true);
-    } else if (device.active === true) {
-      setNewStatus(false);
+  const handleClick = (id) => {
+    if (id === selectedDeviceId) {
+      setSelectedDeviceId(null);
+    } else {
+      setSelectedDeviceId(id);
     }
-    setSelectedDeviceId((prevSelectedDeviceId) => {
-      if (prevSelectedDeviceId === deviceId) {
-        return null;
-      } else {
-        return deviceId;
-      }
-    });
   };
 
   useEffect(() => {
@@ -139,33 +80,30 @@ const DeviceFilter = ({ params }) => {
     setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
   }, []);
 
-  // useEffect(() => {
-  //   let handler = (e) => {
-  //     if (!deviceRef.current.contains(e.target)) {
-  //       setIsClicked(false);
-  //       setSelectedDeviceId(null);
-  //       //console.log(deviceRef.current);
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", handler);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handler);
-  //   };
-  // });
-
   useEffect(() => {
-    //let currentCondition = JSON.parse(localStorage.getItem("items"));
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(currentCondition.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(currentCondition.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, currentCondition]);
 
   const handlePageClick = (event) => {
-    //let currentCondition = JSON.parse(localStorage.getItem("items"));
-    //let currentCondition = localStorage.getItem("items");
     const newOffset = (event.selected * itemsPerPage) % currentCondition.length;
     setItemOffset(newOffset);
   };
+
+  useEffect(() => {
+    const handleClick = (event) => {
+      if (event.target.id !== "toggle-device") {
+        setSelectedDeviceId(null);
+      }
+    };
+
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
 
   const items = currentItems
     .sort((a, b) => a.id - b.id)
@@ -194,27 +132,17 @@ const DeviceFilter = ({ params }) => {
                 <FontAwesomeIcon
                   title="Promijeni status"
                   className="actions-icon"
+                  id="toggle-device"
                   icon={faEllipsis}
-                  onClick={() => handleClick(item.id, item)}
+                  onClick={() => handleClick(item.id)}
                 />
-                {selectedDeviceId === item.id && (
-                  <>
-                    <div
-                      ref={deviceRef}
-                      onClick={onChangeStatus}
-                      className="status-change"
-                    >
-                      Promijeni status
-                    </div>
-                  </>
-                )}
 
-                {/* {selectedDeviceId === item.id && (
+                {parseInt(selectedDeviceId) === parseInt(item.id) && (
                   <ChangeDeviceStatus
                     setSelectedDeviceId={setSelectedDeviceId}
                     data={item}
                   />
-                )} */}
+                )}
 
                 <Link to={`/uređaji/uredi/${item.id}`}>
                   <FontAwesomeIcon

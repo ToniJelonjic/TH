@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./UserCard.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -27,9 +27,7 @@ const UserCard = () => {
     <div className={`row user-card-style`}>
       <div className="col-6 profile-style-div">
         <Link className="link-profile-style" to={`/profil`}>
-          <button /*onClick={onClick}*/ className="profile-button-style">
-            Idi na profil
-          </button>
+          <button className="profile-button-style">Idi na profil</button>
         </Link>
       </div>
       <div className="col-6 logout-style-div">

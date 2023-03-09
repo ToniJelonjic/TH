@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "../Header/Header";
 import Dropdown from "./Dropdown";
 import Footer from "../Footer/Footer";
@@ -21,6 +21,11 @@ const Zaposlenici = () => {
 
   const [isUserClicked, setIsUserClicked] = useState(false);
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  const handleVisible = () => {
+    setVisible(!visible);
+  };
 
   const handleUserClick = () => {
     setIsUserClicked(!isUserClicked);
@@ -51,6 +56,20 @@ const Zaposlenici = () => {
     "Akcije",
   ];
   const addButton = "+ Dodaj zaposlenika";
+
+  useEffect(() => {
+    const handleClick = (event) => {
+      if (event.target.id !== "toggle-button") {
+        setVisible(false);
+      }
+    };
+
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
 
   return (
     <Context.Provider

@@ -10,42 +10,33 @@ const TablicaInfo = (props) => {
   const { title, data } = useContext(Context);
 
   const klijentID = JSON.parse(localStorage.getItem("klijentID"));
-  const [selectedEmployeeId, setSelectedEmployeeId] = useState(0);
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
 
   const handleEmployeeId = () => {
-    setSelectedEmployeeId(0);
+    setSelectedEmployeeId(null);
   };
 
-  const handleClick = (employeeId) => {
-    console.log("Employee ID:", employeeId);
-    setSelectedEmployeeId((prevState) =>
-      prevState === employeeId ? 0 : employeeId
-    );
-  };
-
-  const employeeRef = useRef(null);
-
-  const outside = (event, ref) => {
-    if (
-      ref.current &&
-      !ref.current.contains(event.target) &&
-      selectedEmployeeId !== null
-    ) {
-      setSelectedEmployeeId(0);
+  const handleClick = (id) => {
+    if (id === selectedEmployeeId) {
+      setSelectedEmployeeId(null);
+    } else {
+      setSelectedEmployeeId(id);
     }
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      outside(event, employeeRef);
+    const handleClick = (event) => {
+      if (event.target.id !== "toggle-employee") {
+        setSelectedEmployeeId(null);
+      }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("click", handleClick);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClick);
     };
-  }, [employeeRef]);
+  }, []);
 
   return (
     <div className="info-table-style">
@@ -132,7 +123,7 @@ const TablicaInfo = (props) => {
             {data.map((item, index) => {
               if (item.ulogaID === 2 && item.firma === klijentID) {
                 return (
-                  <tr key={index} id={item.id} className="tr-style">
+                  <tr key={item.id} id={item.id} className="tr-style">
                     <td className="thead-style">{item.imePrezime}</td>
                     <td className="thead-style">{item.ime}</td>
                     <td className="thead-style">{item.uloga}</td>
@@ -146,13 +137,11 @@ const TablicaInfo = (props) => {
                     <td className="thead-style">
                       <FontAwesomeIcon
                         title="Promijeni status"
+                        id="toggle-employee"
                         className="actions-icon"
                         icon={faEllipsis}
                         value={item.id}
-                        ref={employeeRef}
-                        onClick={() => {
-                          handleClick(parseInt(item.id));
-                        }}
+                        onClick={() => handleClick(item.id)}
                       />
 
                       {parseInt(selectedEmployeeId) === parseInt(item.id) ? (

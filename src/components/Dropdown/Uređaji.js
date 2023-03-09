@@ -12,6 +12,7 @@ import DeviceFilter from "../UI/Filters/DeviceFilter";
 const Uređaji = () => {
   const [isUserClicked, setIsUserClicked] = useState(false);
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
+  const [menu, setMenu] = useState(false);
 
   const handleUserClick = () => {
     setIsUserClicked(!isUserClicked);
@@ -62,13 +63,20 @@ const Uređaji = () => {
         subtitle,
       }}
     >
-      <Header onUserClick={handleUserClick} onBurgerClick={handleBurgerClick} />
+      <Header
+        onUserClick={handleUserClick}
+        onBurgerClick={handleBurgerClick}
+        setIsUserClicked={setIsUserClicked}
+        setIsBurgerClicked={setIsBurgerClicked}
+        onMenuClick={() => setMenu(!menu)}
+      />
       <Dropdown
         isClicked={isBurgerClicked}
         handleBurgerClick={handleBurgerClick}
       />
       {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
       <Wrapper>
+        NASTAVITI OD MJERENJA PROPS U HEADER
         {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <DeviceFilter params={params} />

@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "../../../api/axios";
 
 const changeStatusLink = "/korisnici/ChangeStatus";
 
-const ChangeStatus = ({ data, employeeId, handleEmployeeId }) => {
+const ChangeStatus = ({ data, handleEmployeeId }) => {
   const [newStatus, setNewStatus] = useState();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const ChangeStatus = ({ data, employeeId, handleEmployeeId }) => {
       })
       .then(function (response) {
         console.log(response);
-        //handleEmployeeId();
+        handleEmployeeId();
         window.location.reload(true);
       })
       .catch(function (error) {
