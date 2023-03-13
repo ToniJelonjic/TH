@@ -8,11 +8,9 @@ import { faGripHorizontal } from "@fortawesome/free-solid-svg-icons";
 import { faTableList } from "@fortawesome/free-solid-svg-icons";
 import { faUserTie } from "@fortawesome/free-solid-svg-icons";
 import { faComputer } from "@fortawesome/free-solid-svg-icons";
-import useAuth from "../../hooks/useAuth";
 
 const Dropdown = ({ isClicked, handleBurgerClick }) => {
   const role = JSON.parse(localStorage.getItem("role"));
-  const { auth } = useAuth();
 
   return (
     <div
@@ -107,7 +105,7 @@ const Dropdown = ({ isClicked, handleBurgerClick }) => {
 
           <NavLink
             onClick={handleBurgerClick}
-            to="/mjerenja"
+            to="/klijenti"
             className="link-style"
           >
             <FontAwesomeIcon className="icons-style" icon={faGaugeHigh} />
@@ -116,7 +114,7 @@ const Dropdown = ({ isClicked, handleBurgerClick }) => {
 
           <NavLink
             onClick={handleBurgerClick}
-            to="/grupe"
+            to="/korisnici"
             className="link-style"
           >
             <FontAwesomeIcon className="icons-style" icon={faGripHorizontal} />

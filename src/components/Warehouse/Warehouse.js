@@ -24,6 +24,7 @@ const Warehouse = () => {
   const [subGroupValue, setSubGroupValue] = useState(0);
   const [deviceValue, setDeviceValue] = useState();
   const [dataExport, setDataExport] = useState();
+  const [isDownloading, setIsDownloading] = useState(false);
 
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -41,25 +42,38 @@ const Warehouse = () => {
       });
   };
 
-  const exportData = async () => {
+  const exportData = async (id) => {
+    setIsDownloading(true);
     await axios
       .get(measuresFilterLink, {
         params: {
           datumOd: todaysDate,
           datumDo: todaysDate,
-          logerID: deviceValue,
+          logerID: id,
           grupaID: groupValue,
           podgrupaID: subGroupValue,
         },
       })
       .then(function (response) {
-        console.log(response.data, "datatatat");
         setDataExport(response.data);
+        setTimeout(() => {
+          document.getElementById("export").click();
+        }, 1000);
       });
   };
 
   useEffect(() => {
     setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
+    // TEST DATUM 5.12.2022.
+    // const inputDate = new Date(2022, 11, 5).toDateString();
+    // const dateParts = inputDate.split("-");
+    // const dateObj = new Date(`${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`);
+    // const newDate = dateObj.toLocaleDateString("en-US", {
+    //   month: "2-digit",
+    //   day: "2-digit",
+    //   year: "numeric",
+    // });
+    // setTodaysDate(newDate);
     const inputDate = new Date().toDateString();
     const dateParts = inputDate.split("-");
     const dateObj = new Date(`${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`);
@@ -70,10 +84,6 @@ const Warehouse = () => {
     });
     setTodaysDate(newDate);
   }, []);
-
-  const handleId = (e) => {
-    setDeviceValue(e.target.value);
-  };
 
   useEffect(() => {
     getCurrentCondition();
@@ -102,17 +112,21 @@ const Warehouse = () => {
                     {device.naziv}
                   </h4>
                   <div className="col-lg-2 col-md-2 col-2 download-style">
+                    <FontAwesomeIcon
+                      title="Export u Excel"
+                      className="download-icon-style"
+                      icon={faDownload}
+                      value={device.id}
+                      onClick={() => exportData(device.id)}
+                    />
                     <ExcelFile
                       filename="Mjerenja"
                       element={
-                        <FontAwesomeIcon
-                          title="Export u Excel"
-                          className="download-icon-style"
-                          icon={faDownload}
-                          value={device.id}
-                          onClick={handleId}
-                        />
+                        <button id="export" className="display-none">
+                          Download
+                        </button>
                       }
+                      data={dataExport}
                     >
                       <ExcelSheet data={dataExport} name="Mjerenja report">
                         <ExcelColumn

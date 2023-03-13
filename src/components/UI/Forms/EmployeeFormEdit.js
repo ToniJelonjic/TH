@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Dropdown from "../../Dropdown/Dropdown";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
 //import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
 import "./Forms.css";
-import UserCard from "../UserCard";
 import axios from "../../../api/axios";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -23,7 +21,6 @@ const EmployeeFormEdit = () => {
   let employeeId = location.pathname.split("/")[3];
   const [klijentID, setKlijentID] = useState();
   const [active, setActive] = useState();
-  const [isUserClicked, setIsUserClicked] = useState(false);
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -41,10 +38,6 @@ const EmployeeFormEdit = () => {
     setPassword(e.target.value);
   };
 
-  const handleUserClick = () => {
-    setIsUserClicked(!isUserClicked);
-  };
-
   const getData = async () => {
     await axios
       .get(employeeGetAllLink)
@@ -57,7 +50,7 @@ const EmployeeFormEdit = () => {
           }
         });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -75,11 +68,11 @@ const EmployeeFormEdit = () => {
         UlogaID: 2,
         Active: active,
       })
-      .then(function(response) {
+      .then(function (response) {
         console.log(response);
         setStatus(response.status);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -95,9 +88,7 @@ const EmployeeFormEdit = () => {
 
   return (
     <div>
-      <Header onClick={handleUserClick} />
-      <Dropdown />
-      {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
+      <Header />
       <Wrapper>
         {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />

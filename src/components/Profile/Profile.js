@@ -12,17 +12,9 @@ const Profile = () => {
   // const title = "Profil";
   const subtitle = "Profil";
 
-  const [isUserClicked, setIsUserClicked] = useState(false);
-
-  const handleUserClick = () => {
-    setIsUserClicked(!isUserClicked);
-  };
-
   return (
     <>
-      <Header onClick={handleUserClick} />
-      <Dropdown />
-      {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
+      <Header />
       <Wrapper>
         {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />

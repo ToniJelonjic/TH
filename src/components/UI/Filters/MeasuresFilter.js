@@ -150,7 +150,7 @@ const MeasuresFilter = ({ params }) => {
         <div className="add-button-position">
           {currentCondition.length > 0 && (
             <ExcelFile filename="Mjerenja" element={<ButtonExport />}>
-              <ExcelSheet data={currentCondition} name="Mjerenja report">
+              <ExcelSheet data={currentCondition}>
                 <ExcelColumn
                   label="ID"
                   value="int"

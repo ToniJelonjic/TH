@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Naslovnica.css";
 import Header from "../Header/Header";
-import Dropdown from "./Dropdown";
 import Footer from "../Footer/Footer";
 import Uređaj from "../UI/Uređaj";
 //import Naslov from "../UI/Naslovi/Naslov";
 import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
-import UserCard from "../UI/UserCard";
 import Warehouse from "../Warehouse/Warehouse";
 import Context from "../../store/Context";
 import ActivityFilter from "../UI/Filters/ActivityFilter";
@@ -48,36 +46,6 @@ const Naslovnica = () => {
     ],
   };
 
-  const userRef = useRef();
-
-  const [isUserClicked, setIsUserClicked] = useState(false);
-  const [isBurgerClicked, setIsBurgerClicked] = useState(false);
-
-  const handleUserClick = () => {
-    setIsUserClicked(!isUserClicked);
-  };
-
-  const handleBurgerClick = () => {
-    setIsBurgerClicked(!isBurgerClicked);
-    console.log(isBurgerClicked);
-  };
-
-  useEffect(() => {
-    function handleResize() {
-      if (window.innerWidth <= 1000) {
-        setIsBurgerClicked(false);
-      }
-    }
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-    // document.addEventListener("mousedown", (e) => {
-    //   if (userRef.current.includes(e.target)) {
-    //     setIsUserClicked(false);
-    //   }
-    // });
-  }, []);
-
   return (
     <Context.Provider
       value={{
@@ -85,17 +53,7 @@ const Naslovnica = () => {
         subtitle,
       }}
     >
-      <Header
-        onUserClick={handleUserClick}
-        onBurgerClick={handleBurgerClick}
-        setIsUserClicked={setIsUserClicked}
-      />
-      <Dropdown
-        isClicked={isBurgerClicked}
-        handleBurgerClick={handleBurgerClick}
-      />
-      {isUserClicked ? <UserCard setIsUserClicked={setIsUserClicked} /> : null}
-
+      <Header />
       <Wrapper>
         {/* <Naslov title={title} /> */}
 
@@ -106,12 +64,12 @@ const Naslovnica = () => {
           </>
         ) : null}
 
-        {role === 1 && (
+        {/* {role === 1 && (
           <>
             <Podnaslov subtitle={subtitle[1]} />
             <Uređaj params={params1} />
           </>
-        )}
+        )} */}
 
         {role === 1 || role === 3 ? (
           <>

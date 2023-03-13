@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import Header from "../Header/Header";
-import Dropdown from "./Dropdown";
 import Footer from "../Footer/Footer";
 //import Naslov from "../UI/Naslovi/Naslov";
 import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
 import TablicaInfo from "../UI/Tablice/TablicaInfo";
-import UserCard from "../UI/UserCard";
 import axios from "../../api/axios";
 import Context from "../../store/Context";
 
@@ -19,31 +17,8 @@ const Zaposlenici = () => {
     setData(data);
   };
 
-  const [isUserClicked, setIsUserClicked] = useState(false);
-  const [isBurgerClicked, setIsBurgerClicked] = useState(false);
-  const [visible, setVisible] = useState(false);
-
-  const handleVisible = () => {
-    setVisible(!visible);
-  };
-
-  const handleUserClick = () => {
-    setIsUserClicked(!isUserClicked);
-  };
-
-  const handleBurgerClick = () => {
-    setIsBurgerClicked(!isBurgerClicked);
-    console.log(isBurgerClicked);
-  };
-
   useEffect(() => {
     getData();
-    function handleResize() {
-      if (window.innerWidth <= 1000) {
-        setIsBurgerClicked(false);
-      }
-    }
-    window.addEventListener("resize", handleResize);
   }, []);
 
   const title = "Zaposlenici";
@@ -57,20 +32,6 @@ const Zaposlenici = () => {
   ];
   const addButton = "+ Dodaj zaposlenika";
 
-  useEffect(() => {
-    const handleClick = (event) => {
-      if (event.target.id !== "toggle-button") {
-        setVisible(false);
-      }
-    };
-
-    document.addEventListener("click", handleClick);
-
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
-  }, []);
-
   return (
     <Context.Provider
       value={{
@@ -80,12 +41,7 @@ const Zaposlenici = () => {
         addButton,
       }}
     >
-      <Header onUserClick={handleUserClick} onBurgerClick={handleBurgerClick} />
-      <Dropdown
-        isClicked={isBurgerClicked}
-        handleBurgerClick={handleBurgerClick}
-      />
-      {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
+      <Header />
       <Wrapper>
         <>
           {/* <Naslov title={title} /> */}

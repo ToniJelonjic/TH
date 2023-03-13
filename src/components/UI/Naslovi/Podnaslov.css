@@ -1,4 +1,4 @@
-.subtitle {
+.subtitle { 
     background-color: white;
     height: 60px;
     color: #575962;
@@ -12,6 +12,7 @@
     position: relative;
     padding-left: 28px;
     width: 100%;
+    font-size: 18px;
   }
 
   .add-button-position {

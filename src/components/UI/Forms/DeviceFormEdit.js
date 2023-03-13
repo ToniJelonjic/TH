@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Dropdown from "../../Dropdown/Dropdown";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
 //import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
 import "./Forms.css";
-import UserCard from "../UserCard";
 import axios from "../../../api/axios";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -25,6 +23,7 @@ const DeviceFormEdit = () => {
   const [name, setName] = useState("");
   const [groups, setGroups] = useState([]); //u zahtjevu
   const [subgroups, setSubgroups] = useState([]); //u zahtjevu
+  const [filteredSubgroups, setFilteredSubgroups] = useState([]);
   const [email1, setEmail1] = useState("");
   const [email2, setEmail2] = useState("");
   const [minTemp, setMinTemp] = useState("");
@@ -96,6 +95,7 @@ const DeviceFormEdit = () => {
       .then(function (response) {
         response.data.map((device) => {
           if (parseInt(device.id) === parseInt(deviceId)) {
+            console.log(device, "data");
             setName(device.naziv.trim());
             setGroupId(device.grupaid);
             setSubgroupId(device.podgrupaid);
@@ -124,12 +124,14 @@ const DeviceFormEdit = () => {
   const getGroups = async () => {
     await axios.get(grupeGetAllLink).then(function (response) {
       setGroups(response.data);
+      console.log(response.data, "grupe");
     });
   };
 
   const getSubgroups = async () => {
     await axios.get(podgrupeGetAllLink).then(function (response) {
       setSubgroups(response.data);
+      console.log(response.data, "podgrupe");
     });
   };
 
@@ -139,6 +141,15 @@ const DeviceFormEdit = () => {
     getData();
     setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
   }, []);
+
+  useEffect(() => {
+    const filteredSubgroups = subgroups.filter(
+      (subGroup) =>
+        subGroup.klijentId === klijentID &&
+        parseInt(subGroup.grupaId) === parseInt(groupId)
+    );
+    setFilteredSubgroups(filteredSubgroups);
+  }, [groupId]);
 
   const onSave = () => {
     axios
@@ -168,17 +179,9 @@ const DeviceFormEdit = () => {
       });
   };
 
-  const [isUserClicked, setIsUserClicked] = useState(false);
-
-  const handleUserClick = () => {
-    setIsUserClicked(!isUserClicked);
-  };
-
   return (
     <div>
-      <Header onClick={handleUserClick} />
-      <Dropdown />
-      {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
+      <Header />
       <Wrapper>
         {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
@@ -234,18 +237,12 @@ const DeviceFormEdit = () => {
                 onChange={handleSubgroupId}
                 value={subgroupId}
               >
-                {subgroups.map((subGroup) => {
-                  if (groupId === subGroup.grupaId) {
-                    return (
-                      <option
-                        key={subGroup.id}
-                        value={subGroup.id}
-                        //defaultValue={}
-                      >
-                        {subGroup.naziv}
-                      </option>
-                    );
-                  }
+                {filteredSubgroups.map((subGroup) => {
+                  return (
+                    <option key={subGroup.id} value={subGroup.id}>
+                      {subGroup.naziv}
+                    </option>
+                  );
                 })}
               </select>
               <div className="placeholder-div-style">Odaberite podgrupu</div>

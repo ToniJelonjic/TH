@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Dropdown from "../../Dropdown/Dropdown";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
 //import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
 import "./Forms.css";
-import UserCard from "../UserCard";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../api/axios";
 
@@ -23,11 +21,6 @@ const SubgroupFormAdd = (props) => {
   const [groupId, setGroupId] = useState();
   const [status, setStatus] = useState();
   const [klijentID, setKlijentID] = useState();
-  const [isUserClicked, setIsUserClicked] = useState(false);
-
-  const handleUserClick = () => {
-    setIsUserClicked(!isUserClicked);
-  };
 
   const navigateBack = () => {
     navigate(-1);
@@ -54,11 +47,11 @@ const SubgroupFormAdd = (props) => {
         Naziv: name,
         GrupaId: groupId,
       })
-      .then(function(response) {
+      .then(function (response) {
         setStatus(response.status);
         console.log(response);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -70,9 +63,7 @@ const SubgroupFormAdd = (props) => {
 
   return (
     <div>
-      <Header onClick={handleUserClick} />
-      <Dropdown />
-      {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
+      <Header />
       <Wrapper>
         {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Dropdown from "../../Dropdown/Dropdown";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
 //import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
 import "./Forms.css";
-import UserCard from "../UserCard";
 import axios from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
 
@@ -23,15 +21,10 @@ const EmployeeFormAdd = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState();
-  const [isUserClicked, setIsUserClicked] = useState(false);
 
   useEffect(() => {
     setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
   }, []);
-
-  const handleUserClick = () => {
-    setIsUserClicked(!isUserClicked);
-  };
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -61,21 +54,19 @@ const EmployeeFormAdd = (props) => {
         UlogaID: 2,
         Active: true,
       })
-      .then(function(response) {
+      .then(function (response) {
         console.log(response);
         //console.log(response.status);
         setStatus(response.status);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
 
   return (
     <div>
-      <Header onClick={handleUserClick} />
-      <Dropdown />
-      {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
+      <Header />
       <Wrapper>
         {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />

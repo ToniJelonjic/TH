@@ -18,9 +18,12 @@ import DeviceFormEdit from "./components/UI/Forms/DeviceFormEdit";
 //import ProtectedRoutes from "./components/ProtectedRoutes";
 import Naslovnica from "./components/Dropdown/Naslovnica";
 import Missing from "./components/Missing";
+import Klijenti from "./components/Dropdown/Klijenti";
+import Korisnici from "./components/Dropdown/Korisnici";
 import PublicRoutes from "./components/UI/Routing/PublicRoutes";
 import AdminRoutes from "./components/UI/Routing/AdminRoutes";
 import SharedRoutes from "./components/UI/Routing/SharedRoutes";
+import SuperAdminRoutes from "./components/UI/Routing/SuperAdminRoutes";
 
 function App() {
   const navigate = useNavigate();
@@ -163,6 +166,25 @@ function App() {
           <SharedRoutes>
             <Mjerenja />
           </SharedRoutes>
+        }
+      />
+
+      {/* SUPER ADMIN */}
+      <Route
+        path="/klijenti"
+        element={
+          <SuperAdminRoutes>
+            <Klijenti />
+          </SuperAdminRoutes>
+        }
+      />
+
+      <Route
+        path="/korisnici"
+        element={
+          <SuperAdminRoutes>
+            <Korisnici />
+          </SuperAdminRoutes>
         }
       />
     </Routes>

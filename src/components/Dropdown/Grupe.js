@@ -20,32 +20,8 @@ const Grupe = () => {
     setData(data);
   };
 
-  const [isUserClicked, setIsUserClicked] = useState(false);
-  const [isBurgerClicked, setIsBurgerClicked] = useState(false);
-
-  const handleUserClick = () => {
-    setIsUserClicked(!isUserClicked);
-  };
-
-  const handleBurgerClick = () => {
-    setIsBurgerClicked(!isBurgerClicked);
-    console.log(isBurgerClicked);
-  };
-
-  useEffect(() => {
-    function handleResize() {
-      if (window.innerWidth <= 1000) {
-        setIsBurgerClicked(false);
-      }
-    }
-    window.addEventListener("resize", handleResize);
-  }, []);
-
   useEffect(() => {
     getData();
-    // document.addEventListener("mousedown", () => {
-    //   setIsUserClicked(false);
-    // });
   }, []);
 
   const title = "Grupe";
@@ -62,12 +38,7 @@ const Grupe = () => {
         addButton,
       }}
     >
-      <Header onUserClick={handleUserClick} onBurgerClick={handleBurgerClick} />
-      <Dropdown
-        isClicked={isBurgerClicked}
-        handleBurgerClick={handleBurgerClick}
-      />
-      {isUserClicked ? <UserCard onClick={handleUserClick} /> : null}
+      <Header />
       <Wrapper>
         {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />

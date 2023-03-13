@@ -18,7 +18,7 @@ table {
     width: 15%;
     margin-left: 10px;
     margin-right: 10px;
-    padding: 8px;
+    padding: 8px !important;
   }
   
   .dates-style {
@@ -96,6 +96,7 @@ table {
 }
 
 .paginate-div-style {
+  padding-right: 20px;
   display: flex;
   justify-content: right;
   background-color: white;
@@ -124,6 +125,7 @@ table {
 
 .paginate-div-style {
   justify-content: left;
+  padding-left: 10px;
 }
 
   }
