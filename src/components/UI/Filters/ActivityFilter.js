@@ -8,6 +8,7 @@ const getGrupeLink = "/grupe/GetAll";
 const getPodgrupeLink = "/podgrupe/GetAll";
 
 const ActivityFilter = (props) => {
+  const role = JSON.parse(localStorage.getItem("role"));
   const [klijentID, setKlijentID] = useState();
   const [groupValue, setGroupValue] = useState(0);
   const [subGroupValue, setSubGroupValue] = useState(0);
@@ -40,7 +41,7 @@ const ActivityFilter = (props) => {
           podgrupaID: parseInt(subGroupValue),
         },
       })
-      .then(function(response) {
+      .then(function (response) {
         setCurrentCondition(response.data);
         //localStorage.setItem("items", JSON.stringify(response.data));
       });
@@ -75,11 +76,48 @@ const ActivityFilter = (props) => {
     setItemOffset(newOffset);
   };
 
-  const items = currentItems.map((loger) => {
+  const adminItems = currentItems.map((loger) => {
+    if (loger.idklijenta === klijentID)
+      return (
+        <tr
+          key={loger.id}
+          className={`border-bottom ${loger.valid ? "" : "activity-valid"}`}
+        >
+          <td className="table-measure-data-name">
+            <div className="table-activity-data-name">{loger.naziv}</div>
+            <div className="manufactor-label">{loger.klijent}</div>
+          </td>
+          <td className="table-measure-data">
+            {loger.vrijemeMjerenja == null ? (
+              ""
+            ) : (
+              <>
+                {/* {loger.vrijemeMjerenja} */}
+                {loger.vrijemeMjerenja.slice(0, 11).replace("T", " ")}
+                {loger.vrijemeMjerenja.slice(11, 19)}
+              </>
+            )}
+          </td>
+          <td className="table-measure-data">{loger.tmin}</td>
+          <td className="table-measure-data">{loger.tmax}</td>
+          <td className="table-measure-data">{loger.hmin}</td>
+          <td className="table-measure-data">{loger.hmax}</td>
+        </tr>
+      );
+  });
+
+  const superAdminItems = currentItems.map((loger) => {
     return (
       <tr
         key={loger.id}
-        className={`border-bottom ${loger.valid ? "" : "activity-valid"}`}
+        className={
+          role === 3
+            ? `border-bottom`
+            : role === 1
+            ? `border-bottom ${loger.valid ? "" : "activity-valid"}`
+            : ""
+        }
+        //className={`border-bottom ${loger.valid ? "" : "activity-valid"}`}
       >
         <td className="table-measure-data-name">
           <div className="table-activity-data-name">{loger.naziv}</div>
@@ -106,67 +144,69 @@ const ActivityFilter = (props) => {
 
   return (
     <div className="params-style">
-      <div className="select-div">
-        <span>
-          <select
-            className="select-style"
-            onChange={handleGroupValue}
-            value={groupValue}
-          >
-            <option hidden defaultValue="Odaberite grupu">
-              Odaberite grupu
-            </option>
-            {groups.map((group) => {
-              if (group.klijentId === klijentID) {
-                return (
-                  <option value={group.id} key={group.id}>
-                    {group.naziv}
-                  </option>
-                );
-              }
-            })}
-          </select>
-          <select
-            className="select-style"
-            onChange={handleSubGroupValue}
-            value={subGroupValue}
-          >
-            <option hidden defaultValue="Odaberite podgrupu">
-              Odaberite podgrupu
-            </option>
-            {subGroups.map((subGroup) => {
-              if (
-                subGroup.klijentId === klijentID &&
-                groupValue === subGroup.grupaId.toString()
-              ) {
-                return (
-                  <option value={subGroup.id} key={subGroup.id}>
-                    {subGroup.naziv}
-                  </option>
-                );
-              }
-            })}
-          </select>
-        </span>
-        <span className="span-button-style">
-          <button onClick={getCurrentCondition} className="button-style">
-            Pretraži
-          </button>
-        </span>
-      </div>
+      {role !== 3 ? (
+        <div className="select-div">
+          <span>
+            <select
+              className="select-style"
+              onChange={handleGroupValue}
+              value={groupValue}
+            >
+              <option hidden defaultValue="Odaberite grupu">
+                Odaberite grupu
+              </option>
+              {groups.map((group) => {
+                if (group.klijentId === klijentID) {
+                  return (
+                    <option value={group.id} key={group.id}>
+                      {group.naziv}
+                    </option>
+                  );
+                }
+              })}
+            </select>
+            <select
+              className="select-style"
+              onChange={handleSubGroupValue}
+              value={subGroupValue}
+            >
+              <option hidden defaultValue="Odaberite podgrupu">
+                Odaberite podgrupu
+              </option>
+              {subGroups.map((subGroup) => {
+                if (
+                  subGroup.klijentId === klijentID &&
+                  groupValue === subGroup.grupaId.toString()
+                ) {
+                  return (
+                    <option value={subGroup.id} key={subGroup.id}>
+                      {subGroup.naziv}
+                    </option>
+                  );
+                }
+              })}
+            </select>
+          </span>
+          <span className="span-button-style">
+            <button onClick={getCurrentCondition} className="button-style">
+              Pretraži
+            </button>
+          </span>
+        </div>
+      ) : null}
       <table className="table-width">
         <tbody>
           <tr className="border-bottom">
-            {props.params.params.map((parameter) => {
+            {props.params.params.map((parameter, index) => {
               return (
-                <th className="th-desc-style" key={parameter.toString()}>
+                <th className="th-desc-style" key={index}>
                   {parameter}
                 </th>
               );
             })}
           </tr>
 
-          {items}
+          {role === 1 ? adminItems : role === 3 ? superAdminItems : null}
         </tbody>
       </table>
       <div className="paginate-div-style">

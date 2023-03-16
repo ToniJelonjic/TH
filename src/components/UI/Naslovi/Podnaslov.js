@@ -10,7 +10,10 @@ const Podnaslov = ({ subtitle }) => {
       <div className="add-button-position">
         {subtitle === "Grupe" ||
         subtitle === "Podgrupe" ||
-        subtitle === "Zaposlenici" ? (
+        subtitle === "Zaposlenici" ||
+        subtitle === "Korisnički računi" ||
+        subtitle === "Klijenti" ||
+        subtitle === "Uređaji" ? (
           <ButtonAdd />
         ) : // subtitle === "Mjerenja" && <ButtonExport />
         null}

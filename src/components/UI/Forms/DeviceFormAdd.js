@@ -11,7 +11,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const logeriGetAllLink = "/logeri/GetAll";
 const grupeGetAllLink = "/grupe/GetAll";
 const podgrupeGetAllLink = "/podgrupe/GetAll";
-const editLogeriKorisniciLink = "/logeri/EditLogeriKorisnici";
+const insertLogerLink = "/logeri/Insert";
 
 const DeviceFormEdit = () => {
   const location = useLocation();
@@ -43,76 +43,55 @@ const DeviceFormEdit = () => {
   const [klijentID, setKlijentID] = useState();
 
   //const title = "Uređaji";
-  const subtitle = "Uredi uređaj";
+  const subtitle = "Dodaj uređaj";
 
   const handleName = (e) => {
     setName(e.target.value);
+    console.log(e.target.value, "name");
   };
 
   const handleEmail1 = (e) => {
     setEmail1(e.target.value);
+    console.log(e.target.value, "mail1");
   };
 
   const handleEmail2 = (e) => {
     setEmail2(e.target.value);
+    console.log(e.target.value, "mail2");
   };
 
   const handleMinTemp = (e) => {
     setMinTemp(e.target.value);
+    console.log(e.target.value, "tmin");
   };
 
   const handleMaxTemp = (e) => {
     setMaxTemp(e.target.value);
+    console.log(e.target.value, "tmax");
   };
 
   const handleMinH = (e) => {
     setMinH(e.target.value);
+    console.log(e.target.value, "hmin");
   };
 
   const handleMaxH = (e) => {
     setMaxH(e.target.value);
+    console.log(e.target.value, "hmax");
   };
 
   const handleGroupId = (e) => {
     setGroupId(e.target.value);
+    console.log(e.target.value, "groupId");
   };
 
   const handleSubgroupId = (e) => {
     setSubgroupId(e.target.value);
+    console.log(e.target.value, "subgrId");
   };
 
   const navigateBack = () => {
     navigate(-1);
-  };
-
-  const getData = async () => {
-    await axios
-      .get(logeriGetAllLink, {
-        params: {
-          klijentID: klijentID,
-          grupaID: groupValue,
-          podgrupaID: subGroupValue,
-        },
-      })
-      .then(function (response) {
-        response.data.map((device) => {
-          if (parseInt(device.id) === parseInt(deviceId)) {
-            console.log(device, "data");
-            setName(device.naziv.trim());
-            setGroupId(device.grupaid);
-            setSubgroupId(device.podgrupaid);
-            setEmail1(device.email1.trim());
-            setEmail2(device.email2.trim());
-            setMinTemp(device.tmin);
-            setMaxTemp(device.tmax);
-            setMinH(device.hmin);
-            setMaxH(device.hmax);
-            setDeviceCode(device.sifraUredjaja);
-            setActive(device.active);
-            setUsers(device.korisnici);
-          }
-        });
-      });
   };
 
   const handleIsChecked = (event, user) => {
@@ -140,7 +119,6 @@ const DeviceFormEdit = () => {
   useEffect(() => {
     getGroups();
     getSubgroups();
-    getData();
     setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
   }, []);
 
@@ -153,8 +131,7 @@ const DeviceFormEdit = () => {
 
   const onSave = () => {
     axios
-      .post(editLogeriKorisniciLink, {
-        Id: parseInt(deviceId),
+      .post(insertLogerLink, {
         Naziv: name,
         Idklijenta: klijentID,
         Idposlovnice: null,
@@ -168,7 +145,6 @@ const DeviceFormEdit = () => {
         Podgrupaid: parseInt(subgroupId),
         Active: active,
         SifraUredjaja: deviceCode,
-        korisnici: users,
       })
       .then(function (response) {
         setStatus(response.status);
@@ -211,6 +187,7 @@ const DeviceFormEdit = () => {
                 onChange={handleGroupId}
                 className="elements-input"
               >
+                <option hidden>Odaberite grupu</option>
                 {groups.map((group) => {
                   if (role === 3) {
                     return (
@@ -244,6 +221,7 @@ const DeviceFormEdit = () => {
                 onChange={handleSubgroupId}
                 value={subgroupId}
               >
+                <option hidden>Odaberite podgrupu</option>
                 {filteredSubgroups.map((subGroup) => {
                   return (
                     <option key={subGroup.id} value={subGroup.id}>
@@ -360,7 +338,7 @@ const DeviceFormEdit = () => {
             </div>
           </div>
 
-          <div className="row elements-div-style">
+          {/* <div className="row elements-div-style">
             <label className="col-lg-2 col-md-2 col-2 element-label-style">
               Korisnici:
             </label>
@@ -379,7 +357,7 @@ const DeviceFormEdit = () => {
                 );
               })}
             </div>
-          </div>
+          </div> */}
         </form>
         <div className="row save-discard-div">
           <div className="col-lg-2"></div>

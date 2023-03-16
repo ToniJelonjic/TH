@@ -14,6 +14,12 @@
     padding: 50px 20px 20px 20px;
 }
 
+.users-table-style {
+    background-color: white;
+    width: 100%;
+    padding: 50px 20px 20px 20px;
+}
+
 table {
     border-spacing: 0px;
 }

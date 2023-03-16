@@ -1,0 +1,64 @@
+
+.bgw {
+    background-color: white;
+    width: 100%;
+}
+
+.bord {
+    border-right: 1px solid #ebedf2;
+    padding-top: 25px;
+}
+
+.client-name {
+    padding-left: 25px !important;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'POPPINS';
+    color: #575962;
+    padding-bottom: 5px;
+    padding-top: 15px;
+}
+
+.device-num-text {
+    padding-left: 25px !important;
+    font-size: 13px;
+    font-weight: 300;
+    font-family: Poppins;
+    color: #9699a2;
+}
+
+.device-num{
+    text-align: right;
+    padding-right: 25px;
+    font-size: 30px;
+    color: #716aca !important;
+    font-weight: bold;
+}
+
+.line1 {
+    background-color: rgb(113, 106, 202);
+    width: 85% !important;  
+    height: 7px !important;
+    margin: auto !important;
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+}
+
+.line2 {
+    background-color: rgb(244, 81, 108);
+    width: 85% !important;  
+    height: 7px !important;
+    margin: auto !important;
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+}
+
+.line3 {
+    background-color: rgb(54, 163, 247);
+    width: 85% !important;  
+    height: 7px !important;
+    margin: auto !important;
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+}
+

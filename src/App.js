@@ -22,8 +22,14 @@ import Klijenti from "./components/Dropdown/Klijenti";
 import Korisnici from "./components/Dropdown/Korisnici";
 import PublicRoutes from "./components/UI/Routing/PublicRoutes";
 import AdminRoutes from "./components/UI/Routing/AdminRoutes";
-import SharedRoutes from "./components/UI/Routing/SharedRoutes";
+import SharedRoutesEA from "./components/UI/Routing/SharedRoutesEA";
+import SharedRoutesSA from "./components/UI/Routing/SharedRoutesSA";
 import SuperAdminRoutes from "./components/UI/Routing/SuperAdminRoutes";
+import DeviceFormAdd from "./components/UI/Forms/DeviceFormAdd";
+import UsersFormAdd from "./components/UI/Forms/UsersFormAdd";
+import ClientsFormAdd from "./components/UI/Forms/ClientsFormAdd";
+import UsersFormEdit from "./components/UI/Forms/UsersFormEdit";
+import ClientsFormEdit from "./components/UI/Forms/ClientsFormEdit";
 
 function App() {
   const navigate = useNavigate();
@@ -73,17 +79,17 @@ function App() {
       <Route
         path="/uređaji"
         element={
-          <AdminRoutes>
+          <SharedRoutesSA>
             <Uređaji />
-          </AdminRoutes>
+          </SharedRoutesSA>
         }
       />
       <Route
         path="/uređaji/uredi/:id"
         element={
-          <AdminRoutes>
+          <SharedRoutesSA>
             <DeviceFormEdit />
-          </AdminRoutes>
+          </SharedRoutesSA>
         }
       />
       <Route
@@ -163,9 +169,9 @@ function App() {
       <Route
         path="/mjerenja"
         element={
-          <SharedRoutes>
+          <SharedRoutesEA>
             <Mjerenja />
-          </SharedRoutes>
+          </SharedRoutesEA>
         }
       />
 
@@ -187,59 +193,52 @@ function App() {
           </SuperAdminRoutes>
         }
       />
-    </Routes>
 
-    // <Routes>
-    //   <Route
-    //     element={
-    //       <ProtectedRoutes
-    //         loggedIn={loggedIn}
-    //         role={role}
-    //         allowedRoles={[1, 2, 3]}
-    //       />
-    //     }
-    //   >
-    //     <Route
-    //       path="/"
-    //       element={
-    //         loggedIn ? (
-    //           <Navigate to="/naslovnica" />
-    //         ) : (
-    //           <Navigate to="/prijava" />
-    //         )
-    //       }
-    //     />
-    //     <Route path="/naslovnica" element={<Naslovnica />} />
-    //     <Route path="/profil" element={<Profile />} />
-    //   </Route>
-    //   <Route
-    //     element={
-    //       <ProtectedRoutes loggedIn={loggedIn} role={role} allowedRoles={[1]} />
-    //     }
-    //   >
-    //     <Route path="/uređaji" element={<Uređaji />} />
-    //     <Route path="/uređaji/uredi/:id" element={<DeviceFormEdit />} />
-    //     <Route path="/mjerenja" element={<Mjerenja />} />
-    //     <Route path="/grupe" element={<Grupe />} />
-    //     <Route path="/grupe/dodaj" element={<GroupFormAdd />} />
-    //     <Route path="/grupe/uredi/:id" element={<GroupFormEdit />} />
-    //     <Route path="/podgrupe" element={<Podgrupe />} />
-    //     <Route path="/podgrupe/dodaj" element={<SubgroupFormAdd />} />
-    //     <Route path="/podgrupe/uredi/:id" element={<SubgroupFormEdit />} />
-    //     <Route path="/zaposlenici" element={<Zaposlenici />} />
-    //     <Route path="/zaposlenici/dodaj" element={<EmployeeFormAdd />} />
-    //     <Route path="/zaposlenici/uredi/:id" element={<EmployeeFormEdit />} />
-    //   </Route>
-    //   <Route
-    //     element={
-    //       <ProtectedRoutes loggedIn={loggedIn} role={role} allowedRoles={[2]} />
-    //     }
-    //   >
-    //     <Route path="/mjerenja" element={<Mjerenja />} />
-    //   </Route>
-    //   <Route path="/prijava" element={<Login />} />
-    //   <Route path="*" element={<Missing />} />
-    // </Routes>
+      <Route
+        path="/korisnici/dodaj"
+        element={
+          <SuperAdminRoutes>
+            <UsersFormAdd />
+          </SuperAdminRoutes>
+        }
+      />
+
+      <Route
+        path="/korisnici/uredi/:id"
+        element={
+          <SuperAdminRoutes>
+            <UsersFormEdit />
+          </SuperAdminRoutes>
+        }
+      />
+
+      <Route
+        path="/klijenti/dodaj"
+        element={
+          <SuperAdminRoutes>
+            <ClientsFormAdd />
+          </SuperAdminRoutes>
+        }
+      />
+
+      <Route
+        path="/klijenti/uredi/:id"
+        element={
+          <SuperAdminRoutes>
+            <ClientsFormEdit />
+          </SuperAdminRoutes>
+        }
+      />
+
+      <Route
+        path="/uređaji/dodaj"
+        element={
+          <SuperAdminRoutes>
+            <DeviceFormAdd />
+          </SuperAdminRoutes>
+        }
+      />
+    </Routes>
   );
 }
 

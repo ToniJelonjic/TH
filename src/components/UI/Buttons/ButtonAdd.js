@@ -5,6 +5,7 @@ import "./ButtonAdd.css";
 
 const ButtonAdd = () => {
   const { subtitle, addButton } = useContext(Context);
+  const role = JSON.parse(localStorage.getItem("role"));
 
   return (
     <>
@@ -16,11 +17,23 @@ const ButtonAdd = () => {
         <Link to={`/podgrupe/dodaj`} className="link-style">
           <button className="add-button-style">{addButton}</button>
         </Link>
-      ) : (
+      ) : subtitle === "Zaposlenici" ? (
         <Link to={`/zaposlenici/dodaj`} className="link-style">
           <button className="add-button-style">{addButton}</button>
         </Link>
-      )}
+      ) : subtitle === "Korisnički računi" ? (
+        <Link to={`/korisnici/dodaj`} className="link-style">
+          <button className="add-button-style">{addButton}</button>
+        </Link>
+      ) : subtitle === "Klijenti" ? (
+        <Link to={`/klijenti/dodaj`} className="link-style">
+          <button className="add-button-style">{addButton}</button>
+        </Link>
+      ) : subtitle === "Uređaji" && role === 3 ? (
+        <Link to={`/uređaji/dodaj`} className="link-style">
+          <button className="add-button-style">{addButton}</button>
+        </Link>
+      ) : null}
     </>
   );
 };

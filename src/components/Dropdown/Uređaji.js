@@ -14,7 +14,7 @@ const Uređaji = () => {
     id: Math.random(),
     params: [
       "Naziv",
-      //"Podgrupa",
+      "Klijent",
       "Email 1",
       "Email 2",
       "Min. temp.",
@@ -26,11 +26,14 @@ const Uređaji = () => {
     ],
   };
 
+  const addButton = "+ Dodaj uređaj";
+
   return (
     <Context.Provider
       value={{
         title,
         subtitle,
+        addButton,
       }}
     >
       <Header />

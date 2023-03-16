@@ -9,6 +9,7 @@ import Podnaslov from "../UI/Naslovi/Podnaslov";
 import Warehouse from "../Warehouse/Warehouse";
 import Context from "../../store/Context";
 import ActivityFilter from "../UI/Filters/ActivityFilter";
+import ClientsList from "../UI/ClientsList";
 
 const Naslovnica = () => {
   const title = "Naslovnica";
@@ -16,6 +17,8 @@ const Naslovnica = () => {
     "Trenutno stanje uređaja",
     "Pregled mjerenja van opsega",
     "Pregled aktivnosti uređaja",
+    "Pregled uređaja",
+    "Klijenti",
   ];
 
   const role = JSON.parse(localStorage.getItem("role"));
@@ -55,6 +58,13 @@ const Naslovnica = () => {
     >
       <Header />
       <Wrapper>
+        {role === 3 && (
+          <>
+            <Podnaslov subtitle={subtitle[4]} />
+            <ClientsList />
+          </>
+        )}
+
         {/* <Naslov title={title} /> */}
 
         {role === 1 || role === 2 ? (
@@ -64,16 +74,16 @@ const Naslovnica = () => {
           </>
         ) : null}
 
-        {/* {role === 1 && (
+        {role === 1 && (
           <>
             <Podnaslov subtitle={subtitle[1]} />
             <Uređaj params={params1} />
           </>
-        )} */}
+        )}
 
         {role === 1 || role === 3 ? (
           <>
-            <Podnaslov subtitle={subtitle[2]} />
+            <Podnaslov subtitle={role !== 3 ? subtitle[2] : subtitle[3]} />
             <ActivityFilter subtitle={subtitle[2]} params={params2} />
           </>
         ) : null}

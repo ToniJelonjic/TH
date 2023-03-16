@@ -24,7 +24,6 @@ const Warehouse = () => {
   const [subGroupValue, setSubGroupValue] = useState(0);
   const [deviceValue, setDeviceValue] = useState();
   const [dataExport, setDataExport] = useState();
-  const [isDownloading, setIsDownloading] = useState(false);
 
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -43,7 +42,6 @@ const Warehouse = () => {
   };
 
   const exportData = async (id) => {
-    setIsDownloading(true);
     await axios
       .get(measuresFilterLink, {
         params: {
