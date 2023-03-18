@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../api/axios";
-import "./Uređaj.css";
+import "./VanOpsega.css";
 import ReactPaginate from "react-paginate";
 
 const mjerenjaCriticalLink = "/mjerenja/GetAllCritical";
 
-const Uređaj = (props) => {
-  //console.log(props, "props");
-  //napraviti
-  //drugacije
-  //kroz
-  //props
-
+const VanOpsega = (props) => {
   const [klijentID, setKlijentID] = useState();
 
   const [currentItems, setCurrentItems] = useState([]);
@@ -24,8 +18,7 @@ const Uređaj = (props) => {
       .get(mjerenjaCriticalLink, {
         data: { klijentID: klijentID },
       })
-      .then(function(response) {
-        //console.log(response.data, "response out of range");
+      .then(function (response) {
         setCurrentCondition(response.data);
       });
   };
@@ -115,4 +108,4 @@ const Uređaj = (props) => {
   );
 };
 
-export default Uređaj;
+export default VanOpsega;

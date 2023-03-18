@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "../../../api/axios";
 
 const changeStatusLink = "/logeri/ChangeStatus";
@@ -33,8 +33,6 @@ const ChangeDeviceStatus = ({ data, setSelectedDeviceId }) => {
         SifraUredjaja: data.sifraUredjaja,
       })
       .then(function (response) {
-        console.log(response);
-        //setIsClicked(false);
         setSelectedDeviceId(null);
         window.location.reload(true);
       })

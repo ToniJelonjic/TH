@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-//import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
 import "./Forms.css";
@@ -11,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 const clientsInsertLink = "/klijenti/Insert";
 
 const ClientsFormAdd = () => {
-  //const title = "Grupe";
   const subtitle = "Novi klijent";
 
   const navigate = useNavigate();
@@ -47,7 +45,6 @@ const ClientsFormAdd = () => {
     <div>
       <Header />
       <Wrapper>
-        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <form>
           <div className="row elements-div-style">

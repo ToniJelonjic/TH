@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import "./Naslovnica.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import Uređaj from "../UI/Uređaj";
-//import Naslov from "../UI/Naslovi/Naslov";
 import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
-import Warehouse from "../Warehouse/Warehouse";
+import TrenutnoStanje from "../Mjerenja/TrenutnoStanje";
 import Context from "../../store/Context";
 import ActivityFilter from "../UI/Filters/ActivityFilter";
 import ClientsList from "../UI/ClientsList";
+import VanOpsega from "../Mjerenja/VanOpsega";
 
 const Naslovnica = () => {
   const title = "Naslovnica";
@@ -65,19 +64,17 @@ const Naslovnica = () => {
           </>
         )}
 
-        {/* <Naslov title={title} /> */}
-
         {role === 1 || role === 2 ? (
           <>
             <Podnaslov subtitle={subtitle[0]} />
-            <Warehouse />
+            <TrenutnoStanje />
           </>
         ) : null}
 
         {role === 1 && (
           <>
             <Podnaslov subtitle={subtitle[1]} />
-            <Uređaj params={params1} />
+            <VanOpsega params={params1} />
           </>
         )}
 

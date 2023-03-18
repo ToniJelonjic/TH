@@ -22,7 +22,6 @@ const ChangeAdminStatus = ({ data, handleUserId }) => {
         Active: newStatus,
       })
       .then(function (response) {
-        console.log(response);
         handleUserId();
         window.location.reload(true);
       })

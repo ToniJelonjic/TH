@@ -1,30 +1,25 @@
 import React, { useState, useEffect } from "react";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-//import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
 import "./Forms.css";
 import axios from "../../../api/axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const logeriGetAllLink = "/logeri/GetAll";
 const grupeGetAllLink = "/grupe/GetAll";
 const podgrupeGetAllLink = "/podgrupe/GetAll";
 const insertLogerLink = "/logeri/Insert";
 
 const DeviceFormEdit = () => {
-  const location = useLocation();
-  let deviceId = location.pathname.split("/")[3];
-
   const navigate = useNavigate();
 
   const role = JSON.parse(localStorage.getItem("role"));
+  const klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
-  //const [data, setData] = useState([]);
   const [name, setName] = useState("");
-  const [groups, setGroups] = useState([]); //u zahtjevu
-  const [subgroups, setSubgroups] = useState([]); //u zahtjevu
+  const [groups, setGroups] = useState([]);
+  const [subgroups, setSubgroups] = useState([]);
   const [filteredSubgroups, setFilteredSubgroups] = useState([]);
   const [email1, setEmail1] = useState("");
   const [email2, setEmail2] = useState("");
@@ -33,73 +28,51 @@ const DeviceFormEdit = () => {
   const [minH, setMinH] = useState("");
   const [maxH, setMaxH] = useState("");
   const [deviceCode, setDeviceCode] = useState("");
-  const [users, setUsers] = useState([]);
-  const [groupValue, setGroupValue] = useState(0);
-  const [subGroupValue, setSubGroupValue] = useState(0);
   const [groupId, setGroupId] = useState();
   const [subgroupId, setSubgroupId] = useState();
   const [status, setStatus] = useState();
   const [active, setActive] = useState();
-  const [klijentID, setKlijentID] = useState();
 
-  //const title = "Uređaji";
   const subtitle = "Dodaj uređaj";
 
   const handleName = (e) => {
     setName(e.target.value);
-    console.log(e.target.value, "name");
   };
 
   const handleEmail1 = (e) => {
     setEmail1(e.target.value);
-    console.log(e.target.value, "mail1");
   };
 
   const handleEmail2 = (e) => {
     setEmail2(e.target.value);
-    console.log(e.target.value, "mail2");
   };
 
   const handleMinTemp = (e) => {
     setMinTemp(e.target.value);
-    console.log(e.target.value, "tmin");
   };
 
   const handleMaxTemp = (e) => {
     setMaxTemp(e.target.value);
-    console.log(e.target.value, "tmax");
   };
 
   const handleMinH = (e) => {
     setMinH(e.target.value);
-    console.log(e.target.value, "hmin");
   };
 
   const handleMaxH = (e) => {
     setMaxH(e.target.value);
-    console.log(e.target.value, "hmax");
   };
 
   const handleGroupId = (e) => {
     setGroupId(e.target.value);
-    console.log(e.target.value, "groupId");
   };
 
   const handleSubgroupId = (e) => {
     setSubgroupId(e.target.value);
-    console.log(e.target.value, "subgrId");
   };
 
   const navigateBack = () => {
     navigate(-1);
-  };
-
-  const handleIsChecked = (event, user) => {
-    const checked = event.target.checked;
-    const updatedUsers = users.map((u) =>
-      u.id === user.id ? { ...u, checked } : u
-    );
-    setUsers(updatedUsers);
   };
 
   const getGroups = async () => {
@@ -119,7 +92,6 @@ const DeviceFormEdit = () => {
   useEffect(() => {
     getGroups();
     getSubgroups();
-    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
   }, []);
 
   useEffect(() => {
@@ -159,7 +131,6 @@ const DeviceFormEdit = () => {
     <div>
       <Header />
       <Wrapper>
-        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <form>
           <div className="row elements-div-style">
@@ -337,27 +308,6 @@ const DeviceFormEdit = () => {
               </div>
             </div>
           </div>
-
-          {/* <div className="row elements-div-style">
-            <label className="col-lg-2 col-md-2 col-2 element-label-style">
-              Korisnici:
-            </label>
-            <div className="col-lg-6 col-md-6 col-10 mt-2">
-              {users.map((user) => {
-                return (
-                  <div className="check-users-style" key={user.id}>
-                    <input
-                      checked={user.checked}
-                      value={user.id}
-                      type="checkbox"
-                      onChange={(event) => handleIsChecked(event, user)}
-                    />
-                    <span className="users-style-padding">{user.ime}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div> */}
         </form>
         <div className="row save-discard-div">
           <div className="col-lg-2"></div>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-//import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
 import "./Forms.css";
@@ -21,10 +20,9 @@ const DeviceFormEdit = () => {
 
   const role = JSON.parse(localStorage.getItem("role"));
 
-  //const [data, setData] = useState([]);
   const [name, setName] = useState("");
-  const [groups, setGroups] = useState([]); //u zahtjevu
-  const [subgroups, setSubgroups] = useState([]); //u zahtjevu
+  const [groups, setGroups] = useState([]);
+  const [subgroups, setSubgroups] = useState([]);
   const [filteredSubgroups, setFilteredSubgroups] = useState([]);
   const [email1, setEmail1] = useState("");
   const [email2, setEmail2] = useState("");
@@ -42,7 +40,6 @@ const DeviceFormEdit = () => {
   const [active, setActive] = useState();
   const [klijentID, setKlijentID] = useState();
 
-  //const title = "Uređaji";
   const subtitle = "Uredi uređaj";
 
   const handleName = (e) => {
@@ -183,7 +180,6 @@ const DeviceFormEdit = () => {
     <div>
       <Header />
       <Wrapper>
-        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <form>
           <div className="row elements-div-style">

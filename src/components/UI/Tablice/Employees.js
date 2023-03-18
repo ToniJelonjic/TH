@@ -1,42 +1,33 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./Tablice.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import ChangeAdminStatus from "../StatusChange/ChangeAdminStatus";
-import axios from "../../../api/axios";
+import Context from "../../../store/Context";
+import ChangeEmployeeStatus from "../StatusChange/ChangeEmployeeStatus";
 
-const korisniciGetAllLink = "/korisnici/GetAll";
+const Employees = (props) => {
+  const { data } = useContext(Context);
+  const klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
-const Users = ({ rows }) => {
-  const [data, setData] = useState([]);
-  const getData = async () => {
-    const { data } = await axios.get(korisniciGetAllLink);
-    setData(data);
-  };
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
 
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const [selectedUserId, setSelectedUserId] = useState(null);
-
-  const handleUserId = () => {
-    setSelectedUserId(null);
+  const handleEmployeeId = () => {
+    setSelectedEmployeeId(null);
   };
 
   const handleClick = (id) => {
-    if (id === selectedUserId) {
-      setSelectedUserId(null);
+    if (id === selectedEmployeeId) {
+      setSelectedEmployeeId(null);
     } else {
-      setSelectedUserId(id);
+      setSelectedEmployeeId(id);
     }
   };
 
   useEffect(() => {
     const handleClick = (event) => {
-      if (event.target.id !== "toggle-user") {
-        setSelectedUserId(null);
+      if (event.target.id !== "toggle-employee") {
+        setSelectedEmployeeId(null);
       }
     };
 
@@ -49,10 +40,10 @@ const Users = ({ rows }) => {
 
   return (
     <div className="info-table-style">
-      <table className="users-table-style">
+      <table className="groups-table-style">
         <tbody>
           <tr className="tr-style">
-            {rows.map((row) => {
+            {props.rows.map((row) => {
               return (
                 <th key={row} className="thead-style">
                   {row}
@@ -62,12 +53,11 @@ const Users = ({ rows }) => {
           </tr>
 
           {data.map((item, index) => {
-            if (item.ulogaID === 1) {
+            if (item.ulogaID === 2 && item.firma === klijentID) {
               return (
-                <tr key={index} id={item.id} className="tr-style">
+                <tr key={item.id} id={item.id} className="tr-style">
                   <td className="thead-style">{item.imePrezime}</td>
                   <td className="thead-style">{item.ime}</td>
-                  <td className="thead-style">{item.klijent}</td>
                   <td className="thead-style">{item.uloga}</td>
                   <td
                     className={`thead-style ${
@@ -79,22 +69,22 @@ const Users = ({ rows }) => {
                   <td className="thead-style">
                     <FontAwesomeIcon
                       title="Promijeni status"
-                      id="toggle-user"
+                      id="toggle-employee"
                       className="actions-icon"
                       icon={faEllipsis}
                       value={item.id}
                       onClick={() => handleClick(item.id)}
                     />
 
-                    {parseInt(selectedUserId) === parseInt(item.id) ? (
-                      <ChangeAdminStatus
-                        userId={selectedUserId}
-                        handleUserId={handleUserId}
+                    {parseInt(selectedEmployeeId) === parseInt(item.id) ? (
+                      <ChangeEmployeeStatus
+                        employeeId={selectedEmployeeId}
+                        handleEmployeeId={handleEmployeeId}
                         data={item}
                       />
                     ) : null}
 
-                    <Link to={`/korisnici/uredi/${item.id}`}>
+                    <Link to={`/zaposlenici/uredi/${item.id}`}>
                       <FontAwesomeIcon
                         title="Uredi"
                         className="actions-icon"
@@ -112,4 +102,4 @@ const Users = ({ rows }) => {
   );
 };
 
-export default Users;
+export default Employees;

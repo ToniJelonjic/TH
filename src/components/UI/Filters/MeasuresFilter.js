@@ -17,8 +17,9 @@ const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 const MeasuresFilter = ({ params }) => {
   const [dateFrom, setDateFrom] = useState();
   const [dateTo, setDateTo] = useState();
-  const [klijentID, setKlijentID] = useState();
-  const [subtitle, setSubtitle] = useState("Mjerenja");
+
+  const klijentID = JSON.parse(localStorage.getItem("klijentID"));
+  const subtitle = "Mjerenja";
 
   const getCurrentDateInput = () => {
     const dateObj = new Date();
@@ -130,7 +131,6 @@ const MeasuresFilter = ({ params }) => {
     getGroups();
     getSubGroups();
     getData();
-    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
     const inputDate = new Date().toDateString();
     const dateParts = inputDate.split("-");
     const dateObj = new Date(`${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`);

@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../context/AuthProvider";
 import "./Login.css";
 import logo from "../../../images/logo-1.png";
@@ -14,13 +14,10 @@ const Login = () => {
   const errRef = useRef();
 
   const navigate = useNavigate();
-  const location = useLocation();
-  //const from = location.state.from.pathname || "/";
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [data, setData] = useState([]);
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -37,7 +34,6 @@ const Login = () => {
         params: { username, password },
       });
       if (response.status === 200) {
-        console.log(response);
         localStorage.setItem("id", response.data.id);
         localStorage.setItem("imePrezime", response.data.imePrezime);
         localStorage.setItem("korisnickoIme", response.data.ime);
@@ -50,10 +46,8 @@ const Login = () => {
         const imePrezime = response.data.imePrezime;
         const korisnickoIme = response.data.ime;
         const token = response.data.token;
-        //console.log(token, "token");
         const role = response.data.ulogaID;
         const klijentID = response.data.firma;
-        //console.log(klijentID, "idkli");
         setAuth({
           id,
           imePrezime,
@@ -67,10 +61,8 @@ const Login = () => {
         });
         setUsername("");
         setPassword("");
-        //navigate(from, { replace: true });
         navigate(loggedInLink);
       } else if (response.status === 204) {
-        console.log("Fuck");
         setErrMsg("Neispravno korisničko ime ili lozinka");
       }
     } catch (err) {
@@ -91,7 +83,6 @@ const Login = () => {
   useEffect(() => {
     const loggedIn = JSON.parse(localStorage.getItem("loggedIn"));
     if (loggedIn) {
-      // If the user is already logged in, redirect to the homepage
       navigate("/naslovnica");
     }
   }, [navigate]);

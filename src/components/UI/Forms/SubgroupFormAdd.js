@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-//import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
 import "./Forms.css";
@@ -12,7 +11,6 @@ const grupeGetAllLink = "/grupe/GetAll";
 const podgrupeInsertLink = "podgrupe/Insert";
 
 const SubgroupFormAdd = (props) => {
-  //const title = "Podrupe";
   const subtitle = "Nova podgrupa";
 
   const navigate = useNavigate();
@@ -20,7 +18,7 @@ const SubgroupFormAdd = (props) => {
   const [name, setName] = useState("");
   const [groupId, setGroupId] = useState();
   const [status, setStatus] = useState();
-  const [klijentID, setKlijentID] = useState();
+  const klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
   const navigateBack = () => {
     navigate(-1);
@@ -49,7 +47,6 @@ const SubgroupFormAdd = (props) => {
       })
       .then(function (response) {
         setStatus(response.status);
-        console.log(response);
       })
       .catch(function (error) {
         console.log(error);
@@ -58,14 +55,12 @@ const SubgroupFormAdd = (props) => {
 
   useEffect(() => {
     getGroups();
-    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
   }, []);
 
   return (
     <div>
       <Header />
       <Wrapper>
-        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <form>
           <div className="row elements-div-style">
@@ -94,11 +89,7 @@ const SubgroupFormAdd = (props) => {
                 {groups.map((group) => {
                   if (group.klijentId === klijentID) {
                     return (
-                      <option
-                        key={group.id}
-                        value={group.id}
-                        //defaultValue={}
-                      >
+                      <option key={group.id} value={group.id}>
                         {group.naziv}
                       </option>
                     );

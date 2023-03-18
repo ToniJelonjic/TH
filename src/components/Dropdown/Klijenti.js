@@ -20,10 +20,8 @@ const Klijenti = () => {
       >
         <Header />
         <Wrapper>
-          {/* <Naslov title={title} /> */}
           <Podnaslov subtitle={subtitle} />
           <Clients rows={rows} />
-          {/* <DeviceFilter params={params} /> */}
         </Wrapper>
 
         <Footer />

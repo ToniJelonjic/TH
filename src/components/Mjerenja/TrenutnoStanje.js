@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Warehouse.css";
+import "./TrenutnoStanje.css";
 import goodT from "../../images/goodT.png";
 import badT from "../../images/badT.png";
 import goodH from "../../images/goodH.png";
@@ -37,7 +37,6 @@ const Warehouse = () => {
       })
       .then(function (response) {
         setCurrentCondition(response.data);
-        //console.log(response.data, "ddd");
       });
   };
 
@@ -62,16 +61,6 @@ const Warehouse = () => {
 
   useEffect(() => {
     setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
-    // TEST DATUM 5.12.2022.
-    // const inputDate = new Date(2022, 11, 5).toDateString();
-    // const dateParts = inputDate.split("-");
-    // const dateObj = new Date(`${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`);
-    // const newDate = dateObj.toLocaleDateString("en-US", {
-    //   month: "2-digit",
-    //   day: "2-digit",
-    //   year: "numeric",
-    // });
-    // setTodaysDate(newDate);
     const inputDate = new Date().toDateString();
     const dateParts = inputDate.split("-");
     const dateObj = new Date(`${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`);

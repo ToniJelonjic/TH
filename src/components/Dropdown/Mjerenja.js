@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./Mjerenja.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-//import Naslov from "../UI/Naslovi/Naslov";
 import Wrapper from "../UI/Wrapper";
-import Podnaslov from "../UI/Naslovi/Podnaslov";
-//import TablicaUređaj from "../UI/Tablice/TablicaUređaj";
 import Context from "../../store/Context";
 import MeasuresFilter from "../UI/Filters/MeasuresFilter";
 
@@ -33,16 +30,7 @@ const Mjerenja = () => {
     >
       <Header />
       <Wrapper>
-        {/* <Naslov title={title} /> */}
-        {/* <Podnaslov subtitle={subtitle} /> */}
         <MeasuresFilter params={params} />
-        {/* <TablicaUređaj
-          title={title}
-          groupValue={groupValue}
-          subGroupValue={subGroupValue}
-          params={params}
-          data={data}
-        /> */}
       </Wrapper>
       <Footer />
     </Context.Provider>

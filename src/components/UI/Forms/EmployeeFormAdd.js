@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-//import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
 import "./Forms.css";
@@ -10,21 +9,16 @@ import { useNavigate } from "react-router-dom";
 
 const korisniciInsertLink = "/korisnici/Insert";
 
-const EmployeeFormAdd = (props) => {
-  //const title = "Zaposlenici";
+const EmployeeFormAdd = () => {
   const subtitle = "Novi zaposlenik";
 
   const navigate = useNavigate();
 
-  const [klijentID, setKlijentID] = useState();
+  const klijentID = JSON.parse(localStorage.getItem("klijentID"));
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState();
-
-  useEffect(() => {
-    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
-  }, []);
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -55,8 +49,6 @@ const EmployeeFormAdd = (props) => {
         Active: true,
       })
       .then(function (response) {
-        console.log(response);
-        //console.log(response.status);
         setStatus(response.status);
       })
       .catch(function (error) {
@@ -68,7 +60,6 @@ const EmployeeFormAdd = (props) => {
     <div>
       <Header />
       <Wrapper>
-        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <form>
           <div className="row elements-div-style">
@@ -81,7 +72,6 @@ const EmployeeFormAdd = (props) => {
                 type="text"
                 placeholder="Ime i prezime"
                 onChange={handleName}
-                /* defaultValue={props.title === "Profil" ? "Admin" : null} */
               ></input>
               <div className="placeholder-div-style">Unesite ime i prezime</div>
             </div>

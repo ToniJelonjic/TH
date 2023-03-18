@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-//import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
 import "./Forms.css";
@@ -12,7 +11,6 @@ const clientsGetAllLink = "/klijenti/GetAll";
 const clientsEditLink = "/klijenti/Edit";
 
 const ClientsFormEdit = () => {
-  //const title = "Grupe";
   const subtitle = "Uredi grupu";
 
   const location = useLocation();
@@ -71,7 +69,6 @@ const ClientsFormEdit = () => {
     <div>
       <Header />
       <Wrapper>
-        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <form>
           <div className="row elements-div-style">

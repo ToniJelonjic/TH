@@ -15,9 +15,6 @@ const UsersFormAdd = () => {
   const [korisnickoIme, setKorisnickoIme] = useState();
   const [password, setPassword] = useState("");
   const [klijent, setKlijent] = useState();
-  const [id, setId] = useState();
-  const [role, setRole] = useState();
-  const [klijentID, setKlijentID] = useState();
   const [status, setStatus] = useState();
 
   const navigate = useNavigate();
@@ -26,22 +23,18 @@ const UsersFormAdd = () => {
 
   const handleImePrezime = (e) => {
     setImePrezime(e.target.value);
-    console.log(e.target.value, "imepr");
   };
 
   const handleKorisnickoIme = (e) => {
     setKorisnickoIme(e.target.value);
-    console.log(e.target.value, "korime");
   };
 
   const handlePassword = (e) => {
     setPassword(e.target.value);
-    console.log(e.target.value, "pass");
   };
 
   const handleKlijent = (e) => {
     setKlijent(e.target.value);
-    console.log(e.target.value, "klijent");
   };
 
   const navigateBack = () => {
@@ -72,7 +65,6 @@ const UsersFormAdd = () => {
         Poslovnica: 1,
       })
       .then(function (response) {
-        console.log(response);
         setPassword("");
         setStatus(response.status);
       })
@@ -85,7 +77,6 @@ const UsersFormAdd = () => {
     <>
       <Header />
       <Wrapper>
-        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <form>
           <div className="row elements-div-style">
@@ -112,11 +103,7 @@ const UsersFormAdd = () => {
                 <option hidden>Odaberi klijenta</option>
                 {data.map((item, index) => {
                   return (
-                    <option
-                      key={index}
-                      value={item.id}
-                      //defaultValue={}
-                    >
+                    <option key={index} value={item.id}>
                       {item.naziv}
                     </option>
                   );

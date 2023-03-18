@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-//import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
 import "./Forms.css";
@@ -15,11 +14,10 @@ const EmployeeFormEdit = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  //const title = "Zaposlenici";
   const subtitle = "Uredi zaposlenika";
 
   let employeeId = location.pathname.split("/")[3];
-  const [klijentID, setKlijentID] = useState();
+  const klijentID = JSON.parse(localStorage.getItem("klijentID"));
   const [active, setActive] = useState();
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
@@ -79,7 +77,6 @@ const EmployeeFormEdit = () => {
 
   useEffect(() => {
     getData();
-    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
   }, []);
 
   const navigateBack = () => {
@@ -90,7 +87,6 @@ const EmployeeFormEdit = () => {
     <div>
       <Header />
       <Wrapper>
-        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <form>
           <div className="row elements-div-style">

@@ -22,7 +22,6 @@ const ChangeStatus = ({ data, handleEmployeeId }) => {
         Active: newStatus,
       })
       .then(function (response) {
-        console.log(response);
         handleEmployeeId();
         window.location.reload(true);
       })

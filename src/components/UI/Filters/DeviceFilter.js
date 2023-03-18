@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./DeviceFilter.css";
 import axios from "../../../api/axios";
 import ReactPaginate from "react-paginate";
@@ -13,14 +13,13 @@ const subgroupsGetAllLink = "/podgrupe/GetAll";
 
 const DeviceFilter = ({ params }) => {
   const role = JSON.parse(localStorage.getItem("role"));
-  const [klijentID, setKlijentID] = useState();
+  const klijentID = JSON.parse(localStorage.getItem("klijentID"));
   const [groupValue, setGroupValue] = useState(0);
   const [subGroupValue, setSubGroupValue] = useState(0);
   const [subGroups, setSubGroups] = useState([]);
   const [groups, setGroups] = useState([]);
 
   const [selectedDeviceId, setSelectedDeviceId] = useState(null);
-  const [item, setItem] = useState();
 
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -78,7 +77,6 @@ const DeviceFilter = ({ params }) => {
     getGroups();
     getSubGroups();
     getCurrentCondition();
-    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
   }, []);
 
   useEffect(() => {

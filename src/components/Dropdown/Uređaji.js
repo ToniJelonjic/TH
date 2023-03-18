@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-//import Naslov from "../UI/Naslovi/Naslov";
 import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
 import Context from "../../store/Context";
@@ -38,7 +37,6 @@ const Uređaji = () => {
     >
       <Header />
       <Wrapper>
-        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <DeviceFilter params={params} />
       </Wrapper>

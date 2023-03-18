@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-//import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
 import "./Forms.css";
@@ -13,7 +12,6 @@ const podgrupeGetAllLink = "/podgrupe/GetAll";
 const podgrupeEditLink = "/podgrupe/Edit";
 
 const SubgroupFormEdit = () => {
-  //const title = "Podrupe";
   const subtitle = "Uredi podgrupu";
 
   const location = useLocation();
@@ -25,7 +23,7 @@ const SubgroupFormEdit = () => {
   const [name, setName] = useState("");
   const [groupId, setGroupId] = useState();
   const [status, setStatus] = useState();
-  const [klijentID, setKlijentID] = useState();
+  const klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -58,7 +56,6 @@ const SubgroupFormEdit = () => {
           if (parseInt(subgroup.id) === parseInt(subgroupId)) {
             setName(subgroup.naziv);
             setGroupId(subgroup.grupaId);
-            //console.log(subgroup.naziv);
           }
         });
       })
@@ -77,7 +74,6 @@ const SubgroupFormEdit = () => {
       })
       .then(function (response) {
         setStatus(response.status);
-        console.log(response);
       })
       .catch(function (error) {
         console.log(error);
@@ -87,14 +83,12 @@ const SubgroupFormEdit = () => {
   useEffect(() => {
     getGroups();
     getData();
-    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
   }, []);
 
   return (
     <div>
       <Header />
       <Wrapper>
-        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <form>
           <div className="row elements-div-style">
@@ -128,7 +122,6 @@ const SubgroupFormEdit = () => {
                         selected={group.id == groupId}
                         key={group.id}
                         value={group.id}
-                        //defaultValue={}
                       >
                         {group.naziv}
                       </option>

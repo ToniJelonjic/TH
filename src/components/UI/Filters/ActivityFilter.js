@@ -43,7 +43,6 @@ const ActivityFilter = (props) => {
       })
       .then(function (response) {
         setCurrentCondition(response.data);
-        //localStorage.setItem("items", JSON.stringify(response.data));
       });
   };
 
@@ -65,7 +64,6 @@ const ActivityFilter = (props) => {
   }, []);
 
   useEffect(() => {
-    //let currentCondition = JSON.parse(localStorage.getItem("items"));
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(currentCondition.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(currentCondition.length / itemsPerPage));
@@ -92,7 +90,6 @@ const ActivityFilter = (props) => {
               ""
             ) : (
               <>
-                {/* {loger.vrijemeMjerenja} */}
                 {loger.vrijemeMjerenja.slice(0, 11).replace("T", " ")}
                 {loger.vrijemeMjerenja.slice(11, 19)}
               </>
@@ -117,7 +114,6 @@ const ActivityFilter = (props) => {
             ? `border-bottom ${loger.valid ? "" : "activity-valid"}`
             : ""
         }
-        //className={`border-bottom ${loger.valid ? "" : "activity-valid"}`}
       >
         <td className="table-measure-data-name">
           <div className="table-activity-data-name">{loger.naziv}</div>
@@ -128,7 +124,6 @@ const ActivityFilter = (props) => {
             ""
           ) : (
             <>
-              {/* {loger.vrijemeMjerenja} */}
               {loger.vrijemeMjerenja.slice(0, 11).replace("T", " ")}
               {loger.vrijemeMjerenja.slice(11, 19)}
             </>

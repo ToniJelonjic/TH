@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Header.css";
 import user from "../../images/user.jpg";
-import Hamburger from "../UI/Hamburger";
+//import Hamburger from "../UI/Hamburger";
 import UserCard from "../UI/UserCard";
 import Dropdown from "../Dropdown/Dropdown";
 

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-//import Naslov from "../Naslovi/Naslov";
 import Podnaslov from "../Naslovi/Podnaslov";
 import Wrapper from "../Wrapper";
 import "./Forms.css";
@@ -11,14 +10,13 @@ import { useNavigate } from "react-router-dom";
 const grupeInsertLink = "/grupe/Insert";
 
 const GroupFormAdd = () => {
-  //const title = "Grupe";
   const subtitle = "Nova grupa";
 
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [status, setStatus] = useState();
-  const [klijentID, setKlijentID] = useState();
+  const klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -44,15 +42,10 @@ const GroupFormAdd = () => {
       });
   };
 
-  useEffect(() => {
-    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
-  }, []);
-
   return (
     <div>
       <Header />
       <Wrapper>
-        {/* <Naslov title={title} /> */}
         <Podnaslov subtitle={subtitle} />
         <form>
           <div className="row elements-div-style">

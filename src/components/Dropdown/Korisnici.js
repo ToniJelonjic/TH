@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Header from "../Header/Header";
 import Wrapper from "../UI/Wrapper";
 import Podnaslov from "../UI/Naslovi/Podnaslov";
@@ -27,10 +27,8 @@ const Korisnici = () => {
       >
         <Header />
         <Wrapper>
-          {/* <Naslov title={title} /> */}
           <Podnaslov subtitle={subtitle} />
           <Users rows={rows} />
-          {/* <DeviceFilter params={params} /> */}
         </Wrapper>
 
         <Footer />

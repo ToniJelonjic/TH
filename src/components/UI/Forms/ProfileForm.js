@@ -35,7 +35,6 @@ const ProfileForm = () => {
   };
 
   useEffect(() => {
-    //console.log(JSON.parse(localStorage.getItem("imePrezime")));
     setImePrezime(localStorage.getItem("imePrezime").trim());
     setKorisnickoIme(localStorage.getItem("korisnickoIme").trim());
     setId(localStorage.getItem("id"));
@@ -54,12 +53,12 @@ const ProfileForm = () => {
         UlogaID: role,
         Firma: klijentID,
       })
-      .then(function(response) {
+      .then(function (response) {
         console.log(response);
         setPassword("");
         setStatus(response.status);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };

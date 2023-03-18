@@ -1,9 +1,8 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
-import "./TablicaInfo.css";
+import React, { useState, useEffect, useRef } from "react";
+import "./Tablice.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import Context from "../../../store/Context";
 import ChangeClientStatus from "../StatusChange/ChangeClientStatus";
 import axios from "../../../api/axios";
 
