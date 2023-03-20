@@ -54,7 +54,6 @@ const ClientsFormEdit = () => {
       })
       .then(function (response) {
         setStatus(response.status);
-        console.log(response);
       })
       .catch(function (error) {
         console.log(error);

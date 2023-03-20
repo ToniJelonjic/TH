@@ -34,7 +34,6 @@ const ClientsFormAdd = () => {
       .then(function (response) {
         setStatus(response.status);
         setName("");
-        console.log(response);
       })
       .catch(function (error) {
         console.log(error);

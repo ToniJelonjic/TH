@@ -99,7 +99,7 @@ const EmployeeFormAdd = () => {
             <div className="col-lg-6 col-md-6 col-10">
               <input
                 className="elements-input"
-                type="text"
+                type="password"
                 placeholder="Lozinka"
                 onChange={handlePassword}
               ></input>

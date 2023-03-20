@@ -1,6 +1,5 @@
 import React from "react";
 import ButtonAdd from "../Buttons/ButtonAdd";
-import ButtonExport from "../Buttons/ButtonExport";
 import "./Podnaslov.css";
 
 const Podnaslov = ({ subtitle }) => {
@@ -15,8 +14,7 @@ const Podnaslov = ({ subtitle }) => {
         subtitle === "Klijenti" ||
         subtitle === "Uređaji" ? (
           <ButtonAdd />
-        ) : // subtitle === "Mjerenja" && <ButtonExport />
-        null}
+        ) : null}
       </div>
     </div>
   );

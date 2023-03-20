@@ -94,7 +94,6 @@ const DeviceFormEdit = () => {
       .then(function (response) {
         response.data.map((device) => {
           if (parseInt(device.id) === parseInt(deviceId)) {
-            console.log(device, "data");
             setName(device.naziv.trim());
             setGroupId(device.grupaid);
             setSubgroupId(device.podgrupaid);
@@ -123,14 +122,12 @@ const DeviceFormEdit = () => {
   const getGroups = async () => {
     await axios.get(grupeGetAllLink).then(function (response) {
       setGroups(response.data);
-      console.log(response.data, "grupe");
     });
   };
 
   const getSubgroups = async () => {
     await axios.get(podgrupeGetAllLink).then(function (response) {
       setSubgroups(response.data);
-      console.log(response.data, "podgrupe");
     });
   };
 
@@ -169,7 +166,6 @@ const DeviceFormEdit = () => {
       })
       .then(function (response) {
         setStatus(response.status);
-        console.log(response);
       })
       .catch(function (error) {
         console.log(error);

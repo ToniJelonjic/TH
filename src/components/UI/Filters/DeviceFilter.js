@@ -30,12 +30,10 @@ const DeviceFilter = ({ params }) => {
   const handleGroupValue = (e) => {
     setGroupValue(e.target.value);
     setSubGroupValue(0);
-    console.log(e.target.value);
   };
 
   const handleSubGroupValue = (e) => {
     setSubGroupValue(e.target.value);
-    console.log(e.target.value);
   };
 
   const getCurrentCondition = async () => {
@@ -49,7 +47,6 @@ const DeviceFilter = ({ params }) => {
       })
       .then(function (response) {
         setCurrentCondition(response.data);
-        console.log(response.data);
       });
   };
 
@@ -264,7 +261,7 @@ const DeviceFilter = ({ params }) => {
         <table className="content-style">
           <tbody>
             <tr>
-              {params.params.map((parameter) => {
+              {params.map((parameter) => {
                 return (
                   <td className="device-table-info" key={parameter}>
                     {parameter}

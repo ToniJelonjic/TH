@@ -22,31 +22,25 @@ const Naslovnica = () => {
 
   const role = JSON.parse(localStorage.getItem("role"));
 
-  const params1 = {
-    id: Math.random(),
-    params: [
-      "Uređaj",
-      "Vrijeme mjerenja",
-      "Temperatura",
-      "Minimalna temperatura",
-      "Maksimalna temperatura",
-      "Vlažnost",
-      "Minimalna vlažnost",
-      "Maksimalna vlažnost",
-    ],
-  };
+  const params1 = [
+    "Uređaj",
+    "Vrijeme mjerenja",
+    "Temperatura",
+    "Minimalna temperatura",
+    "Maksimalna temperatura",
+    "Vlažnost",
+    "Minimalna vlažnost",
+    "Maksimalna vlažnost",
+  ];
 
-  const params2 = {
-    id: Math.random(),
-    params: [
-      "Uređaj",
-      "Vrijeme zadnjeg mjerenja",
-      "Minimalna temperatura",
-      "Maksimalna temperatura",
-      "Minimalna vlažnost",
-      "Maksimalna vlažnost",
-    ],
-  };
+  const params2 = [
+    "Uređaj",
+    "Vrijeme zadnjeg mjerenja",
+    "Minimalna temperatura",
+    "Maksimalna temperatura",
+    "Minimalna vlažnost",
+    "Maksimalna vlažnost",
+  ];
 
   return (
     <Context.Provider

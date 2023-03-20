@@ -5,7 +5,7 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Context from "../../../store/Context";
 
-const Groups = (props) => {
+const Groups = ({ rows }) => {
   const { data } = useContext(Context);
   const klijentID = JSON.parse(localStorage.getItem("klijentID"));
   return (
@@ -13,7 +13,7 @@ const Groups = (props) => {
       <table className="groups-table-style">
         <tbody>
           <tr className="tr-style">
-            {props.rows.map((row) => {
+            {rows.map((row) => {
               return (
                 <th key={row} className="thead-style">
                   {row}

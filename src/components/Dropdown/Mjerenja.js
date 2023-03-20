@@ -7,9 +7,7 @@ import Context from "../../store/Context";
 import MeasuresFilter from "../UI/Filters/MeasuresFilter";
 
 const Mjerenja = () => {
-  const title = "Mjerenja";
   const subtitle = "Mjerenja";
-
   const params = [
     "Vrijeme",
     "Uređaj",
@@ -24,7 +22,6 @@ const Mjerenja = () => {
   return (
     <Context.Provider
       value={{
-        title,
         subtitle,
       }}
     >

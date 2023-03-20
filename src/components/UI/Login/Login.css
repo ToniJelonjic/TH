@@ -101,4 +101,8 @@ input::placeholder {
         padding-top: 20px;
     }
 
+    .errmsg {
+        width: 80%;
+    }
+
 }

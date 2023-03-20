@@ -7,7 +7,7 @@ const ProvjeraMjerenjaLink = "/logeri/ProvjeraMjerenja";
 const getGrupeLink = "/grupe/GetAll";
 const getPodgrupeLink = "/podgrupe/GetAll";
 
-const ActivityFilter = (props) => {
+const ActivityFilter = ({ params }) => {
   const role = JSON.parse(localStorage.getItem("role"));
   const [klijentID, setKlijentID] = useState();
   const [groupValue, setGroupValue] = useState(0);
@@ -24,12 +24,10 @@ const ActivityFilter = (props) => {
   const handleGroupValue = (e) => {
     setGroupValue(e.target.value);
     setSubGroupValue(0);
-    console.log(e.target.value);
   };
 
   const handleSubGroupValue = (e) => {
     setSubGroupValue(e.target.value);
-    console.log(e.target.value);
   };
 
   const getCurrentCondition = async () => {
@@ -192,7 +190,7 @@ const ActivityFilter = (props) => {
       <table className="table-width">
         <tbody>
           <tr className="border-bottom">
-            {props.params.params.map((parameter, index) => {
+            {params.map((parameter, index) => {
               return (
                 <th className="th-desc-style" key={index}>
                   {parameter}

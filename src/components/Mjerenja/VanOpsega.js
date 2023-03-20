@@ -5,7 +5,7 @@ import ReactPaginate from "react-paginate";
 
 const mjerenjaCriticalLink = "/mjerenja/GetAllCritical";
 
-const VanOpsega = (props) => {
+const VanOpsega = ({ params }) => {
   const [klijentID, setKlijentID] = useState();
 
   const [currentItems, setCurrentItems] = useState([]);
@@ -45,7 +45,7 @@ const VanOpsega = (props) => {
         <table className="table-width">
           <tbody>
             <tr className="border-bottom">
-              {props.params.params.map((parameter) => {
+              {params.map((parameter) => {
                 return (
                   <th className="th-desc-style" key={parameter.toString()}>
                     {parameter}

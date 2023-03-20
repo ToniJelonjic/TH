@@ -120,7 +120,7 @@ const Login = () => {
             </div>
             <div className="input-padding">
               <input
-                type="text"
+                type="password"
                 className="login-input-style"
                 placeholder="Lozinka"
                 id="password"

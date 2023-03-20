@@ -16,8 +16,6 @@ const ProfileForm = () => {
 
   const navigate = useNavigate();
 
-  console.log(korisnickoIme, "korime");
-
   const handleImePrezime = (e) => {
     setImePrezime(e.target.value);
   };
@@ -54,7 +52,6 @@ const ProfileForm = () => {
         Firma: klijentID,
       })
       .then(function (response) {
-        console.log(response);
         setPassword("");
         setStatus(response.status);
       })
@@ -103,7 +100,7 @@ const ProfileForm = () => {
           <div className="col-lg-6 col-md-6 col-10">
             <input
               className="elements-input"
-              type="text"
+              type="password"
               placeholder="Lozinka"
               onChange={handlePassword}
               value={password}

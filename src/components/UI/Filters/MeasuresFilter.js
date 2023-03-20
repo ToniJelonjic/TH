@@ -104,7 +104,6 @@ const MeasuresFilter = ({ params }) => {
         },
       })
       .then(function (response) {
-        console.log(response.data, "datatatat");
         setCurrentCondition(response.data);
         setLoading(true);
       });
