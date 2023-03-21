@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./Tablice.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import ChangeAdminStatus from "../StatusChange/ChangeAdminStatus";
 import axios from "../../../api/axios";
 
 const korisniciGetAllLink = "/korisnici/GetAll";
+const changeStatusLink = "/korisnici/ChangeStatus";
 
 const Users = ({ rows }) => {
   const [data, setData] = useState([]);
@@ -19,33 +19,21 @@ const Users = ({ rows }) => {
     getData();
   }, []);
 
-  const [selectedUserId, setSelectedUserId] = useState(null);
-
-  const handleUserId = () => {
-    setSelectedUserId(null);
+  const onChangeStatus = (data) => {
+    const newStatus = !data.active;
+    axios
+      .post(changeStatusLink, {
+        Id: data.id,
+        Naziv: "",
+        Active: newStatus,
+      })
+      .then(function (response) {
+        window.location.reload(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
-
-  const handleClick = (id) => {
-    if (id === selectedUserId) {
-      setSelectedUserId(null);
-    } else {
-      setSelectedUserId(id);
-    }
-  };
-
-  useEffect(() => {
-    const handleClick = (event) => {
-      if (event.target.id !== "toggle-user") {
-        setSelectedUserId(null);
-      }
-    };
-
-    document.addEventListener("click", handleClick);
-
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
-  }, []);
 
   return (
     <div className="info-table-style">
@@ -54,7 +42,7 @@ const Users = ({ rows }) => {
           <tr className="tr-style">
             {rows.map((row) => {
               return (
-                <th key={row} className="thead-style">
+                <th key={row} className="thead-style-header">
                   {row}
                 </th>
               );
@@ -65,42 +53,39 @@ const Users = ({ rows }) => {
             if (item.ulogaID === 1) {
               return (
                 <tr key={index} id={item.id} className="tr-style">
-                  <td className="thead-style">{item.imePrezime}</td>
-                  <td className="thead-style">{item.ime}</td>
-                  <td className="thead-style">{item.klijent}</td>
-                  <td className="thead-style">{item.uloga}</td>
+                  <td className="thead-style-content">{item.imePrezime}</td>
+                  <td className="thead-style-content">{item.ime}</td>
+                  <td className="thead-style-content">{item.klijent}</td>
+                  <td className="thead-style-content">{item.uloga}</td>
                   <td
-                    className={`thead-style ${
+                    className={`thead-style-content ${
                       item.active ? "active-user" : "non-active-user"
                     }`}
                   >
                     {item.active ? "Aktivan" : "Neaktivan"}
                   </td>
-                  <td className="thead-style">
-                    <FontAwesomeIcon
-                      title="Promijeni status"
-                      id="toggle-user"
-                      className="actions-icon"
-                      icon={faEllipsis}
-                      value={item.id}
-                      onClick={() => handleClick(item.id)}
-                    />
-
-                    {parseInt(selectedUserId) === parseInt(item.id) ? (
-                      <ChangeAdminStatus
-                        userId={selectedUserId}
-                        handleUserId={handleUserId}
-                        data={item}
-                      />
-                    ) : null}
-
-                    <Link to={`/korisnici/uredi/${item.id}`}>
-                      <FontAwesomeIcon
-                        title="Uredi"
-                        className="actions-icon"
-                        icon={faEdit}
-                      />
-                    </Link>
+                  <td className="thead-style-content">
+                    <div className="center-items">
+                      <button
+                        title="Promijeni status"
+                        className={`change-status-button ${
+                          item.active ? "deaktiviraj" : "aktiviraj"
+                        }`}
+                        id="toggle-device"
+                        onClick={() => {
+                          onChangeStatus(item);
+                        }}
+                      >
+                        {item.active ? "Deaktiviraj" : "Aktiviraj"}
+                      </button>
+                      <Link to={`/korisnici/uredi/${item.id}`}>
+                        <FontAwesomeIcon
+                          title="Uredi"
+                          className="actions-icon"
+                          icon={faEdit}
+                        />
+                      </Link>
+                    </div>
                   </td>
                 </tr>
               );

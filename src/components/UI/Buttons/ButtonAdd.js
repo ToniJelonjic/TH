@@ -21,7 +21,7 @@ const ButtonAdd = () => {
         <Link to={`/zaposlenici/dodaj`} className="link-style">
           <button className="add-button-style">{addButton}</button>
         </Link>
-      ) : subtitle === "Korisnički računi" ? (
+      ) : subtitle === "Korisnici" ? (
         <Link to={`/korisnici/dodaj`} className="link-style">
           <button className="add-button-style">{addButton}</button>
         </Link>

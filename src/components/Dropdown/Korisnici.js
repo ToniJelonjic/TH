@@ -7,7 +7,7 @@ import Users from "../UI/Tablice/Users";
 import Context from "../../store/Context";
 
 const Korisnici = () => {
-  const subtitle = "Korisnički računi";
+  const subtitle = "Korisnici";
   const rows = [
     "Ime i prezime",
     "Korisničko ime",
@@ -16,7 +16,7 @@ const Korisnici = () => {
     "Status",
     "Akcije",
   ];
-  const addButton = "+ Dodaj korisnički račun";
+  const addButton = "+ Dodaj korisnika";
   return (
     <>
       <Context.Provider

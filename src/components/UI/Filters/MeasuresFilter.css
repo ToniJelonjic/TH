@@ -7,6 +7,12 @@
   overflow: auto;
 }
 
+.excel-style {
+  color: #fff;
+  background-color: rgb(36, 36, 216);
+  width: 125px;
+}
+
 table {
   border-spacing: 0px;
   table-layout: fixed;
@@ -36,7 +42,6 @@ table {
     font-weight: 600;
     color: #575962;
     padding: 0 15px 0 15px;
-
 }
 
 .thead-style {

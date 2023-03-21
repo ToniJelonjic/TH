@@ -30,7 +30,6 @@ const Header = () => {
     if (isUserClicked) {
       setIsBurgerClicked(false);
     }
-    console.log(isUserClicked, "user");
   };
 
   const handleBurgerClick = () => {
@@ -40,7 +39,6 @@ const Header = () => {
     if (isBurgerClicked) {
       setIsUserClicked(false);
     }
-    console.log(isBurgerClicked, "burger");
   };
 
   useEffect(() => {

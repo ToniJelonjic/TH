@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./Tablice.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import ChangeClientStatus from "../StatusChange/ChangeClientStatus";
 import axios from "../../../api/axios";
 
 const klijentiGetAllLink = "/klijenti/GetAll";
+const changeStatusLink = "/klijenti/ChangeStatus";
 
 const Clients = ({ rows }) => {
   const [data, setData] = useState([]);
@@ -19,33 +19,21 @@ const Clients = ({ rows }) => {
     getData();
   }, []);
 
-  const [selectedClientId, setSelectedClientId] = useState(null);
-
-  const handleClientId = () => {
-    setSelectedClientId(null);
+  const onChangeStatus = (data) => {
+    const newStatus = !data.active;
+    axios
+      .post(changeStatusLink, {
+        Id: data.id,
+        Naziv: "",
+        Active: newStatus,
+      })
+      .then(function (response) {
+        window.location.reload(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
-
-  const handleClick = (id) => {
-    if (id === selectedClientId) {
-      setSelectedClientId(null);
-    } else {
-      setSelectedClientId(id);
-    }
-  };
-
-  useEffect(() => {
-    const handleClick = (event) => {
-      if (event.target.id !== "toggle-client") {
-        setSelectedClientId(null);
-      }
-    };
-
-    document.addEventListener("click", handleClick);
-
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
-  }, []);
 
   return (
     <div className="info-table-style">
@@ -54,7 +42,7 @@ const Clients = ({ rows }) => {
           <tr className="tr-style">
             {rows.map((row) => {
               return (
-                <th key={row} className="thead-style">
+                <th key={row} className="thead-style-header">
                   {row}
                 </th>
               );
@@ -64,39 +52,36 @@ const Clients = ({ rows }) => {
           {data.map((item, index) => {
             return (
               <tr key={index} id={item.id} className="tr-style">
-                <td className="thead-style">{item.naziv}</td>
+                <td className="thead-style-content">{item.naziv}</td>
                 <td
-                  className={`thead-style ${
+                  className={`thead-style-content ${
                     item.active ? "active-user" : "non-active-user"
                   }`}
                 >
                   {item.active ? "Aktivan" : "Neaktivan"}
                 </td>
-                <td className="thead-style">
-                  <FontAwesomeIcon
-                    title="Promijeni status"
-                    id="toggle-client"
-                    className="actions-icon"
-                    icon={faEllipsis}
-                    value={item.id}
-                    onClick={() => handleClick(item.id)}
-                  />
-
-                  {parseInt(selectedClientId) === parseInt(item.id) ? (
-                    <ChangeClientStatus
-                      clientId={selectedClientId}
-                      handleClientId={handleClientId}
-                      data={item}
-                    />
-                  ) : null}
-
-                  <Link to={`/klijenti/uredi/${item.id}`}>
-                    <FontAwesomeIcon
-                      title="Uredi"
-                      className="actions-icon"
-                      icon={faEdit}
-                    />
-                  </Link>
+                <td className="thead-style-content">
+                  <div className="center-items">
+                    <button
+                      title="Promijeni status"
+                      className={`change-status-button ${
+                        item.active ? "deaktiviraj" : "aktiviraj"
+                      }`}
+                      id="toggle-device"
+                      onClick={() => {
+                        onChangeStatus(item);
+                      }}
+                    >
+                      {item.active ? "Deaktiviraj" : "Aktiviraj"}
+                    </button>
+                    <Link to={`/klijenti/uredi/${item.id}`}>
+                      <FontAwesomeIcon
+                        title="Uredi"
+                        className="actions-icon"
+                        icon={faEdit}
+                      />
+                    </Link>
+                  </div>
                 </td>
               </tr>
             );

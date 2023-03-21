@@ -34,34 +34,41 @@ const Login = () => {
         params: { username, password },
       });
       if (response.status === 200) {
-        localStorage.setItem("id", response.data.id);
-        localStorage.setItem("imePrezime", response.data.imePrezime);
-        localStorage.setItem("korisnickoIme", response.data.ime);
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("role", response.data.ulogaID);
-        localStorage.setItem("klijentID", response.data.firma);
-        localStorage.setItem("loggedIn", true);
-        const loggedIn = true;
-        const id = response.data.id;
-        const imePrezime = response.data.imePrezime;
-        const korisnickoIme = response.data.ime;
-        const token = response.data.token;
-        const role = response.data.ulogaID;
-        const klijentID = response.data.firma;
-        setAuth({
-          id,
-          imePrezime,
-          korisnickoIme,
-          username,
-          password,
-          role,
-          token,
-          klijentID,
-          loggedIn,
-        });
-        setUsername("");
-        setPassword("");
-        navigate(loggedInLink);
+        if (response.data.active) {
+          localStorage.setItem("id", response.data.id);
+          localStorage.setItem("imePrezime", response.data.imePrezime);
+          localStorage.setItem("korisnickoIme", response.data.ime);
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("role", response.data.ulogaID);
+          localStorage.setItem("klijentID", response.data.firma);
+          localStorage.setItem("loggedIn", true);
+          localStorage.setItem("active", response.data.active);
+          const loggedIn = true;
+          const id = response.data.id;
+          const imePrezime = response.data.imePrezime;
+          const korisnickoIme = response.data.ime;
+          const token = response.data.token;
+          const role = response.data.ulogaID;
+          const klijentID = response.data.firma;
+          const active = response.data.active;
+          setAuth({
+            id,
+            imePrezime,
+            korisnickoIme,
+            username,
+            password,
+            role,
+            token,
+            klijentID,
+            loggedIn,
+            active,
+          });
+          setUsername("");
+          setPassword("");
+          navigate(loggedInLink);
+        } else if (!response.data.active) {
+          setErrMsg("Nemate pristup.");
+        }
       } else if (response.status === 204) {
         setErrMsg("Neispravno korisničko ime ili lozinka");
       }

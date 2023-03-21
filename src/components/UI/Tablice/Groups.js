@@ -15,7 +15,7 @@ const Groups = ({ rows }) => {
           <tr className="tr-style">
             {rows.map((row) => {
               return (
-                <th key={row} className="thead-style">
+                <th key={row} className="thead-style-header">
                   {row}
                 </th>
               );
@@ -26,8 +26,8 @@ const Groups = ({ rows }) => {
             if (item.klijentId === klijentID) {
               return (
                 <tr key={item.id} id={item.id} className="tr-style">
-                  <td className="thead-style">{item.naziv}</td>
-                  <td className="thead-style">
+                  <td className="thead-style-content">{item.naziv}</td>
+                  <td className="thead-style-content">
                     <Link to={`/grupe/uredi/${item.id}`}>
                       <FontAwesomeIcon
                         title="Uredi"

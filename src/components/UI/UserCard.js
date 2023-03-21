@@ -20,6 +20,7 @@ const UserCard = () => {
     localStorage.removeItem("imePrezime");
     localStorage.removeItem("korisnickoIme");
     localStorage.removeItem("loggedIn");
+    localStorage.removeItem("active");
     navigate(logoutLink);
   };
 

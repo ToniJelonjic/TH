@@ -5,11 +5,12 @@ import ReactPaginate from "react-paginate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import ChangeDeviceStatus from "../StatusChange/ChangeDeviceStatus";
 
 const logeriGetAllLink = "/logeri/GetAll";
 const groupsGetAllLink = "/grupe/GetAll";
+const klijentiGetAllLink = "/klijenti/GetAll";
 const subgroupsGetAllLink = "/podgrupe/GetAll";
+const changeStatusLink = "/logeri/ChangeStatus";
 
 const DeviceFilter = ({ params }) => {
   const role = JSON.parse(localStorage.getItem("role"));
@@ -19,13 +20,13 @@ const DeviceFilter = ({ params }) => {
   const [subGroups, setSubGroups] = useState([]);
   const [groups, setGroups] = useState([]);
 
-  const [selectedDeviceId, setSelectedDeviceId] = useState(null);
-
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 10;
   const [currentCondition, setCurrentCondition] = useState([]);
+  const [clients, setClients] = useState([]);
+  const [selectedClient, setSelectedClient] = useState();
 
   const handleGroupValue = (e) => {
     setGroupValue(e.target.value);
@@ -36,7 +37,11 @@ const DeviceFilter = ({ params }) => {
     setSubGroupValue(e.target.value);
   };
 
-  const getCurrentCondition = async () => {
+  const handleClient = (e) => {
+    setSelectedClient(e.target.value);
+  };
+
+  const adminGetCurrentCondition = async () => {
     await axios
       .get(logeriGetAllLink, {
         params: {
@@ -48,6 +53,26 @@ const DeviceFilter = ({ params }) => {
       .then(function (response) {
         setCurrentCondition(response.data);
       });
+  };
+
+  const superadminGetCurrentCondition = async () => {
+    await axios
+      .get(logeriGetAllLink, {
+        params: {
+          klijentID: selectedClient,
+          grupaID: parseInt(groupValue),
+          podgrupaID: parseInt(subGroupValue),
+        },
+      })
+      .then(function (response) {
+        setCurrentCondition(response.data);
+      });
+  };
+
+  const getAllLogers = async () => {
+    await axios.get(logeriGetAllLink, {}).then(function (response) {
+      setCurrentCondition(response.data);
+    });
   };
 
   const getGroups = async () => {
@@ -62,19 +87,51 @@ const DeviceFilter = ({ params }) => {
     });
   };
 
-  const handleClick = (id) => {
-    if (id === selectedDeviceId) {
-      setSelectedDeviceId(null);
-    } else {
-      setSelectedDeviceId(id);
-    }
+  const getAllClients = async () => {
+    await axios.get(klijentiGetAllLink).then(function (response) {
+      setClients(response.data);
+    });
   };
 
   useEffect(() => {
     getGroups();
     getSubGroups();
-    getCurrentCondition();
+    if (role === 1) {
+      adminGetCurrentCondition();
+    }
+    if (role === 3) {
+      getAllLogers();
+      getAllClients();
+      superadminGetCurrentCondition();
+    }
   }, []);
+
+  const onChangeStatus = (data) => {
+    const newStatus = !data.active;
+    axios
+      .post(changeStatusLink, {
+        Id: data.id,
+        Active: newStatus,
+        Naziv: data.naziv,
+        Idklijenta: data.idklijenta,
+        Idposlovnice: data.idposlovnice,
+        Tmin: data.tmin,
+        Tmax: data.tmax,
+        Hmin: data.hmin,
+        Hmax: data.hmax,
+        Email1: data.email1,
+        Email2: data.email2,
+        Grupaid: data.grupaid,
+        Podgrupaid: data.podgrupaid,
+        SifraUredjaja: data.sifraUredjaja,
+      })
+      .then(function (response) {
+        window.location.reload(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -86,20 +143,6 @@ const DeviceFilter = ({ params }) => {
     const newOffset = (event.selected * itemsPerPage) % currentCondition.length;
     setItemOffset(newOffset);
   };
-
-  useEffect(() => {
-    const handleClick = (event) => {
-      if (event.target.id !== "toggle-device") {
-        setSelectedDeviceId(null);
-      }
-    };
-
-    document.addEventListener("click", handleClick);
-
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
-  }, []);
 
   const adminItems = currentItems
     .sort((a, b) => a.id - b.id)
@@ -124,21 +167,19 @@ const DeviceFilter = ({ params }) => {
               {item.active ? "Aktivan" : "Neaktivan"}
             </td>
             <td className="thead-style">
-              <div>
-                <FontAwesomeIcon
+              <div className="center-items">
+                <button
                   title="Promijeni status"
-                  className="actions-icon"
+                  className={`change-status-button ${
+                    item.active ? "deaktiviraj" : "aktiviraj"
+                  }`}
                   id="toggle-device"
-                  icon={faEllipsis}
-                  onClick={() => handleClick(item.id)}
-                />
-
-                {parseInt(selectedDeviceId) === parseInt(item.id) && (
-                  <ChangeDeviceStatus
-                    setSelectedDeviceId={setSelectedDeviceId}
-                    data={item}
-                  />
-                )}
+                  onClick={() => {
+                    onChangeStatus(item);
+                  }}
+                >
+                  {item.active ? "Deaktiviraj" : "Aktiviraj"}
+                </button>
 
                 <Link to={`/uređaji/uredi/${item.id}`}>
                   <FontAwesomeIcon
@@ -176,21 +217,19 @@ const DeviceFilter = ({ params }) => {
             {item.active ? "Aktivan" : "Neaktivan"}
           </td>
           <td className="thead-style">
-            <div>
-              <FontAwesomeIcon
+            <div className="center-items">
+              <button
                 title="Promijeni status"
-                className="actions-icon"
+                className={`change-status-button ${
+                  item.active ? "deaktiviraj" : "aktiviraj"
+                }`}
                 id="toggle-device"
-                icon={faEllipsis}
-                onClick={() => handleClick(item.id)}
-              />
-
-              {parseInt(selectedDeviceId) === parseInt(item.id) && (
-                <ChangeDeviceStatus
-                  setSelectedDeviceId={setSelectedDeviceId}
-                  data={item}
-                />
-              )}
+                onClick={() => {
+                  onChangeStatus(item);
+                }}
+              >
+                {item.active ? "Deaktiviraj" : "Aktiviraj"}
+              </button>
 
               <Link to={`/uređaji/uredi/${item.id}`}>
                 <FontAwesomeIcon
@@ -251,12 +290,39 @@ const DeviceFilter = ({ params }) => {
             </select>
           </span>
           <span className="span-button-style">
-            <button onClick={getCurrentCondition} className="button-style">
+            <button onClick={adminGetCurrentCondition} className="button-style">
               Pretraži
             </button>
           </span>
         </div>
-      ) : null}
+      ) : (
+        <div className="select-div">
+          <span>
+            <select className="select-style" onChange={handleClient}>
+              <option hidden defaultValue="Odaberite klijenta">
+                Odaberite klijenta
+              </option>
+              {clients.map((client) => {
+                if (client.active) {
+                  return (
+                    <option value={client.id} key={client.id}>
+                      {client.naziv}
+                    </option>
+                  );
+                }
+              })}
+            </select>
+          </span>
+          <span className="span-button-style">
+            <button
+              onClick={superadminGetCurrentCondition}
+              className="button-style"
+            >
+              Pretraži
+            </button>
+          </span>
+        </div>
+      )}
       <div className="table-style">
         <table className="content-style">
           <tbody>

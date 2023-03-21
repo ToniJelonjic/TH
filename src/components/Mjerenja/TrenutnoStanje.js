@@ -55,7 +55,7 @@ const Warehouse = () => {
         setDataExport(response.data);
         setTimeout(() => {
           document.getElementById("export").click();
-        }, 1000);
+        }, 700);
       });
   };
 
@@ -86,13 +86,10 @@ const Warehouse = () => {
 
   return (
     <div className="row devices-padding">
-      {currentItems.map((device) => {
+      {currentItems.map((device, index) => {
         if (device.idklijenta === klijentID) {
           return (
-            <div
-              key={device.id}
-              className="col-lg-3 col-md-4 col-12 device-styles"
-            >
+            <div key={index} className="col-lg-3 col-md-4 col-12 device-styles">
               <div className="">
                 <div className="row">
                   <h4 className="col-lg-10 col-md-10 col-10 device-title">
@@ -107,7 +104,7 @@ const Warehouse = () => {
                       onClick={() => exportData(device.id)}
                     />
                     <ExcelFile
-                      filename="Mjerenja"
+                      filename={`Mjerenja_${todaysDate}`}
                       element={
                         <button id="export" className="display-none">
                           Download
@@ -119,7 +116,7 @@ const Warehouse = () => {
                         <ExcelColumn
                           label="ID"
                           value="int"
-                          headerStyle={{
+                          style={{
                             font: { color: { rgb: "ffffff" } },
                             fill: {
                               patternType: "solid",

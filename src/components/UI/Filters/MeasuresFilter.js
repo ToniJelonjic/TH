@@ -17,6 +17,8 @@ const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 const MeasuresFilter = ({ params }) => {
   const [dateFrom, setDateFrom] = useState();
   const [dateTo, setDateTo] = useState();
+  const [dataExport, setDataExport] = useState([]);
+  const [errMsg, setErrMsg] = useState("");
 
   const klijentID = JSON.parse(localStorage.getItem("klijentID"));
   const subtitle = "Mjerenja";
@@ -105,7 +107,12 @@ const MeasuresFilter = ({ params }) => {
       })
       .then(function (response) {
         setCurrentCondition(response.data);
+        setDataExport(response.data);
         setLoading(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+        setErrMsg("Niste odabrali nijedan uređaj.");
       });
   };
 
@@ -142,22 +149,48 @@ const MeasuresFilter = ({ params }) => {
     setDateTo(newDate);
   }, []);
 
+  const styles = {
+    header: {
+      fill: {
+        fgColor: {
+          rgb: "3461eb",
+        },
+      },
+      font: {
+        color: {
+          rgb: "ffffff",
+        },
+        sz: 14,
+        bold: true,
+      },
+    },
+  };
+
   return (
     <>
       <div className="subtitle">
         {subtitle}
         <div className="add-button-position">
-          {currentCondition.length > 0 && (
-            <ExcelFile filename="Mjerenja" element={<ButtonExport />}>
-              <ExcelSheet data={currentCondition}>
+          {dataExport.length > 0 && (
+            <ExcelFile
+              filename={`Mjerenja_${dateFrom}_${dateTo}`}
+              element={<ButtonExport />}
+            >
+              <ExcelSheet
+                headerStyle={styles.header}
+                data={dataExport}
+                name="Mjerenja report"
+              >
                 <ExcelColumn
+                  className="excel-style"
                   label="ID"
                   value="int"
-                  headerStyle={{
-                    font: { color: { rgb: "ffffff" } },
-                    fill: { patternType: "solid", fgColor: { rgb: "3461eb" } },
-                    width: { wpx: 125 },
-                  }}
+
+                  // style={{
+                  //   color: "white",
+                  //   backgroundColor: "blue",
+                  //   width: 125,
+                  // }}
                 />
                 <ExcelColumn
                   label="Loger ID"
@@ -259,31 +292,6 @@ const MeasuresFilter = ({ params }) => {
             type="date"
             className="date-input-style"
           />
-          <select
-            required="required"
-            className="select-style"
-            onChange={handleDeviceValue}
-          >
-            <option hidden defaultValue="Odaberite uređaj">
-              Odaberite uređaj
-            </option>
-            {data
-              .sort((a, b) => a.id - b.id)
-              .map((device, index) => {
-                if (device.idklijenta === klijentID) {
-                  if (
-                    groupValue === 0 ||
-                    parseInt(device.grupaid) === parseInt(groupValue)
-                  ) {
-                    return (
-                      <option value={device.id} key={index}>
-                        {device.naziv}
-                      </option>
-                    );
-                  }
-                }
-              })}
-          </select>
         </span>
         <span>
           <select className="select-style" onChange={handleGroupValue}>
@@ -316,6 +324,31 @@ const MeasuresFilter = ({ params }) => {
                 );
               }
             })}
+          </select>
+          <select
+            required="required"
+            className="select-style"
+            onChange={handleDeviceValue}
+          >
+            <option hidden defaultValue="Odaberite uređaj">
+              Odaberite uređaj
+            </option>
+            {data
+              .sort((a, b) => a.id - b.id)
+              .map((device, index) => {
+                if (device.idklijenta === klijentID) {
+                  if (
+                    groupValue === 0 ||
+                    parseInt(device.grupaid) === parseInt(groupValue)
+                  ) {
+                    return (
+                      <option value={device.id} key={index}>
+                        {device.naziv}
+                      </option>
+                    );
+                  }
+                }
+              })}
           </select>
         </span>
         <span className="span-button-style">
@@ -364,6 +397,12 @@ const MeasuresFilter = ({ params }) => {
           </tbody>
         </table>
       </div>
+      {deviceValue ? (
+        ""
+      ) : (
+        <div className={errMsg ? "errmsg" : "offscreen"}>{errMsg}</div>
+      )}
+
       <div className="paginate-div-style">
         <ReactPaginate
           breakLabel="..."

@@ -9,6 +9,42 @@
   .select-style:focus {
     border-color: #716aca;
   }
+
+  .center-itemss {
+    display: flex;
+    align-items: center;
+  }
+
+.change-status-button {
+    border: 1px solid #dddee3;
+    border-radius: 5px;
+    color: black;
+    cursor: pointer;
+    padding: 1px 2px 1px 2px;
+    width: 85px;
+}
+
+.aktiviraj {
+    color: #00c5dc;
+    font-weight: 500;
+}
+
+.deaktiviraj {
+    color: #f4516c;
+    font-weight: 500;
+}
+
+.deaktiviraj:hover {
+    background-color: #f4516c;
+    color: white;
+    transition: 0.3s ease;
+}
+
+.aktiviraj:hover {
+    background-color: #00c5dc;
+    color: white;
+    transition: 0.3s ease;
+}
   
   .groups-select-style {
     background-color: white;

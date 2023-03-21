@@ -10,7 +10,7 @@ const Podnaslov = ({ subtitle }) => {
         {subtitle === "Grupe" ||
         subtitle === "Podgrupe" ||
         subtitle === "Zaposlenici" ||
-        subtitle === "Korisnički računi" ||
+        subtitle === "Korisnici" ||
         subtitle === "Klijenti" ||
         subtitle === "Uređaji" ? (
           <ButtonAdd />

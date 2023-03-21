@@ -45,18 +45,18 @@ const VanOpsega = ({ params }) => {
         <table className="table-width">
           <tbody>
             <tr className="border-bottom">
-              {params.map((parameter) => {
+              {params.map((parameter, index) => {
                 return (
-                  <th className="th-desc-style" key={parameter.toString()}>
+                  <th className="th-desc-style" key={index}>
                     {parameter}
                   </th>
                 );
               })}
             </tr>
 
-            {currentItems.map((loger) => {
+            {currentItems.map((loger, index) => {
               return (
-                <tr key={loger.id} className="border-bottom">
+                <tr key={index} className="border-bottom">
                   <td className="table-measure-data-name">{loger.loger}</td>
                   <td className="table-measure-data">
                     {loger.vrijeme.slice(0, 11).replace("T", " ")}

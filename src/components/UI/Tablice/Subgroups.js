@@ -15,7 +15,7 @@ const Subgroups = ({ rows }) => {
           <tr className="tr-style">
             {rows.map((row) => {
               return (
-                <th key={row} className="thead-style">
+                <th key={row} className="thead-style-header">
                   {row}
                 </th>
               );
@@ -26,9 +26,9 @@ const Subgroups = ({ rows }) => {
             if (item.klijentId === klijentID) {
               return (
                 <tr key={item.id} id={item.id} className="tr-style">
-                  <td className="thead-style">{item.naziv}</td>
-                  <td className="thead-style">{item.grupa}</td>
-                  <td className="thead-style">
+                  <td className="thead-style-content">{item.naziv}</td>
+                  <td className="thead-style-content">{item.grupa}</td>
+                  <td className="thead-style-content">
                     <Link to={`/podgrupe/uredi/${item.id}`}>
                       <FontAwesomeIcon
                         title="Uredi"
