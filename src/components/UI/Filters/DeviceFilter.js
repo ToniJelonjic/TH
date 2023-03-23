@@ -149,24 +149,24 @@ const DeviceFilter = ({ params }) => {
     .map((item) => {
       if (item.idklijenta === klijentID) {
         return (
-          <tr key={item.id}>
-            <td className="device-table-info">{item.naziv}</td>
-            <td className="device-table-info font">{item.klijent}</td>
-            <td className="device-table-info font">{item.email1}</td>
-            <td className="device-table-info font">{item.email2}</td>
-            <td className="device-table-info font">{item.tmin}</td>
-            <td className="device-table-info font">{item.tmax}</td>
-            <td className="device-table-info font">{item.hmin}</td>
-            <td className="device-table-info font">{item.hmax}</td>
+          <tr className="tr-style" key={item.id}>
+            <td className="thead-style-content">{item.naziv}</td>
+            <td className="thead-style-content">{item.klijent}</td>
+            <td className="thead-style-content">{item.email1}</td>
+            <td className="thead-style-content">{item.email2}</td>
+            <td className="thead-style-content">{item.tmin}</td>
+            <td className="thead-style-content">{item.tmax}</td>
+            <td className="thead-style-content">{item.hmin}</td>
+            <td className="thead-style-content">{item.hmax}</td>
 
             <td
-              className={`device-table-info font ${
+              className={`thead-style-content ${
                 item.active ? "active-user" : "non-active-user"
               }`}
             >
               {item.active ? "Aktivan" : "Neaktivan"}
             </td>
-            <td className="thead-style">
+            <td className="thead-style-content">
               <div className="center-items">
                 <button
                   title="Promijeni status"
@@ -182,11 +182,6 @@ const DeviceFilter = ({ params }) => {
                 </button>
 
                 <Link to={`/uređaji/uredi/${item.id}`}>
-                  {/* <FontAwesomeIcon
-                    title="Uredi"
-                    className="actions-icon"
-                    icon={faEdit}
-                  /> */}
                   <button title="Uredi" className="edit-button">
                     Uredi
                   </button>
@@ -202,24 +197,24 @@ const DeviceFilter = ({ params }) => {
     .sort((a, b) => a.id - b.id)
     .map((item) => {
       return (
-        <tr key={item.id}>
-          <td className="device-table-info">{item.naziv}</td>
-          <td className="device-table-info font">{item.klijent}</td>
-          <td className="device-table-info font">{item.email1}</td>
-          <td className="device-table-info font">{item.email2}</td>
-          <td className="device-table-info font">{item.tmin}</td>
-          <td className="device-table-info font">{item.tmax}</td>
-          <td className="device-table-info font">{item.hmin}</td>
-          <td className="device-table-info font">{item.hmax}</td>
+        <tr className="tr-style" key={item.id}>
+          <td className="thead-style-content">{item.naziv}</td>
+          <td className="thead-style-content">{item.klijent}</td>
+          <td className="thead-style-content">{item.email1}</td>
+          <td className="thead-style-content">{item.email2}</td>
+          <td className="thead-style-content">{item.tmin}</td>
+          <td className="thead-style-content">{item.tmax}</td>
+          <td className="thead-style-content">{item.hmin}</td>
+          <td className="thead-style-content">{item.hmax}</td>
 
           <td
-            className={`device-table-info font ${
+            className={`thead-style-content ${
               item.active ? "active-user" : "non-active-user"
             }`}
           >
             {item.active ? "Aktivan" : "Neaktivan"}
           </td>
-          <td className="thead-style">
+          <td className="thead-style-content">
             <div className="center-items">
               <button
                 title="Promijeni status"
@@ -235,11 +230,9 @@ const DeviceFilter = ({ params }) => {
               </button>
 
               <Link to={`/uređaji/uredi/${item.id}`}>
-                <FontAwesomeIcon
-                  title="Uredi"
-                  className="actions-icon"
-                  icon={faEdit}
-                />
+                <button title="Uredi" className="edit-button">
+                  Uredi
+                </button>
               </Link>
             </div>
           </td>
@@ -329,10 +322,10 @@ const DeviceFilter = ({ params }) => {
       <div className="table-style">
         <table className="content-style">
           <tbody>
-            <tr>
+            <tr className="tr-style">
               {params.map((parameter) => {
                 return (
-                  <td className="device-table-info" key={parameter}>
+                  <td className="thead-style-content" key={parameter}>
                     {parameter}
                   </td>
                 );

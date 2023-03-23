@@ -1,11 +1,10 @@
 .button-export-style {
     cursor: pointer;
-    background-color: #00c5dc;
-    border-color: #00c5dc;
+    background-color: #716aca;
+    border-color: #716aca;
     color: #fff;
     height: 40px;
     border-radius: 60px;
-    box-shadow: 0 5px 10px 2px rgba(0,197,220,.19)!important;
     font-family: 'Poppins';
     font-size: 13px;
     font-weight: 400;
@@ -15,6 +14,5 @@
 }
 
 .button-export-style:hover {
-    background-color: #00a3b6;
-    border-color: #0097a9;
+    background-color: #564ec0; 
 }

@@ -30,11 +30,24 @@ const ActivityFilter = ({ params }) => {
     setSubGroupValue(e.target.value);
   };
 
-  const getCurrentCondition = async () => {
+  const adminGetCurrentCondition = async () => {
     await axios
       .get(ProvjeraMjerenjaLink, {
         params: {
           klijentID: klijentID,
+          grupaID: parseInt(groupValue),
+          podgrupaID: parseInt(subGroupValue),
+        },
+      })
+      .then(function (response) {
+        setCurrentCondition(response.data);
+      });
+  };
+
+  const superadminGetCurrentCondition = async () => {
+    await axios
+      .get(ProvjeraMjerenjaLink, {
+        params: {
           grupaID: parseInt(groupValue),
           podgrupaID: parseInt(subGroupValue),
         },
@@ -55,9 +68,17 @@ const ActivityFilter = ({ params }) => {
   };
 
   useEffect(() => {
-    getGroups();
-    getSubGroups();
-    getCurrentCondition();
+    if (role !== 3) {
+      getGroups();
+      getSubGroups();
+      adminGetCurrentCondition();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (role === 3) {
+      superadminGetCurrentCondition();
+    }
   }, []);
 
   useEffect(() => {
@@ -180,7 +201,7 @@ const ActivityFilter = ({ params }) => {
             </select>
           </span>
           <span className="span-button-style">
-            <button onClick={getCurrentCondition} className="button-style">
+            <button onClick={adminGetCurrentCondition} className="button-style">
               Pretraži
             </button>
           </span>

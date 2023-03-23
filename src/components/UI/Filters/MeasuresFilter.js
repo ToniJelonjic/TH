@@ -360,10 +360,10 @@ const MeasuresFilter = ({ params }) => {
       <div className="table-style">
         <table className="content-style">
           <tbody>
-            <tr>
+            <tr className="tr-style">
               {params.map((parameter, index) => {
                 return (
-                  <td className="device-table-info" key={index}>
+                  <td className="thead-style-content" key={index}>
                     {parameter}
                   </td>
                 );
@@ -375,18 +375,18 @@ const MeasuresFilter = ({ params }) => {
               ) : (
                 currentItems.map((item, index) => {
                   return (
-                    <tr key={index}>
-                      <td className="device-table-info">
+                    <tr className="tr-style" key={index}>
+                      <td className="thead-style-content">
                         {item.vrijeme.slice(0, 11).replace("T", " ")}
                         {item.vrijeme.slice(11, 19)}
                       </td>
-                      <td className="device-table-info font">{item.loger}</td>
-                      <td className="device-table-info font">{item.t}</td>
-                      <td className="device-table-info font">{item.h}</td>
-                      <td className="device-table-info font">{item.tmin}</td>
-                      <td className="device-table-info font">{item.tmax}</td>
-                      <td className="device-table-info font">{item.hmin}</td>
-                      <td className="device-table-info font">{item.hmax}</td>
+                      <td className="thead-style-content">{item.loger}</td>
+                      <td className="thead-style-content">{item.t}</td>
+                      <td className="thead-style-content">{item.h}</td>
+                      <td className="thead-style-content">{item.tmin}</td>
+                      <td className="thead-style-content">{item.tmax}</td>
+                      <td className="thead-style-content">{item.hmin}</td>
+                      <td className="thead-style-content">{item.hmax}</td>
                     </tr>
                   );
                 })

@@ -50,6 +50,10 @@ nav a.active {
     color: white !important;
 }
 
+nav a.active .icons-style {
+    color: white !important;
+}
+
 .icons-style {
     color: #868aa8 !important;
     margin-right: 15px;
