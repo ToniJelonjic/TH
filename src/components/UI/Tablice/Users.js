@@ -79,11 +79,9 @@ const Users = ({ rows }) => {
                         {item.active ? "Deaktiviraj" : "Aktiviraj"}
                       </button>
                       <Link to={`/korisnici/uredi/${item.id}`}>
-                        <FontAwesomeIcon
-                          title="Uredi"
-                          className="actions-icon"
-                          icon={faEdit}
-                        />
+                        <button title="Uredi" className="edit-button">
+                          Uredi
+                        </button>
                       </Link>
                     </div>
                   </td>

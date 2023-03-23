@@ -46,12 +46,17 @@
 }
 
 nav a.active {
-    background-color: #db1430 !important;
+    background-color: #f12742 !important;
     color: white !important;
 }
 
 .icons-style {
     color: #868aa8 !important;
+    margin-right: 15px;
+}
+
+.icons-style-active {
+    color: #fff !important;
     margin-right: 15px;
 }
 

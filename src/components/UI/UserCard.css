@@ -1,14 +1,14 @@
 .user-card-style {
   background-color: rgb(244, 244, 244);
   width: 250px;
-  height: 70px;
+  height: 85px;
   position: fixed;
   top: 70px;
   right: 0px;
   z-index: 100;
   display: flex;
   align-items: center;
-  border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 10px;
   transition: transform 0.2s ease-in;
 }
 
@@ -35,14 +35,15 @@
 .profile-button-style {
   width: 100%;
   border-radius: 15px;
-  border: 1px solid #dddee3;
-  background-color: #e4e5ea;
+  border: 1px solid #716aca;
+  background-color: #716aca;
   cursor: pointer;
   padding: 10px;
+  color: #fff;
 }
 
 .profile-button-style:hover {
-  background-color: #dadde7;
+  background-color: #564ec0;
 }
 
 .link-profile-style {
@@ -58,12 +59,13 @@
 .logout-button-style {
   width: 100%;
   border-radius: 15px;
-  background-color: #e4e5ea;
-  border: 1px solid #dddee3;
+  background-color: #716aca;
+    border-color: #716aca;
+    color: #fff;
   cursor: pointer;
   padding: 10px;
 }
 
 .logout-button-style:hover {
-  background-color: #dadde7;
+  background-color: #564ec0;
 }

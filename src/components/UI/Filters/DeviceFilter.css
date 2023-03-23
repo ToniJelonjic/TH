@@ -24,6 +24,21 @@
     width: 85px;
 }
 
+.edit-button {
+  border: 1px solid #716aca;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #716aca;
+  cursor: pointer;
+  padding: 1px 2px 1px 2px;
+  width: 65px;
+  margin-left: 5px;
+}
+
+.edit-button:hover {
+  background-color: #564ec0;
+}
+
 .aktiviraj {
     color: #00c5dc;
     font-weight: 500;
@@ -76,6 +91,7 @@
         height: 40px;
         width: 80px;
         margin-left: 10px;
+        border-radius: 5px;
     }
     
     .span-button-style {

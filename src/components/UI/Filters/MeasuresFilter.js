@@ -407,12 +407,12 @@ const MeasuresFilter = ({ params }) => {
         <ReactPaginate
           breakLabel="..."
           breakClassName="page-num"
-          nextLabel="Next"
+          nextLabel="Sljedeća"
           onPageChange={handlePageClick}
           pageRangeDisplayed={2}
           marginPagesDisplayed={1}
           pageCount={pageCount}
-          previousLabel="Previous"
+          previousLabel="Prethodna"
           renderOnZeroPageCount={null}
           containerClassName="pagination"
           pageLinkClassName="page-num"

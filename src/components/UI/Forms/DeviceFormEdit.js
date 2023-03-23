@@ -32,13 +32,13 @@ const DeviceFormEdit = () => {
   const [maxH, setMaxH] = useState("");
   const [deviceCode, setDeviceCode] = useState("");
   const [users, setUsers] = useState([]);
-  const [groupValue, setGroupValue] = useState(0);
-  const [subGroupValue, setSubGroupValue] = useState(0);
-  const [groupId, setGroupId] = useState();
-  const [subgroupId, setSubgroupId] = useState();
+  //const [groupValue, setGroupValue] = useState(0);
+  //const [subGroupValue, setSubGroupValue] = useState(0);
+  const [groupId, setGroupId] = useState(0);
+  const [subgroupId, setSubgroupId] = useState(0);
   const [status, setStatus] = useState();
   const [active, setActive] = useState();
-  const [klijentID, setKlijentID] = useState();
+  const klijentID = JSON.parse(localStorage.getItem("klijentID"));
 
   const subtitle = "Uredi uređaj";
 
@@ -76,6 +76,7 @@ const DeviceFormEdit = () => {
 
   const handleSubgroupId = (e) => {
     setSubgroupId(e.target.value);
+    console.log(e.target.value, "subgr");
   };
 
   const navigateBack = () => {
@@ -87,8 +88,8 @@ const DeviceFormEdit = () => {
       .get(logeriGetAllLink, {
         params: {
           klijentID: klijentID,
-          grupaID: groupValue,
-          podgrupaID: subGroupValue,
+          grupaID: groupId,
+          podgrupaID: subgroupId,
         },
       })
       .then(function (response) {
@@ -135,13 +136,15 @@ const DeviceFormEdit = () => {
     getGroups();
     getSubgroups();
     getData();
-    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
   }, []);
 
   useEffect(() => {
-    const filteredSubgroups = subgroups.filter(
-      (subGroup) => parseInt(subGroup.grupaId) === parseInt(groupId)
-    );
+    const filteredSubgroups = subgroups.filter((subGroup) => {
+      if (parseInt(subGroup.grupaId) === parseInt(groupId)) {
+        setSubgroupId(subGroup.id);
+        return subGroup;
+      }
+    });
     setFilteredSubgroups(filteredSubgroups);
   }, [groupId]);
 
@@ -231,11 +234,7 @@ const DeviceFormEdit = () => {
               Podgrupa:
             </label>
             <div className="col-lg-6 col-md-6 col-10">
-              <select
-                className="elements-input"
-                onChange={handleSubgroupId}
-                value={subgroupId}
-              >
+              <select className="elements-input" onChange={handleSubgroupId}>
                 {filteredSubgroups.map((subGroup) => {
                   return (
                     <option key={subGroup.id} value={subGroup.id}>

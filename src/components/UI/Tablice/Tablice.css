@@ -1,6 +1,6 @@
 .thead-style-content {
     border: 2px solid #f4f5f8;
-    padding-left: 5px;
+    padding: 3px 0px 3px 5px;
     text-align: l;
     color: #575962;
     font-weight: 500;
@@ -22,6 +22,25 @@
     width: 100%;
     margin-left: 10px;
     padding: 50px 20px 20px 20px;
+}
+
+.edit-button {
+    border: 1px solid #716aca;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #716aca;
+    cursor: pointer;
+    padding: 1px 2px 1px 2px;
+    width: 65px;
+    margin-left: 5px;
+  }
+  
+  .edit-button:hover {
+    background-color: #564ec0;
+  }
+
+.tr-style:hover {
+    background-color: #ebecf1;
 }
 
 .users-table-style {
@@ -82,6 +101,7 @@ table {
 }
 
 .actions-icon {
+    margin-left: 5px;
     background: 0 0;
     padding: 10px;
     border-radius: 20px;

@@ -29,11 +29,9 @@ const Groups = ({ rows }) => {
                   <td className="thead-style-content">{item.naziv}</td>
                   <td className="thead-style-content">
                     <Link to={`/grupe/uredi/${item.id}`}>
-                      <FontAwesomeIcon
-                        title="Uredi"
-                        className="actions-icon"
-                        icon={faEdit}
-                      />
+                      <button title="Uredi" className="edit-button">
+                        Uredi
+                      </button>
                     </Link>
                   </td>
                 </tr>

@@ -9,7 +9,7 @@ const getPodgrupeLink = "/podgrupe/GetAll";
 
 const ActivityFilter = ({ params }) => {
   const role = JSON.parse(localStorage.getItem("role"));
-  const [klijentID, setKlijentID] = useState();
+  const klijentID = JSON.parse(localStorage.getItem("klijentID"));
   const [groupValue, setGroupValue] = useState(0);
   const [subGroupValue, setSubGroupValue] = useState(0);
   const [subGroups, setSubGroups] = useState([]);
@@ -58,7 +58,6 @@ const ActivityFilter = ({ params }) => {
     getGroups();
     getSubGroups();
     getCurrentCondition();
-    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
   }, []);
 
   useEffect(() => {
@@ -206,12 +205,12 @@ const ActivityFilter = ({ params }) => {
         <ReactPaginate
           breakLabel="..."
           breakClassName="page-num"
-          nextLabel="Next"
+          nextLabel="Sljedeća"
           onPageChange={handlePageClick}
           pageRangeDisplayed={2}
           marginPagesDisplayed={1}
           pageCount={pageCount}
-          previousLabel="Previous"
+          previousLabel="Prethodna"
           renderOnZeroPageCount={null}
           containerClassName="pagination"
           pageLinkClassName="page-num"

@@ -18,7 +18,7 @@ const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 const Warehouse = () => {
-  const [klijentID, setKlijentID] = useState();
+  const klijentID = JSON.parse(localStorage.getItem("klijentID"));
   const [todaysDate, setTodaysDate] = useState();
   const [groupValue, setGroupValue] = useState(0);
   const [subGroupValue, setSubGroupValue] = useState(0);
@@ -60,7 +60,7 @@ const Warehouse = () => {
   };
 
   useEffect(() => {
-    setKlijentID(JSON.parse(localStorage.getItem("klijentID")));
+    getCurrentCondition();
     const inputDate = new Date().toDateString();
     const dateParts = inputDate.split("-");
     const dateObj = new Date(`${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`);
@@ -73,7 +73,6 @@ const Warehouse = () => {
   }, []);
 
   useEffect(() => {
-    getCurrentCondition();
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(currentCondition.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(currentCondition.length / itemsPerPage));
@@ -289,12 +288,12 @@ const Warehouse = () => {
         <ReactPaginate
           breakLabel="..."
           breakClassName="page-num"
-          nextLabel="Next"
+          nextLabel="Sljedeća"
           onPageChange={handlePageClick}
           pageRangeDisplayed={2}
           marginPagesDisplayed={1}
           pageCount={pageCount}
-          previousLabel="Previous"
+          previousLabel="Prethodna"
           renderOnZeroPageCount={null}
           containerClassName="pagination"
           pageLinkClassName="page-num"

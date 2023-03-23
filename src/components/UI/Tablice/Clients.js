@@ -75,11 +75,9 @@ const Clients = ({ rows }) => {
                       {item.active ? "Deaktiviraj" : "Aktiviraj"}
                     </button>
                     <Link to={`/klijenti/uredi/${item.id}`}>
-                      <FontAwesomeIcon
-                        title="Uredi"
-                        className="actions-icon"
-                        icon={faEdit}
-                      />
+                      <button title="Uredi" className="edit-button">
+                        Uredi
+                      </button>
                     </Link>
                   </div>
                 </td>
