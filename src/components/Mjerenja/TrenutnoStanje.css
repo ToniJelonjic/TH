@@ -5,9 +5,13 @@
     padding: 15px !important;
 }
 
+.device-styles:hover {
+    background-color: #eff1f5;
+}
+
 .t-style {
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
     margin: 15px 30px;
     text-align: center;
 }
@@ -34,7 +38,7 @@
 }
 
 .download-icon-style:hover {
-    background-color: #eff1f5;
+    background-color: #d3d6dc;
     transition: 0.3s ease;
 }
 

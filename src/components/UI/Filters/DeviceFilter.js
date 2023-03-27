@@ -242,90 +242,93 @@ const DeviceFilter = ({ params }) => {
 
   return (
     <>
-      {role !== 3 ? (
-        <div className="select-div">
-          <span>
-            <select
-              className="select-style"
-              onChange={handleGroupValue}
-              value={groupValue}
-            >
-              <option hidden defaultValue="Odaberite grupu">
-                Odaberite grupu
-              </option>
-              {groups.map((group) => {
-                if (parseInt(group.klijentId) === parseInt(klijentID)) {
-                  return (
-                    <option value={group.id} key={group.id}>
-                      {group.naziv}
-                    </option>
-                  );
-                }
-              })}
-            </select>
-            <select
-              className="select-style"
-              onChange={handleSubGroupValue}
-              value={subGroupValue}
-            >
-              <option hidden defaultValue="Odaberite podgrupu">
-                Odaberite podgrupu
-              </option>
-              {subGroups.map((subGroup) => {
-                if (
-                  subGroup.klijentId === klijentID &&
-                  groupValue === subGroup.grupaId.toString()
-                ) {
-                  return (
-                    <option value={subGroup.id} key={subGroup.id}>
-                      {subGroup.naziv}
-                    </option>
-                  );
-                }
-              })}
-            </select>
-          </span>
-          <span className="span-button-style">
-            <button onClick={adminGetCurrentCondition} className="button-style">
-              Pretraži
-            </button>
-          </span>
-        </div>
-      ) : (
-        <div className="select-div">
-          <span>
-            <select className="select-style" onChange={handleClient}>
-              <option hidden defaultValue="Odaberite klijenta">
-                Odaberite klijenta
-              </option>
-              {clients.map((client) => {
-                if (client.active) {
-                  return (
-                    <option value={client.id} key={client.id}>
-                      {client.naziv}
-                    </option>
-                  );
-                }
-              })}
-            </select>
-          </span>
-          <span className="span-button-style">
-            <button
-              onClick={superadminGetCurrentCondition}
-              className="button-style"
-            >
-              Pretraži
-            </button>
-          </span>
-        </div>
-      )}
-      <div className="table-style">
+      <div className="params-style">
+        {role !== 3 ? (
+          <div className="select-div">
+            <span>
+              <select
+                className="select-style"
+                onChange={handleGroupValue}
+                value={groupValue}
+              >
+                <option hidden defaultValue="Odaberite grupu">
+                  Odaberite grupu
+                </option>
+                {groups.map((group) => {
+                  if (parseInt(group.klijentId) === parseInt(klijentID)) {
+                    return (
+                      <option value={group.id} key={group.id}>
+                        {group.naziv}
+                      </option>
+                    );
+                  }
+                })}
+              </select>
+              <select
+                className="select-style"
+                onChange={handleSubGroupValue}
+                value={subGroupValue}
+              >
+                <option hidden defaultValue="Odaberite podgrupu">
+                  Odaberite podgrupu
+                </option>
+                {subGroups.map((subGroup) => {
+                  if (
+                    subGroup.klijentId === klijentID &&
+                    groupValue === subGroup.grupaId.toString()
+                  ) {
+                    return (
+                      <option value={subGroup.id} key={subGroup.id}>
+                        {subGroup.naziv}
+                      </option>
+                    );
+                  }
+                })}
+              </select>
+            </span>
+            <span className="span-button-style">
+              <button
+                onClick={adminGetCurrentCondition}
+                className="button-style"
+              >
+                Pretraži
+              </button>
+            </span>
+          </div>
+        ) : (
+          <div className="select-div">
+            <span>
+              <select className="select-style" onChange={handleClient}>
+                <option hidden defaultValue="Odaberite klijenta">
+                  Odaberite klijenta
+                </option>
+                {clients.map((client) => {
+                  if (client.active) {
+                    return (
+                      <option value={client.id} key={client.id}>
+                        {client.naziv}
+                      </option>
+                    );
+                  }
+                })}
+              </select>
+            </span>
+            <span className="span-button-style">
+              <button
+                onClick={superadminGetCurrentCondition}
+                className="button-style"
+              >
+                Pretraži
+              </button>
+            </span>
+          </div>
+        )}
         <table className="content-style">
           <tbody>
             <tr className="tr-style">
               {params.map((parameter) => {
                 return (
-                  <td className="thead-style-content" key={parameter}>
+                  <td className="thead-style-header" key={parameter}>
                     {parameter}
                   </td>
                 );
@@ -334,24 +337,24 @@ const DeviceFilter = ({ params }) => {
             {role === 3 ? superAdminItems : adminItems}
           </tbody>
         </table>
-      </div>
-      <div className="paginate-div-style">
-        <ReactPaginate
-          breakLabel="..."
-          breakClassName="page-num"
-          nextLabel="Sljedeća"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={2}
-          marginPagesDisplayed={1}
-          pageCount={pageCount}
-          previousLabel="Prethodna"
-          renderOnZeroPageCount={null}
-          containerClassName="pagination"
-          pageLinkClassName="page-num"
-          previousLinkClassName="page-num"
-          nextLinkClassName="page-num"
-          activeLinkClassName="active-page"
-        />
+        <div className="paginate-div-style">
+          <ReactPaginate
+            breakLabel="..."
+            breakClassName="page-num"
+            nextLabel="Sljedeća"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={2}
+            marginPagesDisplayed={1}
+            pageCount={pageCount}
+            previousLabel="Prethodna"
+            renderOnZeroPageCount={null}
+            containerClassName="pagination"
+            pageLinkClassName="page-num"
+            previousLinkClassName="page-num"
+            nextLinkClassName="page-num"
+            activeLinkClassName="active-page"
+          />
+        </div>
       </div>
     </>
   );

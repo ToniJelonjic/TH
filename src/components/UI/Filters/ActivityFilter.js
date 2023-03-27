@@ -99,11 +99,11 @@ const ActivityFilter = ({ params }) => {
           key={loger.id}
           className={`border-bottom ${loger.valid ? "" : "activity-valid"}`}
         >
-          <td className="table-measure-data-name">
+          <td className="thead-style-content">
             <div className="table-activity-data-name">{loger.naziv}</div>
             <div className="manufactor-label">{loger.klijent}</div>
           </td>
-          <td className="table-measure-data">
+          <td className="thead-style-content">
             {loger.vrijemeMjerenja == null ? (
               ""
             ) : (
@@ -113,10 +113,10 @@ const ActivityFilter = ({ params }) => {
               </>
             )}
           </td>
-          <td className="table-measure-data">{loger.tmin}</td>
-          <td className="table-measure-data">{loger.tmax}</td>
-          <td className="table-measure-data">{loger.hmin}</td>
-          <td className="table-measure-data">{loger.hmax}</td>
+          <td className="thead-style-content">{loger.tmin}</td>
+          <td className="thead-style-content">{loger.tmax}</td>
+          <td className="thead-style-content">{loger.hmin}</td>
+          <td className="thead-style-content">{loger.hmax}</td>
         </tr>
       );
   });
@@ -133,11 +133,11 @@ const ActivityFilter = ({ params }) => {
             : ""
         }
       >
-        <td className="table-measure-data-name">
+        <td className="thead-style-content">
           <div className="table-activity-data-name">{loger.naziv}</div>
           <div className="manufactor-label">{loger.klijent}</div>
         </td>
-        <td className="table-measure-data">
+        <td className="thead-style-content">
           {loger.vrijemeMjerenja == null ? (
             ""
           ) : (
@@ -147,10 +147,10 @@ const ActivityFilter = ({ params }) => {
             </>
           )}
         </td>
-        <td className="table-measure-data">{loger.tmin}</td>
-        <td className="table-measure-data">{loger.tmax}</td>
-        <td className="table-measure-data">{loger.hmin}</td>
-        <td className="table-measure-data">{loger.hmax}</td>
+        <td className="thead-style-content">{loger.tmin}</td>
+        <td className="thead-style-content">{loger.tmax}</td>
+        <td className="thead-style-content">{loger.hmin}</td>
+        <td className="thead-style-content">{loger.hmax}</td>
       </tr>
     );
   });
@@ -212,7 +212,7 @@ const ActivityFilter = ({ params }) => {
           <tr className="border-bottom">
             {params.map((parameter, index) => {
               return (
-                <th className="th-desc-style" key={index}>
+                <th className="thead-style-header" key={index}>
                   {parameter}
                 </th>
               );

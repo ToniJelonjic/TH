@@ -12,11 +12,11 @@ const Mjerenja = () => {
     "Vrijeme",
     "Uređaj",
     "Temperatura",
+    "Min. temperatura",
+    "Maks. temperatura",
     "Vlažnost",
-    "Minimalna temperatura",
-    "Maksimalna temperatura",
-    "Minimalna vlažnost",
-    "Maksimalna vlažnost",
+    "Min. vlažnost",
+    "Maks. vlažnost",
   ];
 
   return (

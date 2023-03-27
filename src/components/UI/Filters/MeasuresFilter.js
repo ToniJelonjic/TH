@@ -357,13 +357,13 @@ const MeasuresFilter = ({ params }) => {
           </button>
         </span>
       </div>
-      <div className="table-style">
-        <table className="content-style">
+      <div className="params-style">
+        <table className="content-style table-width">
           <tbody>
             <tr className="tr-style">
               {params.map((parameter, index) => {
                 return (
-                  <td className="thead-style-content" key={index}>
+                  <td className="thead-style-header" key={index}>
                     {parameter}
                   </td>
                 );
@@ -382,9 +382,9 @@ const MeasuresFilter = ({ params }) => {
                       </td>
                       <td className="thead-style-content">{item.loger}</td>
                       <td className="thead-style-content">{item.t}</td>
-                      <td className="thead-style-content">{item.h}</td>
                       <td className="thead-style-content">{item.tmin}</td>
                       <td className="thead-style-content">{item.tmax}</td>
+                      <td className="thead-style-content">{item.h}</td>
                       <td className="thead-style-content">{item.hmin}</td>
                       <td className="thead-style-content">{item.hmax}</td>
                     </tr>

@@ -46,7 +46,7 @@ const VanOpsega = ({ params }) => {
             <tr className="border-bottom">
               {params.map((parameter, index) => {
                 return (
-                  <th className="th-desc-style" key={index}>
+                  <th className="thead-style-header" key={index}>
                     {parameter}
                   </th>
                 );
@@ -56,29 +56,29 @@ const VanOpsega = ({ params }) => {
             {currentItems.map((loger, index) => {
               return (
                 <tr key={index} className="border-bottom">
-                  <td className="table-measure-data-name">{loger.loger}</td>
-                  <td className="table-measure-data">
+                  <td className="thead-style-content">{loger.loger}</td>
+                  <td className="thead-style-content">
                     {loger.vrijeme.slice(0, 11).replace("T", " ")}
                     {loger.vrijeme.slice(11, 19)}
                   </td>
                   <td
-                    className={`table-measure-data ${
+                    className={`thead-style-content ${
                       !loger.validTMin || !loger.validTMax ? "out-of-range" : ""
                     }`}
                   >
                     {loger.t}
                   </td>
-                  <td className="table-measure-data">{loger.tmin}</td>
-                  <td className="table-measure-data">{loger.tmax}</td>
+                  <td className="thead-style-content">{loger.tmin}</td>
+                  <td className="thead-style-content">{loger.tmax}</td>
                   <td
-                    className={`table-measure-data ${
+                    className={`thead-style-content ${
                       !loger.validHMin || !loger.validHMax ? "out-of-range" : ""
                     }`}
                   >
                     {loger.h}
                   </td>
-                  <td className="table-measure-data">{loger.hmin}</td>
-                  <td className="table-measure-data">{loger.hmax}</td>
+                  <td className="thead-style-content">{loger.hmin}</td>
+                  <td className="thead-style-content">{loger.hmax}</td>
                 </tr>
               );
             })}

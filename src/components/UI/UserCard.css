@@ -1,15 +1,30 @@
 .user-card-style {
   background-color: rgb(244, 244, 244);
-  width: 250px;
-  height: 85px;
+  width: 320px;
+  height: 130px;
   position: fixed;
-  top: 70px;
-  right: 0px;
+  top: 65px;
+  right: 10px;
   z-index: 100;
   display: flex;
   align-items: center;
-  border-bottom-left-radius: 10px;
+  border-radius: 10px;
   transition: transform 0.2s ease-in;
+}
+
+.logout-icon-style {
+    border-radius: 5px;
+    color: gray;
+    height: 40px;
+    width: 40px;
+}
+
+.img-padding {
+  padding-left: 10px;
+}
+
+.username-padding {
+  padding-left: 10px;
 }
 
 .none {
@@ -17,15 +32,24 @@
 }
 
 .profile-style-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 12px 10px;
+}
+
+.profile-style-div:hover {
+  background-color: #dcdddf;
+  border-radius: 10px;
 }
 
 .logout-style-div {
   display: flex;
-  justify-content: center;
+  padding: 12px 10px;
   align-items: center;
+}
+
+.logout-style-div:hover {
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: #dcdddf;
 }
 
 .row {
@@ -50,6 +74,8 @@
   color: #212529;
   text-decoration: none;
   font-size: 14px;
+  align-items: center;
+    display: flex;
 }
 
 .link-profile-style:hover {

@@ -95,6 +95,7 @@ table {
 .pagination .page-num:hover {
   background-color: #716aca;
   color: #fff;
+  transition: 0.3s ease;
 }
 
 .pagination .active-page {
