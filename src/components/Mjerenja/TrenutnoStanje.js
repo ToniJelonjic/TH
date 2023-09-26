@@ -5,10 +5,13 @@ import badT from "../../images/badT.png";
 import goodH from "../../images/goodH.png";
 import badH from "../../images/badH.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faFileCsv } from "@fortawesome/free-solid-svg-icons";
+import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from "react-paginate";
 import axios from "../../api/axios";
 import ReactExport from "react-data-export";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const logeriTrenutnoStanjeLink = "/logeri/TrenutnoStanje";
 const measuresFilterLink = "/mjerenja/GetAll";
@@ -40,7 +43,7 @@ const Warehouse = () => {
       });
   };
 
-  const exportData = async (id) => {
+  const exportCSVData = async (id) => {
     await axios
       .get(measuresFilterLink, {
         params: {
@@ -54,7 +57,26 @@ const Warehouse = () => {
       .then(function (response) {
         setDataExport(response.data);
         setTimeout(() => {
-          document.getElementById("export").click();
+          document.getElementById("csv").click();
+        }, 700);
+      });
+  };
+
+  const exportPDFData = async (id) => {
+    await axios
+      .get(measuresFilterLink, {
+        params: {
+          datumOd: todaysDate,
+          datumDo: todaysDate,
+          logerID: id,
+          grupaID: groupValue,
+          podgrupaID: subGroupValue,
+        },
+      })
+      .then(function (response) {
+        setDataExport(response.data);
+        setTimeout(() => {
+          document.getElementById("pdf").click();
         }, 700);
       });
   };
@@ -83,29 +105,91 @@ const Warehouse = () => {
     setItemOffset(newOffset);
   };
 
+  const PDFexport = async () => {
+    const doc = new jsPDF({ orientation: "landscape" });
+
+    doc.autoTable({
+      html: "#my-table",
+    });
+    doc.save(`Mjerenja_${todaysDate}`);
+  };
+
   return (
     <div className="row devices-padding">
+      <table className="table table-bordered display-none" id="my-table">
+        <thead style={{ background: "yellow" }}>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Loger ID</th>
+            <th scope="col">Uredjaj</th>
+            <th scope="col">Vrijeme</th>
+            <th scope="col">Temperatura</th>
+            <th scope="col">Minimalna temperatura</th>
+            <th scope="col">Maksimalna temperatura</th>
+            <th scope="col">Vlažnost</th>
+            <th scope="col">Minimalna vlažnost</th>
+            <th scope="col">Maksimalna vlažnost</th>
+          </tr>
+        </thead>
+        <tbody>
+          {dataExport &&
+            dataExport.map((item) => {
+              return (
+                <tr key={item.int}>
+                  <td>{item.int}</td>
+                  <td>{item.idlogera}</td>
+                  <td>{item.loger}</td>
+                  <td>
+                    {item.vrijeme.slice(0, 11).replace("T", " ")}
+                    {item.vrijeme.slice(11, 19)}
+                  </td>
+                  <td>{item.t}</td>
+                  <td>{item.tmin}</td>
+                  <td>{item.tmax}</td>
+                  <td>{item.h}</td>
+                  <td>{item.hmin}</td>
+                  <td>{item.hmax}</td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </table>
       {currentItems.map((device, index) => {
         if (device.idklijenta === klijentID) {
           return (
             <div key={index} className="col-lg-3 col-md-4 col-12 device-styles">
               <div className="">
                 <div className="row">
-                  <h4 className="col-lg-10 col-md-10 col-10 device-title">
+                  <h4 className="col-lg-9 col-md-9 col-9 device-title">
                     {device.naziv}
                   </h4>
-                  <div className="col-lg-2 col-md-2 col-2 download-style">
+                  <div className="col-lg-3 col-md-3 col-3 download-style">
                     <FontAwesomeIcon
-                      title="Export u Excel"
-                      className="download-icon-style"
-                      icon={faDownload}
+                      title="Export PDF"
+                      className="download-pdf-icon-style"
                       value={device.id}
-                      onClick={() => exportData(device.id)}
+                      icon={faFilePdf}
+                      onClick={() => exportPDFData(device.id)}
+                    />
+
+                    <button
+                      className="display-none"
+                      id="pdf"
+                      onClick={PDFexport}
+                    >
+                      Download PDF
+                    </button>
+                    <FontAwesomeIcon
+                      title="Export CSV"
+                      className="download-csv-icon-style"
+                      icon={faFileCsv}
+                      value={device.id}
+                      onClick={() => exportCSVData(device.id)}
                     />
                     <ExcelFile
                       filename={`Mjerenja_${todaysDate}`}
                       element={
-                        <button id="export" className="display-none">
+                        <button id="csv" className="display-none">
                           Download
                         </button>
                       }
@@ -284,7 +368,7 @@ const Warehouse = () => {
           );
         }
       })}
-      <div className="paginate-div-style">
+      <div className="paginate-div-style-devices">
         <ReactPaginate
           breakLabel="..."
           breakClassName="page-num"

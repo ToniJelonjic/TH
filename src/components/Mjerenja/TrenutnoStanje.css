@@ -6,7 +6,7 @@
 }
 
 .device-styles:hover {
-    background-color: #eff1f5;
+    background-color: #dde0e6;
 }
 
 .t-style {
@@ -30,22 +30,41 @@
     font-family: 'Poppins';
 }
 
-.download-icon-style {
+.download-csv-icon-style {
     color: #575962;
-    padding: 8px;
+    padding: 6px;
     border-radius: 15px;
     border: 1px solid #eff1f5;
 }
 
-.download-icon-style:hover {
-    background-color: #d3d6dc;
+.download-csv-icon-style:hover {
+    background-color: #c2c5cb;
+    transition: 0.3s ease;
+}
+.download-pdf-icon-style {
+    color: #575962;
+    padding: 6px;
+    margin-right: 3px;
+    border-radius: 15px;
+    border: 1px solid #eff1f5;
+}
+
+.download-pdf-icon-style:hover {
+    background-color: #c2c5cb;
     transition: 0.3s ease;
 }
 
 .devices-padding {
-    padding: 30px;
+    /* padding: 30px; */
     background-color: white;
 }
+
+.paginate-div-style-devices {
+    padding-right: 20px;
+    display: flex;
+    justify-content: right;
+    background-color: white;
+  }
 
 .device-title {
     font-size: 20px;
@@ -81,5 +100,5 @@
 
 .download-style {
     cursor: pointer;
-    text-align: right;
+    text-align: center;
 }

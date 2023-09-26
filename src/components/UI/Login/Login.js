@@ -33,6 +33,7 @@ const Login = () => {
       const response = await axios.get(loginUrl, {
         params: { username, password },
       });
+      console.log(response.data);
       if (response.status === 200) {
         if (response.data.active) {
           localStorage.setItem("id", response.data.id);

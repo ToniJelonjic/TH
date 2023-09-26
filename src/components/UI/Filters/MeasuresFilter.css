@@ -21,7 +21,7 @@ table {
 
 .date-input-style {
     height: 40px;
-    width: 15%;
+    width: 40%;
     border: 1px solid;
     border-radius: 5px;
     margin-left: 10px;
@@ -73,6 +73,14 @@ table {
   color: #f4516c!important;
 }
 
+.chart-container {
+  padding-top: 30px;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+}
+
+
 .pagination {
   justify-content: right;
   align-items: center;
@@ -108,6 +116,52 @@ table {
   display: flex;
   justify-content: right;
   background-color: white;
+}
+
+.button-pdf-style {
+  cursor: pointer;
+  background-color: #716aca;
+  border-color: #716aca;
+  color: #fff;
+  height: 40px;
+  border-radius: 60px;
+  font-family: 'Poppins';
+  font-size: 13px;
+  font-weight: 400;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+}
+
+.bg-fff {
+  background-color: #fff;
+}
+
+.content-center {
+  text-align: center;
+}
+
+.button-pdf-style:hover {
+  background-color: #564ec0; 
+}
+
+/* Define chart dimensions for larger screens (e.g., laptops) */
+.chart-container {
+  width: 100%;
+  max-width: 800px; /* Adjust as needed */
+  height: 400px; /* Adjust as needed */
+}
+
+/* Use media query to adjust chart dimensions for smaller screens (e.g., mobile) */
+@media (max-width: 767px) {
+  .content-center {
+    display: none;
+  }
+  .chart-container {
+    display: none;
+    width: 100%;
+    height: 300px; /* Adjust as needed for smaller screens */
+  }
 }
   
   @media screen and (max-width: 900px) {
@@ -157,5 +211,156 @@ table {
         padding-right: 5px;
         width: 100px;
     }
+    .chart-container {
+      width: fit-content;
     }
-  
+    }
+
+    .devices-checkbox {
+      display: block;
+      padding: 5px 10px;
+    }
+    
+    .devices-checkbox input {
+      width: auto !important;
+      margin-right: 5px;
+    }
+
+    .device-list {
+      max-height: 300px; /* Adjust the maximum height as needed */
+      overflow-y: auto; /* Add a vertical scrollbar when the content exceeds the height */
+    }
+    
+    /* Style for checked checkboxes */
+    .devices-checkbox input:checked + div {
+      background-color: #007bff; /* Background color for checked options */
+      color: #fff; /* Text color for checked options */
+    }
+    
+    /* Hover effect for checkboxes */
+    .devices-checkbox div:hover {
+      background-color: #f0f0f0; /* Hover background color */
+    }
+
+    .multiselect {
+      width: 100%;
+    }
+    
+    .selectBox {
+      position: relative;
+    }
+    
+    .selectBox select {
+      width: 100%;
+    }
+    
+    .overSelect {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+    
+    #mySelectOptions {
+      display: none;
+      border: 0.5px #7c7c7c solid;
+      background-color: #ffffff;
+      max-height: 150px;
+      overflow-y: scroll;
+    }
+    
+    #mySelectOptions label {
+      display: block;
+      font-weight: normal;
+      display: block;
+      white-space: nowrap;
+      min-height: 1.2em;
+      background-color: #ffffff00;
+      padding: 0 2.25rem 0 .75rem;
+      /* padding: .375rem 2.25rem .375rem .75rem; */
+    }
+    
+    #mySelectOptions label:hover {
+      background-color: #1e90ff;
+    }
+    
+ .devices-select {
+  width: 40%;
+  margin-top: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+ }
+
+ .devices-select option {
+  padding: 5px;
+    font-size: 17px;
+ }
+
+ .devices-label-style {
+  font-size: 18px;
+  font-weight: 500;
+ }
+
+ .search-button-style {
+  cursor: pointer;
+    color: #fff;
+    font-family: 'Poppins';
+    background-color: #716aca;
+    border-color: #716aca;
+    height: 40px;
+    width: 45%;
+    margin-left: 10px;
+    border-radius: 5px;
+ }
+ .div-button-style {
+  font-size: 15px;
+  background-color: white;
+  width: 90%;
+  margin-right: 10px;
+ }
+
+ .search-button-style:hover {
+  background-color: #564ec0;
+ }
+
+ .measures-select {
+  height: 40px;
+    width: 40%;
+    border: 1px solid;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding-left: 10px;
+ }
+
+ .mt-10 {
+  margin-top: 10px;
+ }
+ 
+
+ .buttons-right {
+  text-align: right;
+ }
+
+ @media screen and (max-width: 800px) {
+  .measures-select {
+    width: 90%;
+    margin-bottom: 10px;
+  }
+  .devices-select {
+    width: 90%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  .search-button-style {
+    width: 100%;
+    margin-top: 5px;
+  }
+  .mt-10 {
+    margin-top: 0px;
+  }
+ }

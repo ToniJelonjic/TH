@@ -8,11 +8,16 @@
     font-family: 'Poppins';
     font-size: 13px;
     font-weight: 400;
-    padding: 10px 25px;
+    padding: 10px 15px;
     display: flex;
     align-items: center;
 }
 
 .button-export-style:hover {
     background-color: #564ec0; 
+}
+
+.download-icon-style {
+    color: white;
+    padding-left: 5px;
 }

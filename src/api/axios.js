@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://th-control.ml/api/",
+  baseURL: "https://virtuals.dev/api/",
 });
 
 // export default axios.create({

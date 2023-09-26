@@ -1,0 +1,65 @@
+/* Custom Dropdown Container */
+.custom-dropdown {
+    position: relative;
+    width: 200px; /* Adjust the width as needed */
+    margin-bottom: 10px;
+  }
+  
+  /* Dropdown Header */
+  .custom-dropdown-header {
+    width: 15%;
+    background-color: #fff; /* Header background color */
+    padding: 8px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid black; /* Header border */
+    cursor: pointer;
+  }
+  
+  /* Dropdown Content */
+  .custom-dropdown-content {
+    height:300px;
+overflow-y: scroll;
+    display: none; /* Initially hide the content */
+    position: absolute;
+    background-color: #fff; /* Content background color */
+    border: 1px solid #ccc; /* Content border */
+    z-index: 1;
+  }
+  
+  /* Checkbox Label */
+  .custom-dropdown-content label {
+    display: block;
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  /* Show the content when the header is clicked */
+  .custom-dropdown:hover .custom-dropdown-content {
+    display: block;
+  }
+  
+  /* Style for checked checkboxes */
+  .custom-dropdown-content input:checked + label {
+    background-color: #007bff; /* Background color for checked options */
+    color: #fff; /* Text color for checked options */
+  }
+  
+  /* Hover effect for checkboxes */
+  .custom-dropdown-content label:hover {
+    background-color: #f0f0f0; /* Hover background color */
+  }
+  
+  /* Style for the dropdown when open */
+  .custom-dropdown.active .custom-dropdown-header {
+    background-color: #007bff; /* Header background color when active */
+    color: #fff; /* Text color when active */
+  }
+
+  @media screen and (max-width: 900px) {
+    .custom-dropdown-header{
+        margin-left: 10px;
+        width: 90%;
+    }
+  }
+  
